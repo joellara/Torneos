@@ -10,25 +10,56 @@ import UIKit
 
 class TournamentCreationVC: UIViewController {
     
-    @IBOutlet weak var segmentedStage: UISegmentedControl!
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    @IBAction func crearTorneo(_ sender: UIButton) {
+        
+        
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillShow),
+            name: NSNotification.Name.UIKeyboardWillShow,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.keyboardWillHide),
+            name: NSNotification.Name.UIKeyboardWillHide,
+            object: nil
+        )
+ 
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @IBAction func unwindToCreation(sender: UIStoryboardSegue){
-        
+    
+    func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
+        guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
+                return
+            }
+        let keyboardFrame = value.cgRectValue
+        let adjustmentHeight = (keyboardFrame.height + 30) * (show ? 1 : -1)
+        scrollView.contentInset.bottom += adjustmentHeight
+        scrollView.contentInset.top += adjustmentHeight
+        scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
     }
-    @IBAction func continueStage(_ sender: UIButton) {
-        if segmentedStage.selectedSegmentIndex == 0{
-            performSegue(withIdentifier: "toSimpleStageSegue", sender: sender)
-        }else{
-            performSegue(withIdentifier: "toTwoStageSegue", sender: sender)
-        }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        adjustInsetForKeyboardShow(show: true, notification: notification)
+    }
+    func keyboardWillHide(notification: NSNotification) {
+        adjustInsetForKeyboardShow(show:false, notification: notification)
     }
 }
 

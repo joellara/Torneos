@@ -13,8 +13,7 @@
 		A92E20F81E411A51006364AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F71E411A51006364AF /* Assets.xcassets */; };
 		A92E20FB1E411A51006364AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F91E411A51006364AF /* LaunchScreen.storyboard */; };
 		A92E21041E412AB1006364AF /* TournamentCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E21031E412AB1006364AF /* TournamentCreationVC.swift */; };
-		A92E21071E412E8E006364AF /* SimpleStageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E21061E412E8E006364AF /* SimpleStageVC.swift */; };
-		A92E21091E412E9C006364AF /* TwoStageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E21081E412E9C006364AF /* TwoStageVC.swift */; };
+		A9E3D14D1E773CC50083F8B3 /* TournamentTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +25,7 @@
 		A92E20FA1E411A51006364AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A92E20FC1E411A51006364AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A92E21031E412AB1006364AF /* TournamentCreationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentCreationVC.swift; sourceTree = "<group>"; };
-		A92E21061E412E8E006364AF /* SimpleStageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleStageVC.swift; sourceTree = "<group>"; };
-		A92E21081E412E9C006364AF /* TwoStageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoStageVC.swift; sourceTree = "<group>"; };
+		A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentTypeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +81,7 @@
 			children = (
 				A92E20F21E411A51006364AF /* ViewController.swift */,
 				A92E21031E412AB1006364AF /* TournamentCreationVC.swift */,
-				A92E21061E412E8E006364AF /* SimpleStageVC.swift */,
-				A92E21081E412E9C006364AF /* TwoStageVC.swift */,
+				A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -163,8 +160,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A92E20F31E411A51006364AF /* ViewController.swift in Sources */,
-				A92E21091E412E9C006364AF /* TwoStageVC.swift in Sources */,
-				A92E21071E412E8E006364AF /* SimpleStageVC.swift in Sources */,
+				A9E3D14D1E773CC50083F8B3 /* TournamentTypeVC.swift in Sources */,
 				A92E20F11E411A51006364AF /* AppDelegate.swift in Sources */,
 				A92E21041E412AB1006364AF /* TournamentCreationVC.swift in Sources */,
 			);
@@ -330,6 +326,7 @@
 				A92E21011E411A51006364AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
