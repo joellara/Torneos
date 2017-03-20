@@ -13,11 +13,13 @@
 		A92E20F81E411A51006364AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F71E411A51006364AF /* Assets.xcassets */; };
 		A92E20FB1E411A51006364AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F91E411A51006364AF /* LaunchScreen.storyboard */; };
 		A92E21041E412AB1006364AF /* TournamentCreationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E21031E412AB1006364AF /* TournamentCreationVC.swift */; };
+		A93FB2441E775B0900E92394 /* SingleStageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93FB2431E775B0900E92394 /* SingleStageVC.swift */; };
+		A93FB2461E77BE9D00E92394 /* TwoStageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */; };
 		A9E3D14D1E773CC50083F8B3 /* TournamentTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A92E20ED1E411A51006364AF /* TournamenteBrackets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TournamenteBrackets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A92E20ED1E411A51006364AF /* MyBrackets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrackets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92E20F01E411A51006364AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A92E20F21E411A51006364AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A92E20F51E411A51006364AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -25,6 +27,8 @@
 		A92E20FA1E411A51006364AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A92E20FC1E411A51006364AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A92E21031E412AB1006364AF /* TournamentCreationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentCreationVC.swift; sourceTree = "<group>"; };
+		A93FB2431E775B0900E92394 /* SingleStageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStageVC.swift; sourceTree = "<group>"; };
+		A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoStageVC.swift; sourceTree = "<group>"; };
 		A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentTypeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -42,7 +46,7 @@
 		A92E20E41E411A51006364AF = {
 			isa = PBXGroup;
 			children = (
-				A92E20EF1E411A51006364AF /* TournamenteBrackets */,
+				A92E20EF1E411A51006364AF /* MyBrackets */,
 				A92E20EE1E411A51006364AF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -50,12 +54,12 @@
 		A92E20EE1E411A51006364AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A92E20ED1E411A51006364AF /* TournamenteBrackets.app */,
+				A92E20ED1E411A51006364AF /* MyBrackets.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A92E20EF1E411A51006364AF /* TournamenteBrackets */ = {
+		A92E20EF1E411A51006364AF /* MyBrackets */ = {
 			isa = PBXGroup;
 			children = (
 				A92E21051E412B40006364AF /* VC */,
@@ -63,6 +67,7 @@
 				A92E20F41E411A51006364AF /* Main.storyboard */,
 				A92E20F71E411A51006364AF /* Assets.xcassets */,
 			);
+			name = MyBrackets;
 			path = TournamenteBrackets;
 			sourceTree = "<group>";
 		};
@@ -82,6 +87,8 @@
 				A92E20F21E411A51006364AF /* ViewController.swift */,
 				A92E21031E412AB1006364AF /* TournamentCreationVC.swift */,
 				A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */,
+				A93FB2431E775B0900E92394 /* SingleStageVC.swift */,
+				A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -89,9 +96,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A92E20EC1E411A51006364AF /* TournamenteBrackets */ = {
+		A92E20EC1E411A51006364AF /* MyBrackets */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "TournamenteBrackets" */;
+			buildConfigurationList = A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "MyBrackets" */;
 			buildPhases = (
 				A92E20E91E411A51006364AF /* Sources */,
 				A92E20EA1E411A51006364AF /* Frameworks */,
@@ -101,9 +108,9 @@
 			);
 			dependencies = (
 			);
-			name = TournamenteBrackets;
+			name = MyBrackets;
 			productName = TournamenteBrackets;
-			productReference = A92E20ED1E411A51006364AF /* TournamenteBrackets.app */;
+			productReference = A92E20ED1E411A51006364AF /* MyBrackets.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -123,7 +130,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A92E20E81E411A51006364AF /* Build configuration list for PBXProject "TournamenteBrackets" */;
+			buildConfigurationList = A92E20E81E411A51006364AF /* Build configuration list for PBXProject "MyBrackets" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -136,7 +143,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A92E20EC1E411A51006364AF /* TournamenteBrackets */,
+				A92E20EC1E411A51006364AF /* MyBrackets */,
 			);
 		};
 /* End PBXProject section */
@@ -159,7 +166,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A93FB2441E775B0900E92394 /* SingleStageVC.swift in Sources */,
 				A92E20F31E411A51006364AF /* ViewController.swift in Sources */,
+				A93FB2461E77BE9D00E92394 /* TwoStageVC.swift in Sources */,
 				A9E3D14D1E773CC50083F8B3 /* TournamentTypeVC.swift in Sources */,
 				A92E20F11E411A51006364AF /* AppDelegate.swift in Sources */,
 				A92E21041E412AB1006364AF /* TournamentCreationVC.swift in Sources */,
@@ -310,7 +319,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A92E20E81E411A51006364AF /* Build configuration list for PBXProject "TournamenteBrackets" */ = {
+		A92E20E81E411A51006364AF /* Build configuration list for PBXProject "MyBrackets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A92E20FD1E411A51006364AF /* Debug */,
@@ -319,7 +328,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "TournamenteBrackets" */ = {
+		A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "MyBrackets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A92E21001E411A51006364AF /* Debug */,
