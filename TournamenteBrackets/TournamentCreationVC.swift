@@ -13,8 +13,9 @@ extension UIViewController
     {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
-            action: #selector(UIViewController.dismissKeyboard))
-        
+            action: #selector(UIViewController.dismissKeyboard)
+        )
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
     
@@ -66,7 +67,7 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
         default:
             break
         }
-        return true
+        return false
     }
     @IBAction func segmentedTouch() {
         self.dismissKeyboard()
@@ -88,7 +89,6 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
             scrollView.contentInset.bottom = 8
             scrollView.scrollIndicatorInsets.bottom = 8
         }
-        
         
     }
     func textViewDidBeginEditing(_ textView: UITextView) {

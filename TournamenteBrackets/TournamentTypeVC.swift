@@ -16,6 +16,7 @@ class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSou
     var arrParticipants = [String]()
     override func viewDidLoad() {
         self.hideKeyboard()
+        participantsTV.layer.borderColor = UIColor.red.cgColor
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -28,9 +29,6 @@ class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSou
         let celda = tableView.dequeueReusableCell(withIdentifier: "celda", for: indexPath)
         celda.textLabel?.text = arrParticipants[indexPath.row]
         return celda
-    }
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
     }
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
         return "Borrar"
@@ -51,15 +49,20 @@ class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSou
                 arrParticipants.append(name)
                 participantsTV.reloadData()
                 participantName.text = ""
+                participantsTV.layer.borderWidth = 0.0
             }
         }
     }
     
     @IBAction func continueStage(_ sender: UIButton) {
-        if stageSC.selectedSegmentIndex == 0 {
-            performSegue(withIdentifier: "toSingleStageSegue", sender: nil)
+        if arrParticipants.count > 0 {
+            if stageSC.selectedSegmentIndex == 0 {
+                performSegue(withIdentifier: "toSingleStageSegue", sender: nil)
+            }else{
+                performSegue(withIdentifier: "toTwoStageSegue", sender: nil)
+            }
         }else{
-            performSegue(withIdentifier: "toTwoStageSegue", sender: nil)
+            participantsTV.layer.borderWidth = 1.0
         }
     }
 }

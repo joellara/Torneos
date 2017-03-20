@@ -79,6 +79,9 @@
                                                 <integer key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="Y0p-Qz-1qk" kind="show" id="CT4-84-Fc1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -272,7 +275,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                                 <rect key="frame" x="8" y="465.33333333333337" width="398" height="29"/>
                                                 <segments>
                                                     <segment title="Público"/>
-                                                    <segment title="Privado"/>
+                                                    <segment title="Privado" enabled="NO"/>
                                                 </segments>
                                                 <connections>
                                                     <action selector="segmentedTouch" destination="zpP-rZ-MLt" eventType="touchDown" id="2es-OZ-HTo"/>
@@ -353,6 +356,41 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
             </objects>
             <point key="canvasLocation" x="1643.4782608695652" y="35.869565217391305"/>
         </scene>
+        <!--Tournament ListingVC-->
+        <scene sceneID="itM-rR-ZXf">
+            <objects>
+                <tableViewController id="Y0p-Qz-1qk" customClass="TournamentListingVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="oyB-HI-n04">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Torneos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1mt-F4-EWr">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="celda" id="6VG-5P-ZLz">
+                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6VG-5P-ZLz" id="pik-2c-900">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Y0p-Qz-1qk" id="P9U-Dg-Sfw"/>
+                            <outlet property="delegate" destination="Y0p-Qz-1qk" id="0wU-Kd-vr5"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ef7-kV-shb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1048" y="678"/>
+        </scene>
         <!--Tipo de Torneo-->
         <scene sceneID="96M-kw-tUv">
             <objects>
@@ -392,15 +430,15 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                     <action selector="addPerson" destination="7pO-jP-CkW" eventType="touchUpInside" id="AGa-m0-etw"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F7q-eD-VhX">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="F7q-eD-VhX">
                                 <rect key="frame" x="0.0" y="146" width="414" height="544"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="celda" id="qez-Mj-iMl">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="celda" id="qez-Mj-iMl">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qez-Mj-iMl" id="hV0-Gu-PdQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -505,6 +543,9 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="3HS-hz-mM0" id="ILt-9j-X9z"/>
+                                                </connections>
                                             </textField>
                                             <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H8Q-SN-Gdb">
                                                 <rect key="frame" x="0.0" y="427" width="414" height="294"/>
@@ -513,11 +554,14 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                                     <outlet property="delegate" destination="3HS-hz-mM0" id="1mZ-jG-Pce"/>
                                                 </connections>
                                             </pickerView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="D8a-lL-xOW">
+                                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="D8a-lL-xOW">
                                                 <rect key="frame" x="164" y="729" width="242" height="30"/>
-                                                <color key="textColor" red="0.5723649263381958" green="0.5723649263381958" blue="0.5723649263381958" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="3HS-hz-mM0" id="DmV-3S-ooI"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Número de grupos:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOF-1X-zzc">
                                                 <rect key="frame" x="8" y="734" width="148" height="20.333333333333371"/>
@@ -529,7 +573,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                                 <rect key="frame" x="364" y="767" width="38" height="30"/>
                                                 <state key="normal" title="Crear"/>
                                                 <connections>
-                                                    <segue destination="1ZC-aq-8yc" kind="show" id="f1h-q0-FEp"/>
+                                                    <action selector="toBrackets:" destination="3HS-hz-mM0" eventType="touchUpInside" id="Qmg-1W-WLc"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -593,7 +637,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gM7-rM-sbs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3521.739130434783" y="258.42391304347831"/>
+            <point key="canvasLocation" x="3521" y="435"/>
         </scene>
         <!--Single Stage-->
         <scene sceneID="mzR-U2-Fse">
@@ -631,12 +675,15 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="OLP-oJ-phq" id="Fyc-zB-t3C"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3Z-NV-72N">
                                 <rect key="frame" x="352" y="686" width="38" height="30"/>
                                 <state key="normal" title="Crear"/>
                                 <connections>
-                                    <segue destination="1ZC-aq-8yc" kind="show" id="4dZ-8B-jyd"/>
+                                    <action selector="toBrackets:" destination="OLP-oJ-phq" eventType="touchUpInside" id="qOK-YU-a8s"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -667,10 +714,10 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
             </objects>
             <point key="canvasLocation" x="3521.739130434783" y="-408.42391304347831"/>
         </scene>
-        <!--View Controller-->
+        <!--BracketsVC-->
         <scene sceneID="zvW-8c-TLj">
             <objects>
-                <viewController id="1ZC-aq-8yc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BracketsVCID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1ZC-aq-8yc" customClass="BracketsVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Vb-9Z-Uf5"/>
                         <viewControllerLayoutGuide type="bottom" id="o7E-70-NFs"/>
@@ -709,7 +756,4 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
         <image name="icHome" width="30" height="30"/>
         <image name="logo" width="782" height="782"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="4dZ-8B-jyd"/>
-    </inferredMetricsTieBreakers>
 </document>

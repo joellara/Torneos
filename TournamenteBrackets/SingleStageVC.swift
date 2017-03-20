@@ -18,6 +18,7 @@ class SingleStageVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     
     override func viewDidLoad() {
        self.hideKeyboard()
+        groupNumberTxt.layer.borderColor = UIColor.red.cgColor
     }
     func numberOfComponents(in pickerView:	UIPickerView)->Int {
         return 1
@@ -35,10 +36,34 @@ class SingleStageVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         }else{
             groupNumberTxt.isEnabled = false
             groupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
+            groupNumberTxt.layer.borderWidth = 0.0
         }
+    }
+    @IBAction func toBrackets(_ sender: UIButton) {
+        if groupNumberTxt.isEnabled && (groupNumberTxt.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            groupNumberTxt.layer.borderWidth = 1.0
+        }else{
+            if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BracketsVCID") as? BracketsVC {
+                if let navigator = self.navigationController {
+                    navigator.popToRootViewController(animated: false)
+                    navigator.pushViewController(viewController, animated: false)
+                }else{
+                    print("No navigator")
+                }
+            }else{
+                print("No encontró BracketVCID")
+            }
+        }
+        
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         groupNumberTxt.resignFirstResponder()
         return true
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        groupNumberTxt.layer.borderWidth = 0.0
+    }
+    
+    
+    
 }

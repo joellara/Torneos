@@ -7,7 +7,8 @@
 //
 
 import UIKit
-class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+
+class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     let tipoTorneo = ["Single Elimination", "Double Elimination","Round Robin"]
     
     @IBOutlet weak var finalStageGroupNumberTxt: UITextField!
@@ -19,6 +20,8 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     @IBOutlet weak var groupNumberLabel: UILabel!
     override func viewDidLoad() {
         self.hideKeyboard()
+        groupNumberTxt.layer.borderColor = UIColor.red.cgColor
+        finalStageGroupNumberTxt.layer.borderColor = UIColor.red.cgColor
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.keyboardWillShow),
@@ -48,6 +51,7 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 groupNumberLabel.textColor = UIColor(white: 0, alpha: 1)
             }else{
                 groupNumberTxt.isEnabled = false
+                groupNumberTxt.layer.borderWidth = 0.0
                 groupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
             }
         }else{
@@ -56,8 +60,20 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 finalStageGroupNumberLabel.textColor = UIColor(white: 0, alpha: 1)
             }else{
                 finalStageGroupNumberTxt.isEnabled = false
+                finalStageGroupNumberTxt.layer.borderWidth = 0.0
                 finalStageGroupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
             }
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.dismissKeyboard()
+        return true
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField.tag == 0 {
+            textField.layer.borderWidth = 0.0
+        }else{
+            textField.layer.borderWidth = 0.0
         }
     }
     func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
@@ -65,11 +81,40 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             return
         }
         let keyboardFrame = value.cgRectValue
-        let adjustmentHeight = (keyboardFrame.height +  20) * (show ? 1 : -1)
-        scrollView.contentInset.bottom += adjustmentHeight
-        scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
+        let adjustmentHeight = (keyboardFrame.height + 8) * (show ? 1 : -1)
+        if show {
+            scrollView.contentInset.bottom += adjustmentHeight
+            scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
+        }else{
+            scrollView.contentInset.bottom = 8
+            scrollView.scrollIndicatorInsets.bottom = 8
+        }
     }
     
+    @IBAction func toBrackets(_ sender: UIButton) {
+        var error = false
+        if groupNumberTxt.isEnabled && (groupNumberTxt.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            groupNumberTxt.layer.borderWidth = 1.0
+            error = true
+        }
+        if finalStageGroupNumberTxt.isEnabled && (finalStageGroupNumberTxt.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            finalStageGroupNumberTxt.layer.borderWidth = 1.0
+            error = true
+        }
+        if !error {
+            if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BracketsVCID") as? BracketsVC {
+                if let navigator = self.navigationController {
+                    navigator.popToRootViewController(animated: false)
+                    navigator.pushViewController(viewController, animated: false)
+                }else{
+                    print("No navigator")
+                }
+            }else{
+                print("No encontró BracketVCID")
+            }
+        }
+    }
+
     func keyboardWillShow(notification: NSNotification) {
         adjustInsetForKeyboardShow(show: true, notification: notification)
     }
