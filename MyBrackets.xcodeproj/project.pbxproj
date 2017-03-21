@@ -16,6 +16,9 @@
 		A93FB2441E775B0900E92394 /* SingleStageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93FB2431E775B0900E92394 /* SingleStageVC.swift */; };
 		A93FB2461E77BE9D00E92394 /* TwoStageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */; };
 		A9BEFC271E806E6C00B9C115 /* Tournament.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BEFC261E806E6C00B9C115 /* Tournament.swift */; };
+		A9BEFC291E8071BB00B9C115 /* TournamentSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BEFC281E8071BB00B9C115 /* TournamentSearchVC.swift */; };
+		A9BEFC2E1E809DF900B9C115 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A9BEFC2D1E809DF900B9C115 /* libsqlite3.tbd */; };
+		A9BEFC311E809E1200B9C115 /* Puente.m in Sources */ = {isa = PBXBuildFile; fileRef = A9BEFC301E809E1200B9C115 /* Puente.m */; };
 		A9D919651E8062DF000B30D7 /* BracketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D919641E8062DF000B30D7 /* BracketsVC.swift */; };
 		A9D919671E80674B000B30D7 /* TournamentListingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D919661E80674B000B30D7 /* TournamentListingVC.swift */; };
 		A9E3D14D1E773CC50083F8B3 /* TournamentTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */; };
@@ -33,6 +36,10 @@
 		A93FB2431E775B0900E92394 /* SingleStageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStageVC.swift; sourceTree = "<group>"; };
 		A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoStageVC.swift; sourceTree = "<group>"; };
 		A9BEFC261E806E6C00B9C115 /* Tournament.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tournament.swift; sourceTree = "<group>"; };
+		A9BEFC281E8071BB00B9C115 /* TournamentSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentSearchVC.swift; sourceTree = "<group>"; };
+		A9BEFC2D1E809DF900B9C115 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		A9BEFC2F1E809E1200B9C115 /* MyBrackets-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MyBrackets-Bridging-Header.h"; path = "../MyBrackets-Bridging-Header.h"; sourceTree = "<group>"; };
+		A9BEFC301E809E1200B9C115 /* Puente.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Puente.m; path = ../Puente.m; sourceTree = "<group>"; };
 		A9D919641E8062DF000B30D7 /* BracketsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BracketsVC.swift; sourceTree = "<group>"; };
 		A9D919661E80674B000B30D7 /* TournamentListingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentListingVC.swift; sourceTree = "<group>"; };
 		A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentTypeVC.swift; sourceTree = "<group>"; };
@@ -43,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9BEFC2E1E809DF900B9C115 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +62,7 @@
 			children = (
 				A92E20EF1E411A51006364AF /* MyBrackets */,
 				A92E20EE1E411A51006364AF /* Products */,
+				A9BEFC2C1E809DF800B9C115 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +89,8 @@
 		A92E21021E412A95006364AF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A9BEFC301E809E1200B9C115 /* Puente.m */,
+				A9BEFC2F1E809E1200B9C115 /* MyBrackets-Bridging-Header.h */,
 				A92E20F01E411A51006364AF /* AppDelegate.swift */,
 				A92E20F91E411A51006364AF /* LaunchScreen.storyboard */,
 				A92E20FC1E411A51006364AF /* Info.plist */,
@@ -98,8 +109,17 @@
 				A9D919641E8062DF000B30D7 /* BracketsVC.swift */,
 				A9D919661E80674B000B30D7 /* TournamentListingVC.swift */,
 				A9BEFC261E806E6C00B9C115 /* Tournament.swift */,
+				A9BEFC281E8071BB00B9C115 /* TournamentSearchVC.swift */,
 			);
 			name = VC;
+			sourceTree = "<group>";
+		};
+		A9BEFC2C1E809DF800B9C115 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9BEFC2D1E809DF900B9C115 /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,6 +155,7 @@
 					A92E20EC1E411A51006364AF = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 3ZQB22BBBB;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -184,6 +205,8 @@
 				A92E20F11E411A51006364AF /* AppDelegate.swift in Sources */,
 				A9D919651E8062DF000B30D7 /* BracketsVC.swift in Sources */,
 				A92E21041E412AB1006364AF /* TournamentCreationVC.swift in Sources */,
+				A9BEFC311E809E1200B9C115 /* Puente.m in Sources */,
+				A9BEFC291E8071BB00B9C115 /* TournamentSearchVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,11 +329,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 3ZQB22BBBB;
 				INFOPLIST_FILE = TournamenteBrackets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jlq.TournamenteBrackets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyBrackets-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -319,11 +345,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 3ZQB22BBBB;
 				INFOPLIST_FILE = TournamenteBrackets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jlq.TournamenteBrackets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MyBrackets-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

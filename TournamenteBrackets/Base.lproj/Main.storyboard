@@ -63,11 +63,14 @@
                                                 <integer key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="fhc-7A-Inp" kind="show" id="134-zu-KC9"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsf-LB-oOt">
                                         <rect key="frame" x="20" y="185.33333333333337" width="334" height="82.666666666666629"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="Ver mis torneos">
+                                        <state key="normal" title="Ver mis torneos guardados">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -121,6 +124,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="525.60000000000002" y="-76.011994002998506"/>
+        </scene>
+        <!--Tournament SearchVC-->
+        <scene sceneID="Vsy-67-lr9">
+            <objects>
+                <viewController id="fhc-7A-Inp" customClass="TournamentSearchVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XhF-gn-NuT"/>
+                        <viewControllerLayoutGuide type="bottom" id="h1r-36-JzO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Jrv-Oh-gnO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VdV-op-AVj">
+                                <rect key="frame" x="20" y="353" width="374" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cv9-aE-b60">
+                                <rect key="frame" x="198.66666666666666" y="324" width="17" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boY-Jj-hwC">
+                                <rect key="frame" x="183" y="391" width="48" height="30"/>
+                                <state key="normal" title="Buscar"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="VdV-op-AVj" secondAttribute="leading" id="8ry-jV-EwQ"/>
+                            <constraint firstItem="boY-Jj-hwC" firstAttribute="centerX" secondItem="Jrv-Oh-gnO" secondAttribute="centerX" id="GHy-Iw-6Kk"/>
+                            <constraint firstItem="cv9-aE-b60" firstAttribute="centerX" secondItem="Jrv-Oh-gnO" secondAttribute="centerX" id="JtL-1x-M6O"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VdV-op-AVj" secondAttribute="trailing" id="Ti7-kx-QWg"/>
+                            <constraint firstItem="VdV-op-AVj" firstAttribute="top" secondItem="cv9-aE-b60" secondAttribute="bottom" constant="8" id="aeR-DV-4wa"/>
+                            <constraint firstItem="boY-Jj-hwC" firstAttribute="top" secondItem="VdV-op-AVj" secondAttribute="bottom" constant="8" id="rNp-sk-n2i"/>
+                            <constraint firstItem="VdV-op-AVj" firstAttribute="centerY" secondItem="Jrv-Oh-gnO" secondAttribute="centerY" id="v7N-ws-REE"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E37-wI-Xa8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1973.913043478261" y="-870.6521739130435"/>
         </scene>
         <!--Información-->
         <scene sceneID="YcR-z3-tKn">
@@ -205,7 +253,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b3D-up-PNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1604" y="-889"/>
+            <point key="canvasLocation" x="394" y="-979"/>
         </scene>
         <!--Detalles-->
         <scene sceneID="W3y-SC-QaQ">
@@ -225,7 +273,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wng-sf-F73" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="547.33333333333337"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAh-3G-IDJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre del torneo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAh-3G-IDJ">
                                                 <rect key="frame" x="8" y="0.0" width="398" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -274,8 +322,8 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="UBV-DM-ZPr">
                                                 <rect key="frame" x="8" y="465.33333333333337" width="398" height="29"/>
                                                 <segments>
-                                                    <segment title="Público"/>
-                                                    <segment title="Privado" enabled="NO"/>
+                                                    <segment title="Local"/>
+                                                    <segment title="Online" enabled="NO"/>
                                                 </segments>
                                                 <connections>
                                                     <action selector="segmentedTouch" destination="zpP-rZ-MLt" eventType="touchDown" id="2es-OZ-HTo"/>
@@ -356,10 +404,10 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
             </objects>
             <point key="canvasLocation" x="1643.4782608695652" y="35.869565217391305"/>
         </scene>
-        <!--Tournament ListingVC-->
+        <!--Torneos-->
         <scene sceneID="itM-rR-ZXf">
             <objects>
-                <tableViewController id="Y0p-Qz-1qk" customClass="TournamentListingVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Torneos" id="Y0p-Qz-1qk" customClass="TournamentListingVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="oyB-HI-n04">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -438,7 +486,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qez-Mj-iMl" id="hV0-Gu-PdQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -452,7 +500,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                 <rect key="frame" x="330" y="698" width="64" height="30"/>
                                 <state key="normal" title="Siguiente"/>
                                 <connections>
-                                    <action selector="continueStage:" destination="7pO-jP-CkW" eventType="touchUpInside" id="Ryb-m9-w2K"/>
+                                    <action selector="continueStage:" destination="7pO-jP-CkW" eventType="touchUpInside" id="btW-jv-MqX"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="hLZ-mE-QDM">
@@ -714,10 +762,10 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
             </objects>
             <point key="canvasLocation" x="3521.739130434783" y="-408.42391304347831"/>
         </scene>
-        <!--BracketsVC-->
+        <!--Brackets-->
         <scene sceneID="zvW-8c-TLj">
             <objects>
-                <viewController storyboardIdentifier="BracketsVCID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1ZC-aq-8yc" customClass="BracketsVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BracketsVCID" title="Brackets" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1ZC-aq-8yc" customClass="BracketsVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Vb-9Z-Uf5"/>
                         <viewControllerLayoutGuide type="bottom" id="o7E-70-NFs"/>

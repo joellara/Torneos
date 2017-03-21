@@ -13,12 +13,14 @@ class SingleStageVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     @IBOutlet weak var formatoPV: UIPickerView!
     @IBOutlet weak var groupNumberLabel: UILabel!
     @IBOutlet weak var groupNumberTxt: UITextField!
+    var tournament:Tournament!
     
     let tipoTorneo = ["Single Elimination", "Double Elimination","Round Robin"]
     
     override func viewDidLoad() {
        self.hideKeyboard()
         groupNumberTxt.layer.borderColor = UIColor.red.cgColor
+        self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
     }
     func numberOfComponents(in pickerView:	UIPickerView)->Int {
         return 1
@@ -30,13 +32,23 @@ class SingleStageVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         return tipoTorneo[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if(tipoTorneo[row] == "Round Robin"){
+        if(tipoTorneo[row] == tipoTorneo[2]){
             groupNumberTxt.isEnabled = true
             groupNumberLabel.textColor = UIColor(white: 0, alpha: 1)
         }else{
             groupNumberTxt.isEnabled = false
             groupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
             groupNumberTxt.layer.borderWidth = 0.0
+        }
+        switch row {
+        case 0:
+            self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
+        case 1:
+            self.tournament.firstStage = Tournament.tournamentFormat.DoubleElimination
+        case 2:
+            self.tournament.firstStage = Tournament.tournamentFormat.RoundRobin
+        default:
+            break
         }
     }
     @IBAction func toBrackets(_ sender: UIButton) {
@@ -45,6 +57,7 @@ class SingleStageVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         }else{
             if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BracketsVCID") as? BracketsVC {
                 if let navigator = self.navigationController {
+                    viewController.tournament = self.tournament
                     navigator.popToRootViewController(animated: false)
                     navigator.pushViewController(viewController, animated: false)
                 }else{

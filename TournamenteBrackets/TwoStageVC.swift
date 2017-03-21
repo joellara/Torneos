@@ -13,11 +13,12 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     
     @IBOutlet weak var finalStageGroupNumberTxt: UITextField!
     @IBOutlet weak var finalStageGroupNumberLabel: UILabel!
-    
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var groupNumberTxt: UITextField!
     @IBOutlet weak var groupNumberLabel: UILabel!
+    var tournament:Tournament!
+
+    
     override func viewDidLoad() {
         self.hideKeyboard()
         groupNumberTxt.layer.borderColor = UIColor.red.cgColor
@@ -104,6 +105,7 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         if !error {
             if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BracketsVCID") as? BracketsVC {
                 if let navigator = self.navigationController {
+                    viewController.tournament = self.tournament
                     navigator.popToRootViewController(animated: false)
                     navigator.pushViewController(viewController, animated: false)
                 }else{
@@ -114,7 +116,6 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             }
         }
     }
-
     func keyboardWillShow(notification: NSNotification) {
         adjustInsetForKeyboardShow(show: true, notification: notification)
     }

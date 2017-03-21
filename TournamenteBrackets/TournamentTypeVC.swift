@@ -12,8 +12,9 @@ class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSou
     @IBOutlet weak var participantsTV: UITableView!
     @IBOutlet weak var stageSC: UISegmentedControl!
     @IBOutlet weak var participantName: UITextField!
-    
+    var tournament:Tournament!
     var arrParticipants = [String]()
+    
     override func viewDidLoad() {
         self.hideKeyboard()
         participantsTV.layer.borderColor = UIColor.red.cgColor
@@ -53,9 +54,9 @@ class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSou
             }
         }
     }
-    
     @IBAction func continueStage(_ sender: UIButton) {
         if arrParticipants.count > 0 {
+            tournament?.participants = arrParticipants
             if stageSC.selectedSegmentIndex == 0 {
                 performSegue(withIdentifier: "toSingleStageSegue", sender: nil)
             }else{
@@ -63,6 +64,21 @@ class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSou
             }
         }else{
             participantsTV.layer.borderWidth = 1.0
+        }
+    }
+    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.tournament.participants = arrParticipants
+        if stageSC.selectedSegmentIndex == 0  {
+            self.tournament.type = Tournament.type.SingleStage
+        }else{
+            self.tournament.type = Tournament.type.TwoStage
+        }
+        if let controller = segue.destination as? SingleStageVC {
+            controller.tournament = self.tournament
+        }else if let controller = segue.destination as? TwoStageVC {
+            controller.tournament = self.tournament
         }
     }
 }

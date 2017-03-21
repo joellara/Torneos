@@ -37,9 +37,11 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
+        
         descriptionNameTxt.layer.borderColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1.0).cgColor
         descriptionNameTxt.layer.borderWidth = 1.0
         descriptionNameTxt.layer.cornerRadius = 5
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.keyboardWillShow),
@@ -91,6 +93,13 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
         }
         
     }
+    func keyboardWillShow(notification: NSNotification) {
+        adjustInsetForKeyboardShow(show: true, notification: notification)
+    }
+    func keyboardWillHide(notification: NSNotification) {
+        adjustInsetForKeyboardShow(show:false, notification: notification)
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.layer.borderColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1.0).cgColor
         if !starEditing {
@@ -100,12 +109,6 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
         }
     }
     
-    func keyboardWillShow(notification: NSNotification) {
-        adjustInsetForKeyboardShow(show: true, notification: notification)
-    }
-    func keyboardWillHide(notification: NSNotification) {
-        adjustInsetForKeyboardShow(show:false, notification: notification)
-    }
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         var error = false
         if (gameName.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
@@ -123,9 +126,35 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
         if(descriptionNameTxt.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) || !starEditing {
             descriptionNameTxt.layer.borderWidth = 1.0
             descriptionNameTxt.layer.borderColor = UIColor.red.cgColor
+            //setError(field: descriptionNameTxt, state: true)
             error = true
         }
         return !error
+    }
+    
+    private func setError(field: UIView, state:Bool){
+        if state {
+            field.layer.borderWidth = 1.0
+            field.layer.borderColor = UIColor.red.cgColor
+        }else{
+            field.layer.borderWidth = 0.0
+            field.layer.borderColor = UIColor.red.cgColor
+        }
+
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? TournamentTypeVC {
+            let tournament = Tournament()
+            tournament.name = tournamentName.text
+            tournament.game = gameName.text
+            tournament.description = descriptionNameTxt.text
+            if privacySC.selectedSegmentIndex == 0 {
+                tournament.privacy = Tournament.privacy.LOCAL
+            }else{
+                tournament.privacy = Tournament.privacy.ONLINE
+            }
+            controller.tournament = tournament
+        }
     }
 }
 
