@@ -77,6 +77,7 @@
 		A92E20EF1E411A51006364AF /* MyBrackets */ = {
 			isa = PBXGroup;
 			children = (
+				A9602EDD1E80D1130078992D /* Models */,
 				A92E21051E412B40006364AF /* VC */,
 				A92E21021E412A95006364AF /* Supporting Files */,
 				A92E20F41E411A51006364AF /* Main.storyboard */,
@@ -101,17 +102,24 @@
 		A92E21051E412B40006364AF /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				A9D919641E8062DF000B30D7 /* BracketsVC.swift */,
 				A92E20F21E411A51006364AF /* ViewController.swift */,
 				A92E21031E412AB1006364AF /* TournamentCreationVC.swift */,
 				A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */,
 				A93FB2431E775B0900E92394 /* SingleStageVC.swift */,
 				A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */,
-				A9D919641E8062DF000B30D7 /* BracketsVC.swift */,
 				A9D919661E80674B000B30D7 /* TournamentListingVC.swift */,
-				A9BEFC261E806E6C00B9C115 /* Tournament.swift */,
 				A9BEFC281E8071BB00B9C115 /* TournamentSearchVC.swift */,
 			);
 			name = VC;
+			sourceTree = "<group>";
+		};
+		A9602EDD1E80D1130078992D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A9BEFC261E806E6C00B9C115 /* Tournament.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		A9BEFC2C1E809DF800B9C115 /* Frameworks */ = {

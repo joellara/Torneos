@@ -23,6 +23,10 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         self.hideKeyboard()
         groupNumberTxt.layer.borderColor = UIColor.red.cgColor
         finalStageGroupNumberTxt.layer.borderColor = UIColor.red.cgColor
+        
+        self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
+        self.tournament.secondStage = Tournament.tournamentFormat.SingleElimination
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.keyboardWillShow),
@@ -55,6 +59,16 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 groupNumberTxt.layer.borderWidth = 0.0
                 groupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
             }
+            switch row {
+            case 0:
+                self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
+            case 1:
+                self.tournament.firstStage = Tournament.tournamentFormat.DoubleElimination
+            case 2:
+                self.tournament.firstStage = Tournament.tournamentFormat.RoundRobin
+            default:
+                break
+            }
         }else{
             if(tipoTorneo[row] == "Round Robin"){
                 finalStageGroupNumberTxt.isEnabled = true
@@ -63,6 +77,16 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 finalStageGroupNumberTxt.isEnabled = false
                 finalStageGroupNumberTxt.layer.borderWidth = 0.0
                 finalStageGroupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
+            }
+            switch row {
+            case 0:
+                self.tournament.secondStage = Tournament.tournamentFormat.SingleElimination
+            case 1:
+                self.tournament.secondStage = Tournament.tournamentFormat.DoubleElimination
+            case 2:
+                self.tournament.secondStage = Tournament.tournamentFormat.RoundRobin
+            default:
+                break
             }
         }
     }
