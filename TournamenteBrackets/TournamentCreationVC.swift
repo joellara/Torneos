@@ -33,7 +33,7 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
     @IBOutlet weak var gameName: UITextField!
     @IBOutlet weak var privacySC: UISegmentedControl!
     var starEditing = false
-    
+    var keyboard = false
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()
@@ -57,12 +57,11 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
  
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("Should return")
         switch textField.tag {
         case 0:
-            tournamentName.resignFirstResponder()
             gameName.becomeFirstResponder()
         case 1:
-            gameName.resignFirstResponder()
             descriptionNameTxt.becomeFirstResponder()
         case 2:
             descriptionNameTxt.resignFirstResponder()
@@ -85,9 +84,14 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
         let keyboardFrame = value.cgRectValue
         let adjustmentHeight = (keyboardFrame.height + 8) * (show ? 1 : -1)
         if show {
-            scrollView.contentInset.bottom += adjustmentHeight
-            scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
+            if !keyboard {
+                scrollView.contentInset.bottom += adjustmentHeight
+                scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
+            }
+            keyboard = true
+            
         }else{
+            keyboard = false
             scrollView.contentInset.bottom = 8
             scrollView.scrollIndicatorInsets.bottom = 8
         }

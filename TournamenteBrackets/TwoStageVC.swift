@@ -17,7 +17,7 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     @IBOutlet weak var groupNumberTxt: UITextField!
     @IBOutlet weak var groupNumberLabel: UILabel!
     var tournament:Tournament!
-
+    var keyboard = false
     
     override func viewDidLoad() {
         self.hideKeyboard()
@@ -108,9 +108,13 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         let keyboardFrame = value.cgRectValue
         let adjustmentHeight = (keyboardFrame.height + 8) * (show ? 1 : -1)
         if show {
-            scrollView.contentInset.bottom += adjustmentHeight
-            scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
+            if !keyboard {
+                scrollView.contentInset.bottom += adjustmentHeight
+                scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
+            }
+            keyboard = true
         }else{
+            keyboard = false
             scrollView.contentInset.bottom = 8
             scrollView.scrollIndicatorInsets.bottom = 8
         }
