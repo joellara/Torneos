@@ -34,75 +34,6 @@ class Tournament {
     var firstStage:tournamentFormat?
     var secondStage:tournamentFormat?
     
-    
-    private func abrirBaseDatos() -> Bool {
-        if let path = Tournament.obtenerRuta(nombreArchivo:"baseDatos.txt") {
-            if sqlite3_open(path.absoluteString, &baseDatos) == SQLITE_OK {
-                return crearTabla()
-            }
-            // Error
-            sqlite3_close(baseDatos)
-        }
-        return false
-    }
-    private static func consultarBaseDatos(tournamentType:String?)->[Tournament]?{
-        var baseDatos: OpaquePointer?
-        var sqlConsulta:String
-        if tournamentType == nil{
-            sqlConsulta = "SELECT * FROM TORNEOS"
-        }else{
-            sqlConsulta = "SELECT * FROM TORNEOS WHERE TYPE = '\(tournamentType!)'"
-        }
-        var declaracion: OpaquePointer? = nil
-        if let path = Tournament.obtenerRuta(nombreArchivo:"baseDatos.txt") {
-            if sqlite3_open(path.absoluteString, &baseDatos) == SQLITE_OK {
-                if sqlite3_prepare_v2(baseDatos, sqlConsulta, -1, &declaracion, nil) == SQLITE_OK {
-                    var arr = [Tournament]()
-                    while sqlite3_step(declaracion) == SQLITE_ROW {
-                        let tou = Tournament()
-                        let name = String.init(cString: sqlite3_column_text(declaracion, 1))
-                        tou.name = name
-                        arr.append(tou)
-                    }
-                    return arr
-                }
-            }
-            // Error
-            sqlite3_close(baseDatos)
-        }
-        return nil
-    }
-    static func obtenerTorneos()->([Tournament],[Tournament])?{
-        var arrSingle: [Tournament]?
-        var arrTwo:[Tournament]?
-        
-        arrSingle = Tournament.consultarBaseDatos(tournamentType: Tournament.type.SingleStage.rawValue)
-        arrTwo = Tournament.consultarBaseDatos(tournamentType:Tournament.type.TwoStage.rawValue)
-        if arrSingle != nil && arrTwo != nil {
-            return (arrSingle!,arrTwo!)
-        }
-        return nil
-    }
-    private func crearTabla() -> Bool {
-        let sqlCreaTorneos = "CREATE TABLE IF NOT EXISTS TORNEOS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NAME TEXT NOT NULL,GAME TEXT NOT NULL,DESCRIPTION TEXT NOT NULL,PRIVACY TEXT NOT NULL,TYPE TEXT NOT NULL,FIRST_STAGE TEXT NOT NULL,SECOND_STAGE TEXT)"
-        let sqlCreaParticipantes = "CREATE TABLE IF NOT EXISTS PARTICIPANTS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,TORNEO_ID INTEGER NOT NULL,NAME TEXT NOT NULL,FOREIGN KEY(TORNEO_ID) REFERENCES TORNEOS(ID))"
-        var error: UnsafeMutablePointer<Int8>? = nil
-        if sqlite3_exec(baseDatos, sqlCreaTorneos, nil, nil, &error) == SQLITE_OK {
-            if sqlite3_exec(baseDatos, sqlCreaParticipantes, nil, nil, &error) == SQLITE_OK {
-                return true
-            }else{
-                sqlite3_close(baseDatos)
-                let msg = String.init(cString: error!)
-                print("Error: \(msg)")
-                return false
-            }
-        } else {
-            sqlite3_close(baseDatos)
-            let msg = String.init(cString: error!)
-            print("Error: \(msg)")
-            return false
-        }
-    }
     func save()->Bool{
         var error = false
         if self.name != nil && self.game != nil && self.description != nil && self.privacy != nil && self.type != nil {
@@ -134,6 +65,87 @@ class Tournament {
         }
     }
     
+    private func abrirBaseDatos() -> Bool {
+        if let path = Tournament.obtenerRuta(nombreArchivo:"baseDatos.txt") {
+            if sqlite3_open(path.absoluteString, &baseDatos) == SQLITE_OK {
+                return crearTabla()
+            }
+            // Error
+            sqlite3_close(baseDatos)
+        }
+        return false
+    }
+
+    static func obtenerTorneos()->([Tournament],[Tournament])?{
+        var arrSingle: [Tournament]?
+        var arrTwo:[Tournament]?
+        
+        arrSingle = Tournament.consultarBaseDatos(tournamentType: Tournament.type.SingleStage.rawValue)
+        arrTwo = Tournament.consultarBaseDatos(tournamentType:Tournament.type.TwoStage.rawValue)
+        if arrSingle != nil && arrTwo != nil {
+            return (arrSingle!,arrTwo!)
+        }
+        return nil
+    }
+    private static func obtenerRuta(nombreArchivo:	String)	->	URL?	{
+        if let path =	FileManager.default.urls(for:	.documentDirectory,	in:	.userDomainMask).first {
+            return path.appendingPathComponent(nombreArchivo)
+        }
+        return nil
+    }
+    private static func consultarBaseDatos(tournamentType:String?)->[Tournament]?{
+        var baseDatos: OpaquePointer?
+        var sqlConsulta:String
+        if tournamentType == nil{
+            sqlConsulta = "SELECT * FROM TORNEOS"
+        }else{
+            sqlConsulta = "SELECT * FROM TORNEOS WHERE TYPE = '\(tournamentType!)'"
+        }
+        var declaracion: OpaquePointer? = nil
+        if let path = Tournament.obtenerRuta(nombreArchivo:"baseDatos.txt") {
+            if sqlite3_open(path.absoluteString, &baseDatos) == SQLITE_OK {
+                if sqlite3_prepare_v2(baseDatos, sqlConsulta, -1, &declaracion, nil) == SQLITE_OK {
+                    var arr = [Tournament]()
+                    while sqlite3_step(declaracion) == SQLITE_ROW {
+                        let tou = Tournament()
+                        tou.name = String.init(cString: sqlite3_column_text(declaracion, 1))
+                        tou.game = String.init(cString: sqlite3_column_text(declaracion, 2))
+                        tou.description = String.init(cString: sqlite3_column_text(declaracion, 3))
+                        tou.privacy = Tournament.privacy(rawValue: String.init(cString: sqlite3_column_text(declaracion, 4)))
+                        tou.type = Tournament.type(rawValue: String.init(cString: sqlite3_column_text(declaracion, 5)))
+                        tou.firstStage = Tournament.tournamentFormat(rawValue:String.init(cString: sqlite3_column_text(declaracion, 6)))
+                        arr.append(tou)
+                    }
+                    sqlite3_close(baseDatos)
+                    return arr
+                }
+            }
+            // Error
+            sqlite3_close(baseDatos)
+        }
+        return nil
+    }
+    private func crearTabla() -> Bool {
+        let sqlCreaTorneos = "CREATE TABLE IF NOT EXISTS TORNEOS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, NAME TEXT NOT NULL,GAME TEXT NOT NULL,DESCRIPTION TEXT NOT NULL,PRIVACY TEXT NOT NULL,TYPE TEXT NOT NULL,FIRST_STAGE TEXT NOT NULL,SECOND_STAGE TEXT)"
+        let sqlCreaParticipantes = "CREATE TABLE IF NOT EXISTS PARTICIPANTS (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,TORNEO_ID INTEGER NOT NULL,NAME TEXT NOT NULL,FOREIGN KEY(TORNEO_ID) REFERENCES TORNEOS(ID))"
+        var error: UnsafeMutablePointer<Int8>? = nil
+        if sqlite3_exec(baseDatos, sqlCreaTorneos, nil, nil, &error) == SQLITE_OK {
+            if sqlite3_exec(baseDatos, sqlCreaParticipantes, nil, nil, &error) == SQLITE_OK {
+                return true
+            }else{
+                sqlite3_close(baseDatos)
+                let msg = String.init(cString: error!)
+                print("Error: \(msg)")
+                return false
+            }
+        } else {
+            sqlite3_close(baseDatos)
+            let msg = String.init(cString: error!)
+            print("Error: \(msg)")
+            return false
+        }
+    }
+    
     private func insertarDatos()->Bool {
         let sqlInserta:String?
         if self.type == Tournament.type.SingleStage {
@@ -148,14 +160,6 @@ class Tournament {
             return false
         }
         return true
-    }
-    
-    private static func obtenerRuta(nombreArchivo:	String)	->	URL?	{
-        if let path =	FileManager.default.urls(for:	.documentDirectory,	in:	.userDomainMask).first {
-            print(path.appendingPathComponent(nombreArchivo))
-            return path.appendingPathComponent(nombreArchivo)
-        }
-        return nil
     }
     
 }

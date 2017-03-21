@@ -220,7 +220,7 @@ A01167344</string>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQb-k3-mIQ">
                                 <rect key="frame" x="20" y="465" width="374" height="251"/>
                                 <color key="backgroundColor" red="0.40792682766914368" green="0.4079185426235199" blue="0.40792420506477356" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <string key="text">Construya sus propios torneos. Haga soportes personalizados. Seguir, guardar y buscar sus resultados..
+                                <string key="text">Construya sus propios torneos. Haga soportes personalizados. Seguir, guardar y buscar sus resultados.
 
 Cargado con funciones y fácil de usar, es la mejor manera de administrar los torneos sobre la marcha. Manténgase organizado y sus amigos informados con MyBrackets.</string>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -273,7 +273,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wng-sf-F73" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="547.33333333333337"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre del torneo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAh-3G-IDJ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre del torneo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAh-3G-IDJ">
                                                 <rect key="frame" x="8" y="0.0" width="398" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -412,16 +412,9 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Torneos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1mt-F4-EWr">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="celda" id="6VG-5P-ZLz">
-                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6VG-5P-ZLz" id="pik-2c-900">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
@@ -439,10 +432,10 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
             </objects>
             <point key="canvasLocation" x="1048" y="678"/>
         </scene>
-        <!--Tipo de Torneo-->
+        <!--Participantes-->
         <scene sceneID="96M-kw-tUv">
             <objects>
-                <viewController title="Tipo de Torneo" id="7pO-jP-CkW" customClass="TournamentTypeVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Participantes" id="7pO-jP-CkW" customClass="TournamentTypeVC" customModule="MyBrackets" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kUv-Ra-oJc"/>
                         <viewControllerLayoutGuide type="bottom" id="IYf-lB-w3d"/>
@@ -451,7 +444,7 @@ Cargado con funciones y fácil de usar, es la mejor manera de administrar los to
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cjJ-rU-KeU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="cjJ-rU-KeU">
                                 <rect key="frame" x="20" y="74" width="93" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
