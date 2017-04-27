@@ -13,19 +13,23 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        let logo = UIImage(named: "search.ong")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Hide the navigation bar on the this view controller
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        //self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         // Show the navigation bar on other view controllers
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        //self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
