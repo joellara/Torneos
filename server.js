@@ -1,4 +1,5 @@
 var express = require('express'),
+    bodyParser = require('body-parser'),
     path = require('path'),
     app = express(),
     port = process.env.PORT || 80;
@@ -10,8 +11,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('tournament',tournament);
-app.use('auth',auth);
+app.use('/tournament',tournament);
+app.use('/auth',auth);
 
 
 //Catch 404
@@ -19,6 +20,6 @@ app.use(function(req, res, next) {
     res.sendStatus(404);
 });
 
-app.listen(port);
-console.log(gs.state.slice());
-console.log('Tournament API server started on: ' + port);
+app.listen(port,()=>{
+    console.log('Tournament API server started on: ' + port);
+});
