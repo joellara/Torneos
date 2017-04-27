@@ -1,11 +1,24 @@
 var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 80;
+    path = require('path'),
+    app = express(),
+    port = process.env.PORT || 80;
 
-//app.listen(port);
+var tournament = require(path.join(__dirname,'routes/tournament.js'));
+var auth = require(path.join(__dirname,'routes/auth.js'));
 
-const groupstage = require('groupstage');
-var gs = groupstage(5);
-gs.score({s:1,r:1,m:1},[1,0]);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('tournament',tournament);
+app.use('auth',auth);
+
+
+//Catch 404
+app.use(function(req, res, next) {
+    res.sendStatus(404);
+});
+
+app.listen(port);
 console.log(gs.state.slice());
 console.log('Tournament API server started on: ' + port);
