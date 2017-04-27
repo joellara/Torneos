@@ -6,6 +6,7 @@ var express = require('express'),
 
 var router = express.Router();
 var User = require(path.join(__dirname, '../models/User.js'));
+
 //get Hash for specific text, with salt, or create new hash
 function getHash(str, salt = crypto.randomBytes(256)) {
     let password = str.trim();
@@ -13,7 +14,6 @@ function getHash(str, salt = crypto.randomBytes(256)) {
     return [hash.toString('hex'), salt.toString('hex')];
 }
 
-//Check login
 router.post('/login/', function(req, res, next) {
     let [password, ] = getHash(req.body.password.trim());
     User.findOne({ email: req.body.email }, (err, user) => {
@@ -36,7 +36,7 @@ router.post('/login/', function(req, res, next) {
             res.json({
                 valid: true,
                 loggedIn: false,
-                message: 'Combinación de usuario/contraseña incorrectos.'
+                message: 'Combinación de usuario/contraseña incorrecta.'
             });
         }
     });
@@ -68,12 +68,11 @@ router.post('/signup/', function(req, res, next) {
             res.json({
                 created: false,
                 valid: true,
-                error: 'Already exists that email.'
+                error: 'Ya existe una cuenta con ese correo.'
             });
         }
 
     });
 });
-
 
 module.exports = router;
