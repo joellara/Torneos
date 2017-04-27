@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3489E77FD83EEAAB530FD8B8 /* Pods_MyBrackets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3CA64C8DF8A2AA08EAE8D6 /* Pods_MyBrackets.framework */; };
 		A92E20F11E411A51006364AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E20F01E411A51006364AF /* AppDelegate.swift */; };
 		A92E20F31E411A51006364AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E20F21E411A51006364AF /* ViewController.swift */; };
 		A92E20F61E411A51006364AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F41E411A51006364AF /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		199883D5475548151F3E6D37 /* Pods-MyBrackets.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyBrackets.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyBrackets/Pods-MyBrackets.release.xcconfig"; sourceTree = "<group>"; };
 		A92E20ED1E411A51006364AF /* MyBrackets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrackets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92E20F01E411A51006364AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A92E20F21E411A51006364AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +45,8 @@
 		A9D919641E8062DF000B30D7 /* BracketsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BracketsVC.swift; sourceTree = "<group>"; };
 		A9D919661E80674B000B30D7 /* TournamentListingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentListingVC.swift; sourceTree = "<group>"; };
 		A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentTypeVC.swift; sourceTree = "<group>"; };
+		D5665B87F1F039FCEC77A9B3 /* Pods-MyBrackets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyBrackets.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyBrackets/Pods-MyBrackets.debug.xcconfig"; sourceTree = "<group>"; };
+		EC3CA64C8DF8A2AA08EAE8D6 /* Pods_MyBrackets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyBrackets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,18 +55,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9BEFC2E1E809DF900B9C115 /* libsqlite3.tbd in Frameworks */,
+				3489E77FD83EEAAB530FD8B8 /* Pods_MyBrackets.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F5B5ABA81AC849456891587 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D5665B87F1F039FCEC77A9B3 /* Pods-MyBrackets.debug.xcconfig */,
+				199883D5475548151F3E6D37 /* Pods-MyBrackets.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A92E20E41E411A51006364AF = {
 			isa = PBXGroup;
 			children = (
 				A92E20EF1E411A51006364AF /* MyBrackets */,
 				A92E20EE1E411A51006364AF /* Products */,
 				A9BEFC2C1E809DF800B9C115 /* Frameworks */,
+				0F5B5ABA81AC849456891587 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -126,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				A9BEFC2D1E809DF900B9C115 /* libsqlite3.tbd */,
+				EC3CA64C8DF8A2AA08EAE8D6 /* Pods_MyBrackets.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -137,9 +153,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "MyBrackets" */;
 			buildPhases = (
+				2768CF9AD97899FD23F38775 /* [CP] Check Pods Manifest.lock */,
 				A92E20E91E411A51006364AF /* Sources */,
 				A92E20EA1E411A51006364AF /* Frameworks */,
 				A92E20EB1E411A51006364AF /* Resources */,
+				F52D8C010C6192DC3FF31FFC /* [CP] Embed Pods Frameworks */,
+				FB8F892F157A0AFC49BC12B9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -198,6 +217,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2768CF9AD97899FD23F38775 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F52D8C010C6192DC3FF31FFC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyBrackets/Pods-MyBrackets-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB8F892F157A0AFC49BC12B9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyBrackets/Pods-MyBrackets-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A92E20E91E411A51006364AF /* Sources */ = {
@@ -335,6 +402,7 @@
 		};
 		A92E21001E411A51006364AF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5665B87F1F039FCEC77A9B3 /* Pods-MyBrackets.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -351,6 +419,7 @@
 		};
 		A92E21011E411A51006364AF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 199883D5475548151F3E6D37 /* Pods-MyBrackets.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
