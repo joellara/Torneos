@@ -18,8 +18,12 @@
   "homepage": "https://github.com/joellara/Torneos#readme",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "duel": "^3.2.0",
     "express": "^4.15.2",
-    "mongoose": "^4.9.6"
+    "groupstage": "^3.1.1",
+    "mongoose": "^4.9.6",
+    "roundrobin": "^1.0.3",
+    "tournament": "^3.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
