@@ -15,6 +15,7 @@ function getHash(str, salt = crypto.randomBytes(256)) {
 }
 
 router.post('/login/', function(req, res, next) {
+    if(typeof req.body === "undefined" || typeof req.body.email === "undefined" || typeof req.body.password === "undefined")res.sendStatus(400);
     let [password, ] = getHash(req.body.password.trim());
     User.findOne({ email: req.body.email }, (err, user) => {
         if (err) res.sendStatus(500);
@@ -44,6 +45,7 @@ router.post('/login/', function(req, res, next) {
 
 //Add new user
 router.post('/signup/', function(req, res, next) {
+    if(typeof req.body === "undefined" || typeof req.body.email === "undefined" || typeof req.body.password === "undefined" || typeof req.body.name === "undefined")res.sendStatus(400);
     User.count({
         'email': req.body.email
     }, (err, count) => {
