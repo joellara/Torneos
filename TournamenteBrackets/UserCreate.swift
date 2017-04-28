@@ -9,12 +9,14 @@
 import Gloss
 import Foundation
 
-struct UserCreate:Decodable{
-    let created:Bool?
-    let valid:Bool?
+struct UserCreate : Decodable{
+    
+    var created = false
+    var valid =  false
     let api_key:String?
     let email:String?
     let name:String?
+    let message:String?
     
     init?(json: JSON) {
         guard let created: Bool = "created" <~~ json else {
@@ -28,6 +30,7 @@ struct UserCreate:Decodable{
         self.api_key = "api_key" <~~ json
         self.email = "email" <~~ json
         self.name = "name" <~~ json
+        self.message = "message" <~~ json
         
     }
 }

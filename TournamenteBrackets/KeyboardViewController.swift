@@ -21,7 +21,6 @@ class KeyboardViewController: UIViewController, UIGestureRecognizerDelegate {
     func displayAlert(title:String,message: String){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
-            print("Ok button tapped");
         }
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion:nil)

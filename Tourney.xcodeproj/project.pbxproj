@@ -28,6 +28,7 @@
 		A9F6C3961EB38D40000601EA /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3951EB38D40000601EA /* KeyboardViewController.swift */; };
 		A9F6C3981EB3A11B000601EA /* UserCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3971EB3A11B000601EA /* UserCreate.swift */; };
 		A9F6C39A1EB3CA5D000601EA /* UserSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3991EB3CA5D000601EA /* UserSignIn.swift */; };
+		A9F6C39C1EB3D229000601EA /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C39B1EB3D229000601EA /* SignUpVC.swift */; };
 		FFFBFB967423DCCD30CF2454 /* Pods_Tourney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCAE5CD3FF638FFBF24A562 /* Pods_Tourney.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,7 @@
 		A9F6C3951EB38D40000601EA /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		A9F6C3971EB3A11B000601EA /* UserCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCreate.swift; sourceTree = "<group>"; };
 		A9F6C3991EB3CA5D000601EA /* UserSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSignIn.swift; sourceTree = "<group>"; };
+		A9F6C39B1EB3D229000601EA /* SignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		BFCAE5CD3FF638FFBF24A562 /* Pods_Tourney.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tourney.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5665B87F1F039FCEC77A9B3 /* Pods-MyBrackets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyBrackets.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyBrackets/Pods-MyBrackets.debug.xcconfig"; sourceTree = "<group>"; };
 		EC3CA64C8DF8A2AA08EAE8D6 /* Pods_MyBrackets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyBrackets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 				A9D92A621EB3016F000710AD /* ProfileVC.swift */,
 				A9D92A481EB2773F000710AD /* InfoVC.swift */,
 				A9F6C3931EB37914000601EA /* SignInVC.swift */,
+				A9F6C39B1EB3D229000601EA /* SignUpVC.swift */,
 			);
 			name = ProfileSection;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				A9F6C3961EB38D40000601EA /* KeyboardViewController.swift in Sources */,
 				A9D92A4B1EB286D8000710AD /* SearchVC.swift in Sources */,
 				A9BEFC311E809E1200B9C115 /* Puente.m in Sources */,
+				A9F6C39C1EB3D229000601EA /* SignUpVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

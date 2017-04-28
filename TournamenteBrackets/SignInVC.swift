@@ -24,23 +24,20 @@ class SignInVC: KeyboardViewController {
     @IBOutlet weak var signInBtn: UIButton!
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
-    let reachability = Reachability()!
+    let reachability = Reachability()
     var requestOngoing = false
     
     override func viewDidLoad() {
         self.hideKeyboard()
         super.viewDidLoad()
-        do {
-            try reachability.startNotifier()
-        } catch {
-            print("Unable to start notifier")
-        }
+        try? reachability?.startNotifier() ?? print("No se pudo iniciar reachability")
+        self.monitorNetwork()
         // Do any additional setup after loading the view.
     }
     
     func monitorNetwork (){
-        reachability.whenUnreachable = { reachability in
-            
+        reachability?.whenUnreachable = { reachability in
+            print("Not reachable")
         }
     }
     
@@ -60,9 +57,9 @@ class SignInVC: KeyboardViewController {
             self.displayAlert(title:"Email válido",message: "Ingresa una dirección de correo válida")
         }else if (passwordTxt.text?.isEmpty)! {
             self.displayAlert(title:"Contraseña requerida",message: "Ingresa tu contraseña")
-        }else if(requestOngoing == false && reachability.isReachable){
+        }else if(requestOngoing == false && (reachability?.isReachable)!){
             makeLogin(email: emailTxt.text!.trimmingCharacters(in: .whitespacesAndNewlines), password: passwordTxt.text!.trimmingCharacters(in: .whitespacesAndNewlines))
-        }else if(!reachability.isReachable){
+        }else if(!(reachability?.isReachable)!){
             self.displayAlert(title: "Internet", message: "Se necesita conexión a internet")
         }
         else{
@@ -71,18 +68,28 @@ class SignInVC: KeyboardViewController {
     }
     
     func makeLogin(email:String,password:String){
+        //setting varibles and activity indicator
         activity.isHidden = false
         activity.startAnimating()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         requestOngoing = true
+        
+        
+        
         disableFields()
+        
+        //making request and parsing it
+        
+        
         let parameters = ["email":email,"password":password]
         Alamofire.request("https://tourneyserver.herokuapp.com/auth/login/",method:.post,parameters:parameters).responseJSON { response in
+            
+            
             if response.response?.statusCode == 200 {
                 if let json = response.result.value, let jsonArr = json as? [String:Any], let user = UserSignIn(json: jsonArr){
                     if user.valid && user.loggedIn {
                         print(user.name!)
-                    }else if(user.valid && user.loggedIn == false){
+                    }else if(user.valid && !user.loggedIn){
                         self.displayAlert(title: "Error", message: user.message!)
                     }
                 }
@@ -95,6 +102,8 @@ class SignInVC: KeyboardViewController {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.enableFields()
         }
+        
+        
     }
     
     private func disableFields(){
@@ -111,6 +120,9 @@ class SignInVC: KeyboardViewController {
         self.forgotPasswordBtn.isEnabled = true
         self.createAccountBtn.isEnabled = true
     }
+    
+    
+    
     func isValidEmail(_ email: String) -> Bool {
         var returnValue = true
         let emailRegEx = "[A-Z0-9a-z.-_]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,3}"
@@ -133,8 +145,14 @@ class SignInVC: KeyboardViewController {
         return  returnValue
     }
     
+    
+    
     @IBAction func forgotPassword(_ sender: UIButton) {
-        
+        if !(emailTxt.text?.isEmpty)! {
+            self.displayAlert(title: "Email", message: "Ingresa tu correo para poder mandarte un email")
+        }else{
+            
+        }
     }
     
     @IBAction func createAccount(_ sender: UIButton) {

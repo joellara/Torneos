@@ -8,7 +8,8 @@
 
 import Foundation
 import Gloss
-struct UserSignIn:Decodable{
+struct UserSignIn : Decodable {
+    
     var loggedIn = false
     var valid = false
     let api_key:String?
