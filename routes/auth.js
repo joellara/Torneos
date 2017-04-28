@@ -21,10 +21,8 @@ router.post('/login/', function(req, res, next) {
         let [password, ] = getHash(req.body.password.trim());
         User.findOne({ email: req.body.email }, (err, user) => {
             if (err) {
-                console.log('no user');
                 res.sendStatus(500).end();
             }else{
-                console.log('no user');
                 if (typeof user !== undefined && user !== null) {
                     let [password, ] = getHash(req.body.password.trim(), user.salt);
                     User.findOne({
@@ -38,12 +36,12 @@ router.post('/login/', function(req, res, next) {
                                 valid:true,
                                 loggedIn:true,
                                 name:user.name,
-                                api_key:user._id
+                                api_key:user._id,
+                                emai:user.email
                             });
                         }
                     });
                 } else {
-                    console.log('no user');
                     res.json({
                         valid: true,
                         loggedIn: false,
