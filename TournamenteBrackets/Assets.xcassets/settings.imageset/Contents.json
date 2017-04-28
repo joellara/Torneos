@@ -2,17 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "ChallongeClone1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ChallongeClone2x.png",
+      "filename" : "settings copia.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "ChallongeClone3x.png",
+      "filename" : "settings.png",
       "scale" : "3x"
     }
   ],

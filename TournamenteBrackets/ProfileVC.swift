@@ -1,5 +1,5 @@
 //
-//  InfoVC.swift
+//  SignIn.swift
 //  MyBrackets
 //
 //  Created by Joel Lara Quintana on 27/04/17.
@@ -8,28 +8,50 @@
 
 import UIKit
 
-class InfoVC: UIViewController {
+class ProfileVC: UIViewController {
 
+    @IBOutlet weak var signBtn: UIButton!
+    
+    private let prefs = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let navImag = UIImage(named: "logoNav")
-        self.navigationItem.titleView = UIImageView(image: navImag)
         // Do any additional setup after loading the view.
+        self.checkState()
     }
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(true, animated: false)
 
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(false, animated: false)
-
+    override func viewWillAppear(_ animated: Bool) {
+        checkState()
+        self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
-
+    @IBAction func sign(_ sender: UIButton) {
+        if prefs.bool(forKey: "loggedIn") {
+            print("Should sign out")
+        }else{
+            performSegue(withIdentifier: "presentSignIn", sender: self)
+        }
+    }
+    
+    private func checkState(){
+        if prefs.bool(forKey: "loggedIn") {
+            self.signBtn.setTitle("Cerrar sesión", for: .normal)
+        }else{
+            self.signBtn.setTitle("Iniciar sesión", for: .normal)
+            
+        }
+    }
+    
+    private func logOut(){
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(false, animated: false)
+    }
     /*
     // MARK: - Navigation
 

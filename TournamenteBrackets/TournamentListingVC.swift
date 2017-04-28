@@ -7,9 +7,27 @@
 //
 
 import UIKit
-class TournamentListingVC: UITableViewController {
+extension UIViewController
+{
+    func hideKeyboard()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIViewController.dismissKeyboard)
+        )
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard()
+    {
+        view.endEditing(true)
+    }
+}
+class TournamentListingVC:UIViewController {
     var arrSingle = [Tournament]()
     var arrTwo = [Tournament]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,10 +36,14 @@ class TournamentListingVC: UITableViewController {
             arrTwo = arr2
         }
     }
-    override func numberOfSections(in tableView: UITableView) -> Int {
+}
+extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return arrSingle.count
@@ -31,7 +53,8 @@ class TournamentListingVC: UITableViewController {
             return 0
         }
     }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celda", for: indexPath)
         if indexPath.section == 0 {
             celda.textLabel?.text = arrSingle[indexPath.row].name!
@@ -40,7 +63,7 @@ class TournamentListingVC: UITableViewController {
         }
         return celda
     }
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return "Single Stage"

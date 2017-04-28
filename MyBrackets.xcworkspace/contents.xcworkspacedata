@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MyBrackets.xcodeproj">
+      location = "group:/Users/joellara/Developer/iOS/MyBrackets/MyBracketsApp/Tourney.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

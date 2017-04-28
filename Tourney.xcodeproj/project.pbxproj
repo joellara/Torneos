@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3489E77FD83EEAAB530FD8B8 /* Pods_MyBrackets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC3CA64C8DF8A2AA08EAE8D6 /* Pods_MyBrackets.framework */; };
 		A92E20F11E411A51006364AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E20F01E411A51006364AF /* AppDelegate.swift */; };
-		A92E20F31E411A51006364AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92E20F21E411A51006364AF /* ViewController.swift */; };
 		A92E20F61E411A51006364AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F41E411A51006364AF /* Main.storyboard */; };
 		A92E20F81E411A51006364AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F71E411A51006364AF /* Assets.xcassets */; };
 		A92E20FB1E411A51006364AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A92E20F91E411A51006364AF /* LaunchScreen.storyboard */; };
@@ -23,14 +22,16 @@
 		A9D919671E80674B000B30D7 /* TournamentListingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D919661E80674B000B30D7 /* TournamentListingVC.swift */; };
 		A9D92A491EB2773F000710AD /* InfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D92A481EB2773F000710AD /* InfoVC.swift */; };
 		A9D92A4B1EB286D8000710AD /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D92A4A1EB286D8000710AD /* SearchVC.swift */; };
+		A9D92A631EB3016F000710AD /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9D92A621EB3016F000710AD /* ProfileVC.swift */; };
 		A9E3D14D1E773CC50083F8B3 /* TournamentTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */; };
+		A9F6C3941EB37914000601EA /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3931EB37914000601EA /* SignInVC.swift */; };
+		A9F6C3961EB38D40000601EA /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3951EB38D40000601EA /* KeyboardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		199883D5475548151F3E6D37 /* Pods-MyBrackets.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyBrackets.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyBrackets/Pods-MyBrackets.release.xcconfig"; sourceTree = "<group>"; };
-		A92E20ED1E411A51006364AF /* MyBrackets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyBrackets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A92E20ED1E411A51006364AF /* Tourney.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tourney.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92E20F01E411A51006364AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A92E20F21E411A51006364AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A92E20F51E411A51006364AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A92E20F71E411A51006364AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A92E20FA1E411A51006364AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -46,7 +47,10 @@
 		A9D919661E80674B000B30D7 /* TournamentListingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentListingVC.swift; sourceTree = "<group>"; };
 		A9D92A481EB2773F000710AD /* InfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoVC.swift; sourceTree = "<group>"; };
 		A9D92A4A1EB286D8000710AD /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		A9D92A621EB3016F000710AD /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentTypeVC.swift; sourceTree = "<group>"; };
+		A9F6C3931EB37914000601EA /* SignInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		A9F6C3951EB38D40000601EA /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		D5665B87F1F039FCEC77A9B3 /* Pods-MyBrackets.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyBrackets.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyBrackets/Pods-MyBrackets.debug.xcconfig"; sourceTree = "<group>"; };
 		EC3CA64C8DF8A2AA08EAE8D6 /* Pods_MyBrackets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyBrackets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -76,7 +80,7 @@
 		A92E20E41E411A51006364AF = {
 			isa = PBXGroup;
 			children = (
-				A92E20EF1E411A51006364AF /* MyBrackets */,
+				A92E20EF1E411A51006364AF /* Tourney */,
 				A92E20EE1E411A51006364AF /* Products */,
 				A9BEFC2C1E809DF800B9C115 /* Frameworks */,
 				0F5B5ABA81AC849456891587 /* Pods */,
@@ -86,12 +90,12 @@
 		A92E20EE1E411A51006364AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A92E20ED1E411A51006364AF /* MyBrackets.app */,
+				A92E20ED1E411A51006364AF /* Tourney.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A92E20EF1E411A51006364AF /* MyBrackets */ = {
+		A92E20EF1E411A51006364AF /* Tourney */ = {
 			isa = PBXGroup;
 			children = (
 				A9602EDD1E80D1130078992D /* Models */,
@@ -100,7 +104,7 @@
 				A92E20F41E411A51006364AF /* Main.storyboard */,
 				A92E20F71E411A51006364AF /* Assets.xcassets */,
 			);
-			name = MyBrackets;
+			name = Tourney;
 			path = TournamenteBrackets;
 			sourceTree = "<group>";
 		};
@@ -119,14 +123,11 @@
 		A92E21051E412B40006364AF /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				A9D919641E8062DF000B30D7 /* BracketsVC.swift */,
-				A92E20F21E411A51006364AF /* ViewController.swift */,
-				A92E21031E412AB1006364AF /* TournamentCreationVC.swift */,
-				A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */,
-				A93FB2431E775B0900E92394 /* SingleStageVC.swift */,
-				A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */,
+				A9F6C3951EB38D40000601EA /* KeyboardViewController.swift */,
+				A9F6C3911EB377A3000601EA /* ProfileSection */,
+				A9F6C3921EB377D4000601EA /* TournamentCreationSection */,
 				A9D919661E80674B000B30D7 /* TournamentListingVC.swift */,
-				A9D92A481EB2773F000710AD /* InfoVC.swift */,
+				A9D919641E8062DF000B30D7 /* BracketsVC.swift */,
 				A9D92A4A1EB286D8000710AD /* SearchVC.swift */,
 			);
 			name = VC;
@@ -149,12 +150,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A9F6C3911EB377A3000601EA /* ProfileSection */ = {
+			isa = PBXGroup;
+			children = (
+				A9D92A621EB3016F000710AD /* ProfileVC.swift */,
+				A9D92A481EB2773F000710AD /* InfoVC.swift */,
+				A9F6C3931EB37914000601EA /* SignInVC.swift */,
+			);
+			name = ProfileSection;
+			sourceTree = "<group>";
+		};
+		A9F6C3921EB377D4000601EA /* TournamentCreationSection */ = {
+			isa = PBXGroup;
+			children = (
+				A92E21031E412AB1006364AF /* TournamentCreationVC.swift */,
+				A9E3D14C1E773CC50083F8B3 /* TournamentTypeVC.swift */,
+				A93FB2431E775B0900E92394 /* SingleStageVC.swift */,
+				A93FB2451E77BE9D00E92394 /* TwoStageVC.swift */,
+			);
+			name = TournamentCreationSection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A92E20EC1E411A51006364AF /* MyBrackets */ = {
+		A92E20EC1E411A51006364AF /* Tourney */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "MyBrackets" */;
+			buildConfigurationList = A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "Tourney" */;
 			buildPhases = (
 				2768CF9AD97899FD23F38775 /* [CP] Check Pods Manifest.lock */,
 				A92E20E91E411A51006364AF /* Sources */,
@@ -167,9 +189,9 @@
 			);
 			dependencies = (
 			);
-			name = MyBrackets;
+			name = Tourney;
 			productName = TournamenteBrackets;
-			productReference = A92E20ED1E411A51006364AF /* MyBrackets.app */;
+			productReference = A92E20ED1E411A51006364AF /* Tourney.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -190,7 +212,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A92E20E81E411A51006364AF /* Build configuration list for PBXProject "MyBrackets" */;
+			buildConfigurationList = A92E20E81E411A51006364AF /* Build configuration list for PBXProject "Tourney" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -203,7 +225,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A92E20EC1E411A51006364AF /* MyBrackets */,
+				A92E20EC1E411A51006364AF /* Tourney */,
 			);
 		};
 /* End PBXProject section */
@@ -275,15 +297,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				A93FB2441E775B0900E92394 /* SingleStageVC.swift in Sources */,
-				A92E20F31E411A51006364AF /* ViewController.swift in Sources */,
+				A9D92A631EB3016F000710AD /* ProfileVC.swift in Sources */,
 				A93FB2461E77BE9D00E92394 /* TwoStageVC.swift in Sources */,
 				A9BEFC271E806E6C00B9C115 /* Tournament.swift in Sources */,
 				A9D92A491EB2773F000710AD /* InfoVC.swift in Sources */,
+				A9F6C3941EB37914000601EA /* SignInVC.swift in Sources */,
 				A9E3D14D1E773CC50083F8B3 /* TournamentTypeVC.swift in Sources */,
 				A9D919671E80674B000B30D7 /* TournamentListingVC.swift in Sources */,
 				A92E20F11E411A51006364AF /* AppDelegate.swift in Sources */,
 				A9D919651E8062DF000B30D7 /* BracketsVC.swift in Sources */,
 				A92E21041E412AB1006364AF /* TournamentCreationVC.swift in Sources */,
+				A9F6C3961EB38D40000601EA /* KeyboardViewController.swift in Sources */,
 				A9D92A4B1EB286D8000710AD /* SearchVC.swift in Sources */,
 				A9BEFC311E809E1200B9C115 /* Puente.m in Sources */,
 			);
@@ -410,11 +434,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3ZQB22BBBB;
 				INFOPLIST_FILE = TournamenteBrackets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jlq.TournamenteBrackets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyBrackets-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -427,11 +453,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3ZQB22BBBB;
 				INFOPLIST_FILE = TournamenteBrackets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mx.jlq.TournamenteBrackets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MyBrackets-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
@@ -440,7 +468,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A92E20E81E411A51006364AF /* Build configuration list for PBXProject "MyBrackets" */ = {
+		A92E20E81E411A51006364AF /* Build configuration list for PBXProject "Tourney" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A92E20FD1E411A51006364AF /* Debug */,
@@ -449,7 +477,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "MyBrackets" */ = {
+		A92E20FF1E411A51006364AF /* Build configuration list for PBXNativeTarget "Tourney" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A92E21001E411A51006364AF /* Debug */,

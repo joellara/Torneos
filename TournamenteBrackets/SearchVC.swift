@@ -12,7 +12,8 @@ class SearchVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let navImag = UIImage(named: "logoNav")
+        self.navigationItem.titleView = UIImageView(image: navImag)
         // Do any additional setup after loading the view.
     }
 

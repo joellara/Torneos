@@ -7,23 +7,6 @@
 //
 
 import UIKit
-extension UIViewController
-{
-    func hideKeyboard()
-    {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(UIViewController.dismissKeyboard)
-        )
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard()
-    {
-        view.endEditing(true)
-    }
-}
 
 class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDelegate {
     
@@ -31,7 +14,6 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
     @IBOutlet weak var tournamentName: UITextField!
     @IBOutlet weak var descriptionNameTxt: UITextView!
     @IBOutlet weak var gameName: UITextField!
-    @IBOutlet weak var privacySC: UISegmentedControl!
     var starEditing = false
     var keyboard = false
     override func viewDidLoad() {
@@ -57,7 +39,6 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
  
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("Should return")
         switch textField.tag {
         case 0:
             gameName.becomeFirstResponder()
@@ -69,9 +50,6 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
             break
         }
         return false
-    }
-    @IBAction func segmentedTouch() {
-        self.dismissKeyboard()
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderWidth = 0.0
@@ -152,11 +130,6 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
             tournament.name = tournamentName.text
             tournament.game = gameName.text
             tournament.description = descriptionNameTxt.text
-            if privacySC.selectedSegmentIndex == 0 {
-                tournament.privacy = Tournament.privacy.LOCAL
-            }else{
-                tournament.privacy = Tournament.privacy.ONLINE
-            }
             controller.tournament = tournament
         }
     }
