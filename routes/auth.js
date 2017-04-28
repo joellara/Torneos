@@ -31,13 +31,19 @@ router.post('/login/', function(req, res, next) {
                     }, (err2, user2) => {
                         if(err2){
                             res.sendStatus(500).end();
-                        }else{
+                        }else if(user2 !== null){
                             res.json({
                                 valid:true,
                                 loggedIn:true,
-                                name:user.name,
-                                api_key:user._id,
-                                emai:user.email
+                                name:user2.name,
+                                api_key:user2._id,
+                                emai:user2.email
+                            });
+                        }else{
+                            res.json({
+                                valid:true,
+                                loggedIn:false,
+                                message:'Combinación de usuario/contraseña incorrecta.'
                             });
                         }
                     });
@@ -94,6 +100,14 @@ router.post('/signup/', function(req, res, next) {
                 }
             }
         });
+    }
+});
+
+router.post('/forgotpassword/',(req,res,next)=>{
+    if(typeof req.body === "undefined" || typeof req.body.email === "undefined"){
+        res.sendStatus(400).end();
+    }else{
+
     }
 });
 
