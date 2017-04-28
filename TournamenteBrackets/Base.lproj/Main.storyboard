@@ -723,13 +723,13 @@ A01167344</string>
                                 <rect key="frame" x="63" y="243" width="250" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-ec-gqR">
                                 <rect key="frame" x="63" y="281" width="250" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dz4-5j-ife">
                                 <rect key="frame" x="62.5" y="318.5" width="250" height="30"/>
@@ -746,6 +746,9 @@ A01167344</string>
                                     <action selector="signIn:" destination="u9D-jo-sIX" eventType="touchUpInside" id="LHt-IL-IOe"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wuS-8R-gPH">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -753,6 +756,7 @@ A01167344</string>
                             <constraint firstItem="JAc-ec-gqR" firstAttribute="centerX" secondItem="9Q4-9N-BHi" secondAttribute="centerX" id="43j-mf-5Ws"/>
                             <constraint firstItem="JAc-ec-gqR" firstAttribute="width" secondItem="9Q4-9N-BHi" secondAttribute="width" multiplier="2:3" id="5pR-ud-5DJ"/>
                             <constraint firstItem="m23-Cl-ECz" firstAttribute="centerX" secondItem="9Q4-9N-BHi" secondAttribute="centerX" id="DG2-YJ-ZCQ"/>
+                            <constraint firstItem="wuS-8R-gPH" firstAttribute="centerX" secondItem="9Q4-9N-BHi" secondAttribute="centerX" id="HYz-yG-f4W"/>
                             <constraint firstItem="jE2-Du-RXs" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Rf7-NY-6ZY" secondAttribute="bottom" constant="8" id="Hpw-gF-l1u"/>
                             <constraint firstItem="pZd-7C-iom" firstAttribute="centerX" secondItem="9Q4-9N-BHi" secondAttribute="centerX" id="JkC-Dn-N76"/>
                             <constraint firstItem="Dz4-5j-ife" firstAttribute="centerY" secondItem="9Q4-9N-BHi" secondAttribute="centerY" id="N7V-Wy-ABG"/>
@@ -765,6 +769,7 @@ A01167344</string>
                             <constraint firstItem="pZd-7C-iom" firstAttribute="top" secondItem="m23-Cl-ECz" secondAttribute="bottom" constant="8" id="iNc-FJ-4GT"/>
                             <constraint firstItem="jE2-Du-RXs" firstAttribute="width" secondItem="9Q4-9N-BHi" secondAttribute="width" multiplier="2:3" id="kZr-pA-mHd"/>
                             <constraint firstItem="m23-Cl-ECz" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Dz4-5j-ife" secondAttribute="bottom" constant="8" id="nFc-gA-3cD"/>
+                            <constraint firstItem="wuS-8R-gPH" firstAttribute="centerY" secondItem="9Q4-9N-BHi" secondAttribute="centerY" id="nng-Hl-IHX"/>
                             <constraint firstItem="m23-Cl-ECz" firstAttribute="width" secondItem="9Q4-9N-BHi" secondAttribute="width" constant="-32" id="rZe-Yn-F7m"/>
                         </constraints>
                     </view>
@@ -776,6 +781,7 @@ A01167344</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activity" destination="wuS-8R-gPH" id="4yc-vu-GQl"/>
                         <outlet property="createAccountBtn" destination="pZd-7C-iom" id="QAz-pv-mJu"/>
                         <outlet property="emailTxt" destination="jE2-Du-RXs" id="Qm2-rh-yRn"/>
                         <outlet property="forgotPasswordBtn" destination="m23-Cl-ECz" id="uOM-Y6-kHS"/>

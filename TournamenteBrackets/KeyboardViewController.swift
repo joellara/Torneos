@@ -8,17 +8,25 @@
 
 import UIKit
 
-class KeyboardViewController: UIViewController, UIGestureRecognizerDelegate, UITextFieldDelegate, UITextViewDelegate {
+class KeyboardViewController: UIViewController, UIGestureRecognizerDelegate {
     
-    private var activeField: UITextField?
     private var distanceMoved: CGFloat = 0
-    private var sizeFields:CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addObservers()
     }
     
+    //helper method
+    func displayAlert(title:String,message: String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction!) in
+            print("Ok button tapped");
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion:nil)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(_:)))
         tap.delegate = self
@@ -53,8 +61,6 @@ class KeyboardViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     }
     
     func keyboardWillShow(_ notification: Notification) {
-        guard self.activeField != nil else { assertionFailure("this should never fail"); return }
-        
         
         if let userInfo = notification.userInfo,
             let keyboardSize = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size {
@@ -72,51 +78,21 @@ class KeyboardViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         }
     }
     
-    func setDelegates(_ fields: AnyObject...) {
-        for item in fields {
-            if let textField = item as? UITextField {
-                textField.delegate = self
-                sizeFields += textField.frame.maxY - textField.frame.minY
-            }
-            if let textView = item as? UITextView {
-                textView.delegate = self
-                sizeFields += textView.frame.maxY - textView.frame.minY
-            }
-        }
-    }
     
     override func dismissKeyboard () {
         view.endEditing(true)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
     
     override func viewWillDisappear(_ animated: Bool) {
         removeObservers()
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField){
-        activeField = textField
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField){
-        activeField = nil
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if (text == "\n") {
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
-    }
     
 }
 
