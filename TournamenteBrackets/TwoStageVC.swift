@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class TwoStageVC: KeyboardViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     let tipoTorneo = ["Single Elimination", "Double Elimination","Round Robin"]
     
     @IBOutlet weak var finalStageGroupNumberTxt: UITextField!
@@ -20,25 +20,12 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     var keyboard = false
     
     override func viewDidLoad() {
-        self.hideKeyboard()
         groupNumberTxt.layer.borderColor = UIColor.red.cgColor
         finalStageGroupNumberTxt.layer.borderColor = UIColor.red.cgColor
         
         self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
         self.tournament.secondStage = Tournament.tournamentFormat.SingleElimination
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.keyboardWillShow),
-            name: NSNotification.Name.UIKeyboardWillShow,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: NSNotification.Name.UIKeyboardWillHide,
-            object: nil
-        )
     }
     func numberOfComponents(in pickerView:	UIPickerView)->Int {
         return 1
@@ -101,24 +88,7 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             textField.layer.borderWidth = 0.0
         }
     }
-    func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
-        guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
-            return
-        }
-        let keyboardFrame = value.cgRectValue
-        let adjustmentHeight = (keyboardFrame.height + 8) * (show ? 1 : -1)
-        if show {
-            if !keyboard {
-                scrollView.contentInset.bottom += adjustmentHeight
-                scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
-            }
-            keyboard = true
-        }else{
-            keyboard = false
-            scrollView.contentInset.bottom = 8
-            scrollView.scrollIndicatorInsets.bottom = 8
-        }
-    }
+
     
     @IBAction func toBrackets(_ sender: UIButton) {
         var error = false
@@ -143,11 +113,5 @@ class TwoStageVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 print("No encontró BracketVCID")
             }
         }
-    }
-    func keyboardWillShow(notification: NSNotification) {
-        adjustInsetForKeyboardShow(show: true, notification: notification)
-    }
-    func keyboardWillHide(notification: NSNotification) {
-        adjustInsetForKeyboardShow(show:false, notification: notification)
     }
 }

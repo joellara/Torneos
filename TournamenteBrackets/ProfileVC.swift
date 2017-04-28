@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import Gloss
+
 
 class ProfileVC: UIViewController {
 
@@ -30,23 +33,30 @@ class ProfileVC: UIViewController {
     }
     
     @IBAction func sign(_ sender: UIButton) {
-        if prefs.bool(forKey: "loggedIn") {
-            print("Should sign out")
+                if (prefs.string(forKey: "api_key") != nil) {
+            logOut()
         }else{
             performSegue(withIdentifier: "presentSignIn", sender: self)
         }
     }
     
     private func checkState(){
-        if prefs.bool(forKey: "loggedIn") {
+        let prefs = UserDefaults.standard
+        if (prefs.string(forKey: "api_key") != nil) {
             self.signBtn.setTitle("Cerrar sesión", for: .normal)
         }else{
             self.signBtn.setTitle("Iniciar sesión", for: .normal)
             
         }
     }
+
     
     private func logOut(){
+        prefs.set(nil, forKey: "api_key")
+        prefs.set(nil, forKey: "user_name")
+        prefs.set(nil, forKey: "user_email")
+        prefs.synchronize()
+        self.signBtn.setTitle("Iniciar sesión", for: .normal)
         
     }
     override func viewWillDisappear(_ animated: Bool) {

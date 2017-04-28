@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{
+class TournamentTypeVC: KeyboardViewController,UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate{
     
     @IBOutlet weak var participantsTV: UITableView!
     @IBOutlet weak var stageSC: UISegmentedControl!
@@ -16,7 +16,6 @@ class TournamentTypeVC: UIViewController,UITextFieldDelegate, UITableViewDataSou
     var arrParticipants = [String]()
     
     override func viewDidLoad() {
-        self.hideKeyboard()
         participantsTV.layer.borderColor = UIColor.red.cgColor
     }
     

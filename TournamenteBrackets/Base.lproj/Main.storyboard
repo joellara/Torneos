@@ -155,10 +155,10 @@ A01167344</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AqD-W6-qWO">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wng-sf-F73" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="475.5"/>
+                                        <rect key="frame" x="0.0" y="-64" width="375" height="475.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre del torneo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAh-3G-IDJ">
                                                 <rect key="frame" x="8" y="0.0" width="359" height="21"/>
@@ -233,7 +233,7 @@ A01167344</string>
                                             <constraint firstItem="iAh-3G-IDJ" firstAttribute="top" secondItem="wng-sf-F73" secondAttribute="top" id="QfX-Vo-DEl"/>
                                             <constraint firstItem="2zg-YZ-myT" firstAttribute="width" secondItem="wng-sf-F73" secondAttribute="width" constant="-16" id="SON-LV-Rs3"/>
                                             <constraint firstItem="qye-eY-dZs" firstAttribute="width" secondItem="wng-sf-F73" secondAttribute="width" constant="-16" id="Soe-tp-2Rf"/>
-                                            <constraint firstItem="Wuu-tJ-l7H" firstAttribute="top" secondItem="f8R-HG-gqq" secondAttribute="bottom" constant="7.6666666666666288" id="WPm-3I-JK2"/>
+                                            <constraint firstItem="Wuu-tJ-l7H" firstAttribute="top" secondItem="f8R-HG-gqq" secondAttribute="bottom" constant="8" id="WPm-3I-JK2"/>
                                             <constraint firstItem="cnh-aW-fwi" firstAttribute="top" secondItem="2zg-YZ-myT" secondAttribute="bottom" constant="8" id="ZAj-OP-dQi"/>
                                             <constraint firstAttribute="trailing" secondItem="qye-eY-dZs" secondAttribute="trailing" constant="8" id="dw3-u9-Fzu"/>
                                             <constraint firstAttribute="trailing" secondItem="9f5-Y1-pe2" secondAttribute="trailing" constant="8" id="e0c-JX-RBd"/>
@@ -247,7 +247,7 @@ A01167344</string>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="wng-sf-F73" firstAttribute="leading" secondItem="AqD-W6-qWO" secondAttribute="leading" id="22i-MT-Ouk"/>
-                                    <constraint firstItem="wng-sf-F73" firstAttribute="top" secondItem="AqD-W6-qWO" secondAttribute="top" id="AlG-NM-A1e"/>
+                                    <constraint firstItem="wng-sf-F73" firstAttribute="top" secondItem="AqD-W6-qWO" secondAttribute="top" constant="-64" id="AlG-NM-A1e"/>
                                     <constraint firstAttribute="trailing" secondItem="wng-sf-F73" secondAttribute="trailing" id="BW8-X9-OUy"/>
                                     <constraint firstItem="Wuu-tJ-l7H" firstAttribute="centerX" secondItem="AqD-W6-qWO" secondAttribute="centerX" id="UCw-h6-pw7"/>
                                     <constraint firstAttribute="bottom" secondItem="wng-sf-F73" secondAttribute="bottom" constant="8" id="tl2-9M-gA3"/>
@@ -299,7 +299,11 @@ A01167344</string>
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem systemItem="add" id="T0u-RX-PN4"/>
+                        <barButtonItem systemItem="add" id="T0u-RX-PN4">
+                            <connections>
+                                <action selector="addNewTournament:" destination="Y0p-Qz-1qk" id="WkJ-cD-Jwy"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="A6M-ft-Jhg"/>
                         <barButtonItem image="search" id="97i-TO-Gy2">
                             <connections>
@@ -314,6 +318,10 @@ A01167344</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="zpP-rZ-MLt" kind="show" identifier="toGameCreation" id="G2t-0S-9M0"/>
+                        <segue destination="FEP-fd-jnk" kind="show" identifier="signInFromGame" id="Uzs-MR-mY0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ef7-kV-shb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -436,7 +444,7 @@ A01167344</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcA-mb-fna">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mzC-qV-vVt" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="757.5"/>
@@ -714,7 +722,7 @@ A01167344</string>
                                     <segue destination="KYV-bS-YlA" kind="show" id="3pb-RT-Qai"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m23-Cl-ECz">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m23-Cl-ECz">
                                 <rect key="frame" x="16" y="579" width="343" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GEW-J9-Be4"/>
@@ -1003,4 +1011,7 @@ A01167344</string>
         <image name="search" width="25" height="25"/>
         <image name="user" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Uzs-MR-mY0"/>
+    </inferredMetricsTieBreakers>
 </document>

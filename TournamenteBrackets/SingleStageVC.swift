@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class SingleStageVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class SingleStageVC: KeyboardViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     
     @IBOutlet weak var formatoPV: UIPickerView!
@@ -18,7 +18,6 @@ class SingleStageVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     let tipoTorneo = ["Single Elimination", "Double Elimination","Round Robin"]
     
     override func viewDidLoad() {
-       self.hideKeyboard()
         groupNumberTxt.layer.borderColor = UIColor.red.cgColor
         self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
     }

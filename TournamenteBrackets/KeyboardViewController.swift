@@ -78,7 +78,7 @@ class KeyboardViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
-    override func dismissKeyboard () {
+    func dismissKeyboard () {
         view.endEditing(true)
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDelegate {
+class TournamentCreationVC: KeyboardViewController,UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tournamentName: UITextField!
@@ -18,25 +18,10 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
     var keyboard = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboard()
-        
         descriptionNameTxt.layer.borderColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1.0).cgColor
         descriptionNameTxt.layer.borderWidth = 1.0
         descriptionNameTxt.layer.cornerRadius = 5
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.keyboardWillShow),
-            name: NSNotification.Name.UIKeyboardWillShow,
-            object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.keyboardWillHide),
-            name: NSNotification.Name.UIKeyboardWillHide,
-            object: nil
-        )
- 
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         switch textField.tag {
@@ -55,32 +40,6 @@ class TournamentCreationVC: UIViewController,UITextFieldDelegate, UITextViewDele
         textField.layer.borderWidth = 0.0
     }
     
-    func adjustInsetForKeyboardShow(show: Bool, notification: NSNotification) {
-        guard let value = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue else {
-                return
-            }
-        let keyboardFrame = value.cgRectValue
-        let adjustmentHeight = (keyboardFrame.height + 8) * (show ? 1 : -1)
-        if show {
-            if !keyboard {
-                scrollView.contentInset.bottom += adjustmentHeight
-                scrollView.scrollIndicatorInsets.bottom += adjustmentHeight
-            }
-            keyboard = true
-            
-        }else{
-            keyboard = false
-            scrollView.contentInset.bottom = 8
-            scrollView.scrollIndicatorInsets.bottom = 8
-        }
-        
-    }
-    func keyboardWillShow(notification: NSNotification) {
-        adjustInsetForKeyboardShow(show: true, notification: notification)
-    }
-    func keyboardWillHide(notification: NSNotification) {
-        adjustInsetForKeyboardShow(show:false, notification: notification)
-    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.layer.borderColor = UIColor(red: 0.01, green: 0.01, blue: 0.01, alpha: 1.0).cgColor

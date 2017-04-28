@@ -28,7 +28,6 @@ class SignInVC: KeyboardViewController {
     var requestOngoing = false
     
     override func viewDidLoad() {
-        self.hideKeyboard()
         super.viewDidLoad()
         try? reachability?.startNotifier() ?? print("No se pudo iniciar reachability")
         self.monitorNetwork()
@@ -88,7 +87,12 @@ class SignInVC: KeyboardViewController {
             if response.response?.statusCode == 200 {
                 if let json = response.result.value, let jsonArr = json as? [String:Any], let user = UserSignIn(json: jsonArr){
                     if user.valid && user.loggedIn {
-                        print(user.name!)
+                        let prefs = UserDefaults.standard
+                        prefs.set(user.name!, forKey: "user_name")
+                        prefs.set(user.email, forKey: "user_email")
+                        prefs.set(user.api_key, forKey: "api_key")
+                        prefs.synchronize()
+                        self.dismiss(animated: true, completion: nil)
                     }else if(user.valid && !user.loggedIn){
                         self.displayAlert(title: "Error", message: user.message!)
                     }
@@ -132,8 +136,7 @@ class SignInVC: KeyboardViewController {
             let nsString = email as NSString
             let results = regex.matches(in: email, range: NSRange(location: 0, length: nsString.length))
             
-            if results.count == 0
-            {
+            if results.count == 0 {
                 returnValue = false
             }
             
@@ -146,13 +149,18 @@ class SignInVC: KeyboardViewController {
     }
     
     
-    
     @IBAction func forgotPassword(_ sender: UIButton) {
-        if !(emailTxt.text?.isEmpty)! {
+        if (emailTxt.text?.isEmpty)! {
             self.displayAlert(title: "Email", message: "Ingresa tu correo para poder mandarte un email")
+        }else if !isValidEmail(emailTxt.text!) {
+            self.displayAlert(title: "Email", message: "Ingresa un email válido")
         }else{
-            
+            serverForgoPassword()
         }
+    }
+    
+    func serverForgoPassword(){
+        
     }
     
     @IBAction func createAccount(_ sender: UIButton) {

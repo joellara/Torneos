@@ -7,27 +7,10 @@
 //
 
 import UIKit
-extension UIViewController
-{
-    func hideKeyboard()
-    {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
-            target: self,
-            action: #selector(UIViewController.dismissKeyboard)
-        )
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard()
-    {
-        view.endEditing(true)
-    }
-}
-class TournamentListingVC:UIViewController {
+class TournamentListingVC:KeyboardViewController {
     var arrSingle = [Tournament]()
     var arrTwo = [Tournament]()
-    
+    let prefs = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +19,25 @@ class TournamentListingVC:UIViewController {
             arrTwo = arr2
         }
     }
+    
+    @IBAction func addNewTournament(_ sender: UIBarButtonItem) {
+        if (prefs.string(forKey: "api_key") != nil) {
+            performSegue(withIdentifier: "toGameCreation", sender: nil)
+        }else{
+            let signInAlert = UIAlertController(title: "Inicia sesión", message: "Inicia sesión para agregar nuevos torneos", preferredStyle: .alert)
+            let closeAction = UIAlertAction(title: "Cerrar" , style: .cancel,handler:nil)
+            let signInAction = UIAlertAction(title: "Inicia sesión", style: .default){ alert in
+                self.performSegue(withIdentifier: "signInFromGame", sender: nil)
+            }
+            signInAlert.addAction(closeAction)
+            signInAlert.addAction(signInAction)
+            present(signInAlert, animated: true, completion: nil)
+        }
+    }
 }
+
+
+
 extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

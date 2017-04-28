@@ -73,7 +73,12 @@ class SignUpVC: KeyboardViewController {
                 if let json = response.result.value, let jsonArr = json as? [String:Any], let user = UserCreate(json: jsonArr){
                     if user.valid && user.created {
                         //TODO: Guardar datos y darle un mensaje al usuario
-                        print(user.name!)
+                        let prefs = UserDefaults.standard
+                        prefs.set(user.name!, forKey: "user_name")
+                        prefs.set(user.email, forKey: "user_email")
+                        prefs.set(user.api_key, forKey: "api_key")
+                        prefs.synchronize()
+                        self.dismiss(animated: true, completion: nil)
                     }else if(user.valid && !user.created){
                         self.displayAlert(title: "Error", message: user.message!)
                     }
