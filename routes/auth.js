@@ -79,7 +79,9 @@ router.post('/signup/', function(req, res, next) {
                             res.json({
                                 created:true,
                                 valid:true,
-                                api_key:user._id
+                                api_key:user._id,
+                                name:user.name,
+                                email:user.email
                             });
                         }
                     });
@@ -87,7 +89,7 @@ router.post('/signup/', function(req, res, next) {
                     res.json({
                         created: false,
                         valid: true,
-                        error: 'Ya existe una cuenta con ese correo.'
+                        message: 'Ya existe una cuenta con ese correo.'
                     });
                 }
             }
