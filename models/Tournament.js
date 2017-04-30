@@ -8,7 +8,10 @@ const rr = "round_robin",
     double = "double_elimination";
 
 let TournamentSchema = new mongoose.Schema({
-    parent_id: mongoose.Schema.Types.ObjectId,
+    parent_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     tournament_type: {
         type: String,
         enum: [single, double, rr],
