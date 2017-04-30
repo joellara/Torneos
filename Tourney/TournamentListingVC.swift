@@ -7,21 +7,39 @@
 //
 
 import UIKit
+import Alamofire
+
 class TournamentListingVC:KeyboardViewController {
-    var arrSingle = [Tournament]()
-    var arrTwo = [Tournament]()
+    var arrSingle = [TournamentMaster]()
+    var arrTwo = [TournamentMaster]()
     let prefs = UserDefaults.standard
     
     @IBOutlet var tournamentsTV: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-        if let (arr1, arr2) = Tournament.obtenerTorneos() {
-            arrSingle = arr1
-            arrTwo = arr2
+        self.loadTournaments()
+        self.setupEmptyView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.loadTournaments()
+    }
+    
+    private func loadTournaments(){
+        if let api = prefs.string(forKey: "api_key") {
+            
+            let params = ["api_key":api]
+            print(api)
+            Alamofire.request("https://tourneyserver.herokuapp.com/tournament/", method: .get, parameters: params).responseJSON { response in
+                if response.response?.statusCode == 200 {
+                    if let json = response.result.value, let jsonArr = json as? [String:Any], let tournamentArr = jsonArr["tournaments"] as? [[String:Any]], let tournaments = [TournamentMaster].from(jsonArray: tournamentArr){
+                        print(tournaments)
+                    }else{
+                        print("couldn't parse")
+                    }
+                }
+            }
         }
-        */
-        setupEmptyView()
     }
     
     @IBAction func addNewTournament(_ sender: UIBarButtonItem) {
@@ -40,7 +58,7 @@ class TournamentListingVC:KeyboardViewController {
     }
     
     func setupEmptyView(){
-        tournamentsTV.backgroundView = EmptyStateV()
+        tournamentsTV.backgroundView = EmptyStateV(frame:self.view.frame    )
     }
 }
 
@@ -53,14 +71,23 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var count = 0
         switch section {
         case 0:
-            return arrSingle.count
+            count =  arrSingle.count
         case 1:
-            return arrTwo.count
+            count =  arrTwo.count
         default:
-            return 0
+            break
         }
+        if count == 0 {
+            tableView.separatorStyle = .none
+            tableView.backgroundView!.isHidden = false
+        }else{
+            tableView.separatorStyle = .singleLineEtched
+            tableView.backgroundView!.isHidden = true
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,6 +100,15 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
         return celda
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            if arrSingle.count == 0 {
+                return nil
+            }
+        }else{
+            if arrTwo.count == 0 {
+                return nil
+            }
+        }
         switch section {
         case 0:
             return "Single Stage"

@@ -31,6 +31,7 @@ struct UserCreate : Decodable{
         self.email = "email" <~~ json
         self.name = "name" <~~ json
         self.message = "message" <~~ json
+
         
     }
 }

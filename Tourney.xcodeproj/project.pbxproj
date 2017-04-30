@@ -28,7 +28,8 @@
 		A9F6C3E41EB5211E000601EA /* UserCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3E11EB5211E000601EA /* UserCreate.swift */; };
 		A9F6C3E51EB5211E000601EA /* UserSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3E21EB5211E000601EA /* UserSignIn.swift */; };
 		A9F6C3E81EB52128000601EA /* EmptyStateV.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3E61EB52128000601EA /* EmptyStateV.swift */; };
-		A9F6C3E91EB52128000601EA /* EmptyState.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9F6C3E71EB52128000601EA /* EmptyState.xib */; };
+		A9F6C3E91EB52128000601EA /* EmptyStateV.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9F6C3E71EB52128000601EA /* EmptyStateV.xib */; };
+		A9F6C3EB1EB56112000601EA /* TournamentMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3EA1EB56112000601EA /* TournamentMaster.swift */; };
 		FAB1B15ACEA4B5C814BACD6A /* Pods_Tourney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AEDC40A4FDD8D068E76370 /* Pods_Tourney.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,7 +59,8 @@
 		A9F6C3E11EB5211E000601EA /* UserCreate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCreate.swift; sourceTree = "<group>"; };
 		A9F6C3E21EB5211E000601EA /* UserSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSignIn.swift; sourceTree = "<group>"; };
 		A9F6C3E61EB52128000601EA /* EmptyStateV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyStateV.swift; sourceTree = "<group>"; };
-		A9F6C3E71EB52128000601EA /* EmptyState.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyState.xib; sourceTree = "<group>"; };
+		A9F6C3E71EB52128000601EA /* EmptyStateV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyStateV.xib; sourceTree = "<group>"; };
+		A9F6C3EA1EB56112000601EA /* TournamentMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentMaster.swift; sourceTree = "<group>"; };
 		F4B771E77664A50F8B9336AF /* Pods-Tourney.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tourney.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tourney/Pods-Tourney.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,7 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				A9F6C3E61EB52128000601EA /* EmptyStateV.swift */,
-				A9F6C3E71EB52128000601EA /* EmptyState.xib */,
+				A9F6C3E71EB52128000601EA /* EmptyStateV.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -174,6 +176,7 @@
 				A9F6C3E01EB5211E000601EA /* Tournament.swift */,
 				A9F6C3E11EB5211E000601EA /* UserCreate.swift */,
 				A9F6C3E21EB5211E000601EA /* UserSignIn.swift */,
+				A9F6C3EA1EB56112000601EA /* TournamentMaster.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -253,7 +256,7 @@
 				A9F6C3C21EB52089000601EA /* Main.storyboard in Resources */,
 				A9F6C3B91EB51FA9000601EA /* LaunchScreen.storyboard in Resources */,
 				A9F6C3B61EB51FA9000601EA /* Assets.xcassets in Resources */,
-				A9F6C3E91EB52128000601EA /* EmptyState.xib in Resources */,
+				A9F6C3E91EB52128000601EA /* EmptyStateV.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +322,7 @@
 				A9F6C3E81EB52128000601EA /* EmptyStateV.swift in Sources */,
 				A9F6C3AF1EB51FA9000601EA /* AppDelegate.swift in Sources */,
 				A9F6C3D21EB520C0000601EA /* TournamentListingVC.swift in Sources */,
+				A9F6C3EB1EB56112000601EA /* TournamentMaster.swift in Sources */,
 				A9F6C3DA1EB520D4000601EA /* TournamentCreationVC.swift in Sources */,
 				A9F6C3D41EB520C0000601EA /* SearchVC.swift in Sources */,
 				A9F6C3DC1EB520D4000601EA /* SingleStageVC.swift in Sources */,

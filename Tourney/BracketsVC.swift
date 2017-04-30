@@ -8,13 +8,8 @@
 
 import UIKit
 class BracketsVC: UIViewController {
-    var tournament:Tournament!
+    var tournamentMaster:TournamentMaster!
     override func viewDidLoad() {
         super.viewDidLoad()
-        if tournament.save() {
-            print("Se guardo torneo")
-        }else{
-            print("No se pudo guardar torneo")
-        }
     }
 }

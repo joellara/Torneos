@@ -8,23 +8,17 @@
 
 import UIKit
 
-class TwoStageVC: KeyboardViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class TwoStageVC: KeyboardViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     let tipoTorneo = ["Single Elimination", "Double Elimination","Round Robin"]
     
-    @IBOutlet weak var finalStageGroupNumberTxt: UITextField!
-    @IBOutlet weak var finalStageGroupNumberLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var groupNumberTxt: UITextField!
-    @IBOutlet weak var groupNumberLabel: UILabel!
-    var tournament:Tournament!
+    var tournamentMaster:TournamentMaster!
+    var groupStage = Tournament()
+    var finalStage = Tournament()
     var keyboard = false
     
     override func viewDidLoad() {
-        groupNumberTxt.layer.borderColor = UIColor.red.cgColor
-        finalStageGroupNumberTxt.layer.borderColor = UIColor.red.cgColor
-        
-        self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
-        self.tournament.secondStage = Tournament.tournamentFormat.SingleElimination
+        super.viewDidLoad()
         
     }
     func numberOfComponents(in pickerView:	UIPickerView)->Int {
@@ -38,80 +32,43 @@ class TwoStageVC: KeyboardViewController, UIPickerViewDataSource, UIPickerViewDe
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView.tag == 0 {
-            if(tipoTorneo[row] == "Round Robin"){
-                groupNumberTxt.isEnabled = true
-                groupNumberLabel.textColor = UIColor(white: 0, alpha: 1)
-            }else{
-                groupNumberTxt.isEnabled = false
-                groupNumberTxt.layer.borderWidth = 0.0
-                groupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
-            }
             switch row {
             case 0:
-                self.tournament.firstStage = Tournament.tournamentFormat.SingleElimination
+                self.groupStage.format = Tournament.tournament_format.singleElimination
             case 1:
-                self.tournament.firstStage = Tournament.tournamentFormat.DoubleElimination
+                self.groupStage.format = Tournament.tournament_format.doubleElimination
             case 2:
-                self.tournament.firstStage = Tournament.tournamentFormat.RoundRobin
-            default:
+                self.groupStage.format = Tournament.tournament_format.roundRobin            default:
                 break
             }
         }else{
-            if(tipoTorneo[row] == "Round Robin"){
-                finalStageGroupNumberTxt.isEnabled = true
-                finalStageGroupNumberLabel.textColor = UIColor(white: 0, alpha: 1)
-            }else{
-                finalStageGroupNumberTxt.isEnabled = false
-                finalStageGroupNumberTxt.layer.borderWidth = 0.0
-                finalStageGroupNumberLabel.textColor = UIColor(white: 0.7, alpha: 1)
-            }
             switch row {
             case 0:
-                self.tournament.secondStage = Tournament.tournamentFormat.SingleElimination
+                self.finalStage.format = Tournament.tournament_format.singleElimination
             case 1:
-                self.tournament.secondStage = Tournament.tournamentFormat.DoubleElimination
+                self.finalStage.format = Tournament.tournament_format.doubleElimination
             case 2:
-                self.tournament.secondStage = Tournament.tournamentFormat.RoundRobin
+                self.finalStage.format = Tournament.tournament_format.roundRobin
             default:
                 break
             }
-        }
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.dismissKeyboard()
-        return true
-    }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.tag == 0 {
-            textField.layer.borderWidth = 0.0
-        }else{
-            textField.layer.borderWidth = 0.0
         }
     }
 
     
     @IBAction func toBrackets(_ sender: UIButton) {
-        var error = false
-        if groupNumberTxt.isEnabled && (groupNumberTxt.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-            groupNumberTxt.layer.borderWidth = 1.0
-            error = true
-        }
-        if finalStageGroupNumberTxt.isEnabled && (finalStageGroupNumberTxt.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-            finalStageGroupNumberTxt.layer.borderWidth = 1.0
-            error = true
-        }
-        if !error {
-            if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BracketsVCID") as? BracketsVC {
-                if let navigator = self.navigationController {
-                    viewController.tournament = self.tournament
-                    navigator.popToRootViewController(animated: false)
-                    navigator.pushViewController(viewController, animated: false)
-                }else{
-                    print("No navigator")
-                }
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "BracketsVCID") as? BracketsVC {
+            if let navigator = self.navigationController {
+                self.tournamentMaster.groupStage = groupStage
+                self.tournamentMaster.finalStage = finalStage
+                viewController.tournamentMaster = self.tournamentMaster
+                navigator.popToRootViewController(animated: false)
+                navigator.pushViewController(viewController, animated: false)
             }else{
-                print("No encontró BracketVCID")
+                print("No navigator")
             }
+        }else{
+            print("No encontró BracketVCID")
         }
     }
 }

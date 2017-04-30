@@ -10,9 +10,8 @@ import UIKit
 class TournamentTypeVC: KeyboardViewController,UITextFieldDelegate {
     
     @IBOutlet weak var participantsTV: UITableView!
-    @IBOutlet weak var stageSC: UISegmentedControl!
     @IBOutlet weak var participantName: UITextField!
-    var tournament:Tournament!
+    var tournamentMaster:TournamentMaster!
     var arrParticipants = [String]()
     
     override func viewDidLoad() {
@@ -36,8 +35,8 @@ class TournamentTypeVC: KeyboardViewController,UITextFieldDelegate {
     }
     @IBAction func continueStage(_ sender: UIButton) {
         if arrParticipants.count > 0 {
-            tournament?.participants = arrParticipants
-            if stageSC.selectedSegmentIndex == 0 {
+            tournamentMaster.participants = arrParticipants
+            if tournamentMaster.tournamentType == TournamentMaster.tournament_type.singleStage {
                 performSegue(withIdentifier: "toSingleStageSegue", sender: nil)
             }else{
                 performSegue(withIdentifier: "toTwoStageSegue", sender: nil)
@@ -49,16 +48,11 @@ class TournamentTypeVC: KeyboardViewController,UITextFieldDelegate {
     
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.tournament.participants = arrParticipants
-        if stageSC.selectedSegmentIndex == 0  {
-            self.tournament.type = Tournament.type.SingleStage
-        }else{
-            self.tournament.type = Tournament.type.TwoStage
-        }
+        self.tournamentMaster.participants = arrParticipants
         if let controller = segue.destination as? SingleStageVC {
-            controller.tournament = self.tournament
+            controller.tournamentMaster = self.tournamentMaster
         }else if let controller = segue.destination as? TwoStageVC {
-            controller.tournament = self.tournament
+            controller.tournamentMaster = self.tournamentMaster
         }
     }
 }

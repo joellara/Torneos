@@ -14,6 +14,9 @@ class TournamentCreationVC: KeyboardViewController,UITextFieldDelegate, UITextVi
     @IBOutlet weak var tournamentName: UITextField!
     @IBOutlet weak var descriptionNameTxt: UITextView!
     @IBOutlet weak var gameName: UITextField!
+    @IBOutlet weak var stageSC: UISegmentedControl!
+    
+    
     var starEditing = false
     var keyboard = false
     
@@ -89,11 +92,14 @@ class TournamentCreationVC: KeyboardViewController,UITextFieldDelegate, UITextVi
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? TournamentTypeVC {
-            let tournament = Tournament()
-            tournament.name = tournamentName.text
-            tournament.game = gameName.text
-            tournament.description = descriptionNameTxt.text
-            controller.tournament = tournament
+            let type:TournamentMaster.tournament_type
+            if stageSC.selectedSegmentIndex == 0 {
+                type = .singleStage
+            }else{
+                type = .twoStage
+            }
+            let tournamentMaster = TournamentMaster(name: self.tournamentName.text!,tournamentType:type, game: self.gameName.text!, description: self.descriptionNameTxt.text!)
+            controller.tournamentMaster = tournamentMaster
         }
     }
 }
