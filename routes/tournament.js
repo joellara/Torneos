@@ -6,22 +6,22 @@ var TournamentMaster = require(path.join(__dirname, '../models/TournamentMaster.
 var Tournament = require(path.join(__dirname, '../models/Tournament.js'));
 
 router.get('/', (req, res, next) => {
-    if (typeof req.body === "undefined" || typeof req.body.api_key === "undefined") {
+    if (typeof req.query === "undefined" || typeof req.query.api_key === "undefined") {
         res.sendStatus(400).end();
-    } else {
-        TournamentMaster.find({
-            api_key: req.body.api_key
-        }, (err, tournaments) => {
-            if (err) {
-                res.sendStatus(500).end();
-            } else {
-                res.json({
-                    valid: true,
-                    tournaments: tournaments
-                });
-            }
-        });
+        return next();
     }
+    TournamentMaster.find({
+        api_key: req.body.api_key
+    }, (err, tournaments) => {
+        if (err) {
+            res.sendStatus(500).end();
+        } else {
+            res.json({
+                valid: true,
+                tournaments: tournaments
+            });
+        }
+    });
 });
 
 router.get('/:id', (req, res, next) => {

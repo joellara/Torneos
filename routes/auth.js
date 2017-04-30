@@ -17,46 +17,46 @@ function getHash(str, salt = crypto.randomBytes(256)) {
 router.post('/login/', function(req, res, next) {
     if (typeof req.body === "undefined" || typeof req.body.email === "undefined" || typeof req.body.password === "undefined") {
         res.sendStatus(400).end();
-    } else {
-        let [password, ] = getHash(req.body.password.trim());
-        User.findOne({ email: req.body.email }, (err, user) => {
-            if (err) {
-                res.sendStatus(500).end();
-            } else {
-                if (typeof user !== undefined && user !== null) {
-                    let [password, ] = getHash(req.body.password.trim(), user.salt);
-                    User.findOne({
-                        email: req.body.email,
-                        password: password
-                    }, (err2, user2) => {
-                        if (err2) {
-                            res.sendStatus(500).end();
-                        } else if (user2 !== null) {
-                            res.json({
-                                valid: true,
-                                loggedIn: true,
-                                name: user2.name,
-                                api_key: user2._id,
-                                emai: user2.email
-                            });
-                        } else {
-                            res.json({
-                                valid: true,
-                                loggedIn: false,
-                                message: 'Combinación de usuario/contraseña incorrecta.'
-                            });
-                        }
-                    });
-                } else {
-                    res.json({
-                        valid: true,
-                        loggedIn: false,
-                        message: 'Combinación de usuario/contraseña incorrecta.'
-                    });
-                }
-            }
-        });
+        return next();
     }
+    let [password, ] = getHash(req.body.password.trim());
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if (err) {
+            res.sendStatus(500).end();
+        } else {
+            if (typeof user !== undefined && user !== null) {
+                let [password, ] = getHash(req.body.password.trim(), user.salt);
+                User.findOne({
+                    email: req.body.email,
+                    password: password
+                }, (err2, user2) => {
+                    if (err2) {
+                        res.sendStatus(500).end();
+                    } else if (user2 !== null && !err2) {
+                        res.json({
+                            valid: true,
+                            loggedIn: true,
+                            name: user2.name,
+                            api_key: user2._id,
+                            emai: user2.email
+                        });
+                    } else {
+                        res.json({
+                            valid: true,
+                            loggedIn: false,
+                            message: 'Combinación de usuario/contraseña incorrecta.'
+                        });
+                    }
+                });
+            } else {
+                res.json({
+                    valid: true,
+                    loggedIn: false,
+                    message: 'Combinación de usuario/contraseña incorrecta.'
+                });
+            }
+        }
+    });
 });
 
 //Add new user
