@@ -58,7 +58,73 @@ router.post('/', (req, res, next) => {
 });
 
 function createDoubleStage(data, res) {
-
+    var numParticipants = data.participants.length;
+    var numParticipants = data.participants.length;
+    let groupStage;
+    if (data.group_stage_type === "single_elimination") {
+        groupStage = new Duel(numParticipants);
+    } else if (data.group_stage_type === "double_elimination") {
+        groupStage = new Duel(numParticipants, { last: 2 });
+    } else { //Round Robin
+        groupStage = GroupStage(numParticipants);
+    }
+    let finalStage;
+    if (data.final_stage_type === "single_elimination") {
+        finalStage = new Duel(numParticipants);
+    } else if (data.final_stage_type === "double_elimination") {
+        finalStage = new Duel(numParticipants, { last: 2 });
+    } else { //Round Robin
+        finalStage = GroupStage(numParticipants);
+    }
+    let newTournamentMaster = new TournamentMaster({
+        name: data.name,
+        description: data.description,
+        api_key: data.api_key,
+        game: data.game,
+        tournament_type: data.tournament_type
+    });
+    let groupStageTournament = new Tournament({
+        parent_id: newTournamentMaster._id,
+        tournament_type: data.group_stage_type,
+        participants: data.participants,
+        api_key:data.api_key,
+        data: {
+            num_players: numParticipants,
+            options: {},
+            state: groupStage.state.slice(),
+            metadata: groupStage.metadata()
+        }
+    });
+    let finalStageTournament = new Tournament({
+        parent_id: newTournamentMaster._id,
+        tournament_type: data.final_stage_type,
+        participants: [],
+        api_key:data.api_key,
+        data: {
+            num_players: numParticipants,
+            options: {},
+            state: groupStage.state.slice(),
+            metadata: groupStage.metadata()
+        }
+    });
+    newTournamentMaster.group_stage_id = groupStageTournament._id;
+    newTournamentMaster.final_stage_id = finalStageTournament._id;
+    newTournamentMaster.save((err, tournament) => {
+        if (err) {
+            res.sendStatus(500).end();
+        } else {
+            groupStageTournament.save((err, groupStage) => {
+                if (err) {
+                    res.sendStatus(500).end();
+                } else {
+                    res.json({
+                        valid: true,
+                        created: true
+                    });
+                }
+            });
+        }
+    });
 }
 
 function createSingleStage(data, res) {
