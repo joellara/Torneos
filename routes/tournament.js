@@ -39,7 +39,7 @@ router.get('/:id', (req, res, next) => {
  * @param final_stage_type Second stage tournament typre "required"
  */
 router.post('/', (req, res, next) => {
-    if (typeof req.body === "undefined" || typeof req.body.api_key === "undefined" || typeof req.body.name !== "undefined" || typeof req.body.tournament_type !== "undefined" || typeof req.body.group_stage_type !== "undefined" || typeof req.body.description !== "undefined") {
+    if (typeof req.body === "undefined" || typeof req.body.api_key === "undefined" || typeof req.body.name === "undefined" || typeof req.body.tournament_type === "undefined" || typeof req.body.group_stage_type === "undefined" || typeof req.body.description === "undefined" || typeof req.body.participants === "undefined") {
         res.sendStatus(400).json({
             valid:false,
             message:"Faltaron datos"
