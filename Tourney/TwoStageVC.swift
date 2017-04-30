@@ -9,7 +9,7 @@
 import UIKit
 
 class TwoStageVC: KeyboardViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    let tipoTorneo = ["Single Elimination", "Double Elimination","Round Robin"]
+    let tipoTorneo = ["Eliminacion directa", "Doble eliminacion","Todos contra todos"]
     
     @IBOutlet weak var scrollView: UIScrollView!
     var tournamentMaster:TournamentMaster!

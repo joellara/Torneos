@@ -35,7 +35,7 @@ class SingleStageVC: KeyboardViewController {
     var tournamentMaster:TournamentMaster!
     var tournament = Tournament()
     
-    let tipoTorneo = ["Single Elimination", "Double Elimination","Round Robin"]
+    let tipoTorneo = ["Eliminacion directa", "Doble eliminacion","Todos contra todos"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

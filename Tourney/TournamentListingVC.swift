@@ -40,14 +40,15 @@ class TournamentListingVC:KeyboardViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupEmptyView()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: UIControlEvents.valueChanged)
         self.tournamentsTV?.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.setupEmptyView()
         self.loadTournaments()
+
     }
     func refresh(_ sender:AnyObject){
         self.loadTournaments()
@@ -105,7 +106,13 @@ class TournamentListingVC:KeyboardViewController {
     }
     
     func setupEmptyView(){
-        tournamentsTV.backgroundView = EmptyStateV(frame:self.view.frame    )
+        let newView = EmptyStateV(frame:self.view.frame)
+        if (prefs.string(forKey: "api_key") == nil) {
+            newView.label.text = "Inicia sesión."
+        }else{
+            newView.label.text = "No hay torneos."
+        }
+        tournamentsTV.backgroundView = newView
     }
 }
 
@@ -216,5 +223,24 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
             present(deleteAlert, animated: true, completion: nil)
             
         }
+    }
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "Borrar"
+    }
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        var id = ""
+        if indexPath.section == 0 {
+            id = arrSingle[indexPath.row]._id!
+        }else{
+            id = arrTwo[indexPath.row]._id!
+        }
+        let idAlert = UIAlertController(title: "ID para búsqueda", message: "Utiliza este ID para darselo a tus amigos y que puedan ver el progreso.\n".appending(id), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK" , style: .default, handler: nil)
+        let copyAction = UIAlertAction(title: "Copiar", style: .default, handler: {action in
+            UIPasteboard.general.string = id
+        })
+        idAlert.addAction(okAction)
+        idAlert.addAction(copyAction)
+        present(idAlert, animated: true, completion: nil)
     }
 }

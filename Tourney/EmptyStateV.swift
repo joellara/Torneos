@@ -17,6 +17,8 @@ class EmptyStateV: UIView {
         // Drawing code
     }
     */
+    @IBOutlet weak var label: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -38,7 +40,6 @@ class EmptyStateV: UIView {
         // Show the view.
         addSubview(view)
     }
-    
     private func viewFromNibForClass() -> UIView {
         
         let bundle = Bundle(for: type(of: self))
