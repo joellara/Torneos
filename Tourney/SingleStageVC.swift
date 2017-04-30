@@ -13,8 +13,8 @@ import ReachabilitySwift
 
 
 struct createNewTournament : Decodable {
-    var valid:Bool?
-    var created:Bool?
+    var valid:Bool
+    var created:Bool
     init?(json: JSON) {
         guard let valid:Bool = "valid" <~~ json,
             let created:Bool = "created" <~~ json else {
@@ -66,7 +66,7 @@ class SingleStageVC: KeyboardViewController {
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     if response.response?.statusCode == 200 {
                         if let json = response.result.value, let jsonArr = json as? [String:Any],let res = createNewTournament(json:jsonArr){
-                            if res.valid! && res.created! {
+                            if res.valid && res.created {
                                 if let navigator = self.navigationController {
                                     navigator.popToRootViewController(animated: false)
                                 }else{

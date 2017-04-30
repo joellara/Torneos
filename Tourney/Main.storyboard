@@ -605,7 +605,7 @@ A01167344</string>
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gpz-c7-yYf" id="lnV-a5-tdt">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -648,6 +648,9 @@ A01167344</string>
                     </navigationItem>
                     <connections>
                         <outlet property="activity" destination="PC4-AP-mIC" id="ICn-Vr-ysl"/>
+                        <outlet property="addBtn" destination="28Z-F2-Pu8" id="xWQ-qD-coi"/>
+                        <outlet property="profileBtn" destination="qYF-tg-Skf" id="yFw-mY-odZ"/>
+                        <outlet property="searchBtn" destination="dwY-sf-0A8" id="lo8-TB-pHw"/>
                         <outlet property="tournamentsTV" destination="1eS-BH-3KD" id="cD5-4L-RKL"/>
                         <segue destination="zpP-rZ-MLt" kind="show" identifier="toGameCreation" id="cFQ-gz-Yyv"/>
                         <segue destination="FEP-fd-jnk" kind="show" identifier="signInFromGame" id="Iuq-O0-d9F"/>
