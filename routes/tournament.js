@@ -59,6 +59,7 @@ router.post('/', (req, res, next) => {
 
 function createSingleStage(data, res) {
     var numParticipants = data.participants.length;
+    let groupStage;
     if (data.group_stage_type === "single_elimination") {
         groupStage = new Duel(numParticipants);
     } else if (data.group_stage_type === "double_elimination") {
