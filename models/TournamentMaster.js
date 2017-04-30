@@ -36,4 +36,4 @@ var TournamentMasterSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('TournamentManager', TournamentMasterSchema);
+module.exports = mongoose.model('TournamentMaster', TournamentMasterSchema);
