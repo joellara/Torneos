@@ -117,9 +117,15 @@ function createDoubleStage(data, res) {
                 if (err) {
                     res.sendStatus(500).end();
                 } else {
-                    res.json({
-                        valid: true,
-                        created: true
+                    finalStageTournament.save((err)=>{
+                        if (err) {
+                            res.sendStatus(500).end();
+                        } else {
+                                res.json({
+                                valid: true,
+                                created: true
+                            });
+                        }
                     });
                 }
             });
