@@ -33,7 +33,6 @@ class SignUpVC: KeyboardViewController {
     
     
     @IBAction func createAccount(_ sender: UIButton) {
-        
         if (nameTxt.text!.isEmpty) {
             self.displayAlert(title: "Nombre obligatorio", message: "Ingresa tu nombre")
         }else if (emailTxt.text!.isEmpty) {
@@ -67,7 +66,7 @@ class SignUpVC: KeyboardViewController {
         
         
         let parameters = ["email":email,"password":password,"name":name]
-        Alamofire.request("https://tourneyserver.herokuapp.com/auth/signup/",method:.post,parameters:parameters).responseJSON { response in
+        Alamofire.request("https://tourneyserver.herokuapp.com/auth/signup/",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseJSON { response in
             
             if response.response?.statusCode == 200 {
                 if let json = response.result.value, let jsonArr = json as? [String:Any], let user = UserCreate(json: jsonArr){
@@ -88,7 +87,7 @@ class SignUpVC: KeyboardViewController {
             }
             self.requestOngoing = false
             self.activity.isHidden = true
-            self.activity.startAnimating()
+            self.activity.stopAnimating()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.toggleFields()
         }
@@ -130,5 +129,22 @@ class SignUpVC: KeyboardViewController {
         }
         
         return  returnValue
+    }
+}
+extension SignUpVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField.tag {
+        case 0:
+            self.emailTxt.becomeFirstResponder()
+        case 1:
+            self.passwordTxt.becomeFirstResponder()
+        case 2:
+            self.passwordCheckTxt.becomeFirstResponder()
+        case 3:
+            self.passwordCheckTxt.resignFirstResponder()
+        default:
+            break
+        }
+        return true
     }
 }

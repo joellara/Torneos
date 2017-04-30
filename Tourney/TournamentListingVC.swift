@@ -14,10 +14,10 @@ class TournamentListingVC:KeyboardViewController {
     var arrTwo = [TournamentMaster]()
     let prefs = UserDefaults.standard
     
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet var tournamentsTV: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadTournaments()
         self.setupEmptyView()
     }
     
@@ -27,18 +27,35 @@ class TournamentListingVC:KeyboardViewController {
     
     private func loadTournaments(){
         if let api = prefs.string(forKey: "api_key") {
-            
             let params = ["api_key":api]
-            print(api)
+            self.activity.isHidden = false
+            self.activity.startAnimating()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             Alamofire.request("https://tourneyserver.herokuapp.com/tournament/", method: .get, parameters: params).responseJSON { response in
+                self.activity.isHidden = true
+                self.activity.stopAnimating()
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 if response.response?.statusCode == 200 {
+                    self.arrSingle = [TournamentMaster]()
+                    self.arrTwo = [TournamentMaster]()
                     if let json = response.result.value, let jsonArr = json as? [String:Any], let tournamentArr = jsonArr["tournaments"] as? [[String:Any]], let tournaments = [TournamentMaster].from(jsonArray: tournamentArr){
-                        print(tournaments)
+                        for tournament in tournaments {
+                            if tournament.tournamentType == .singleStage {
+                                self.arrSingle.append(tournament)
+                            }else{
+                                self.arrTwo.append(tournament)
+                            }
+                            self.tournamentsTV.reloadData()
+                        }
                     }else{
                         print("couldn't parse")
                     }
                 }
             }
+        }else{
+            self.arrSingle = [TournamentMaster]()
+            self.arrTwo = [TournamentMaster]()
+            self.tournamentsTV.reloadData()
         }
     }
     
@@ -93,9 +110,9 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celda", for: indexPath)
         if indexPath.section == 0 {
-            celda.textLabel?.text = arrSingle[indexPath.row].name!
+            celda.textLabel?.text = arrSingle[indexPath.row].name
         }else{
-            celda.textLabel?.text = arrTwo[indexPath.row].name!
+            celda.textLabel?.text = arrTwo[indexPath.row].name
         }
         return celda
     }

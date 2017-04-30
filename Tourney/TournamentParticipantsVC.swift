@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class TournamentTypeVC: KeyboardViewController,UITextFieldDelegate {
+class TournamentParticipantsVC: KeyboardViewController,UITextFieldDelegate {
     
     @IBOutlet weak var participantsTV: UITableView!
     @IBOutlet weak var participantName: UITextField!
@@ -36,10 +36,15 @@ class TournamentTypeVC: KeyboardViewController,UITextFieldDelegate {
     @IBAction func continueStage(_ sender: UIButton) {
         if arrParticipants.count > 0 {
             tournamentMaster.participants = arrParticipants
-            if tournamentMaster.tournamentType == TournamentMaster.tournament_type.singleStage {
-                performSegue(withIdentifier: "toSingleStageSegue", sender: nil)
+            if self.arrParticipants.count < 4 {
+                self.displayAlert(title: "Error", message: "Debe haber al menos cuatro participantes")
             }else{
-                performSegue(withIdentifier: "toTwoStageSegue", sender: nil)
+                self.tournamentMaster.participants = self.arrParticipants
+                if tournamentMaster.tournamentType == TournamentMaster.tournament_type.singleStage {
+                    performSegue(withIdentifier: "toSingleStageSegue", sender: nil)
+                }else{
+                    performSegue(withIdentifier: "toTwoStageSegue", sender: nil)
+                }
             }
         }else{
             participantsTV.layer.borderWidth = 1.0
@@ -56,7 +61,7 @@ class TournamentTypeVC: KeyboardViewController,UITextFieldDelegate {
         }
     }
 }
-extension TournamentTypeVC : UITableViewDataSource, UITableViewDelegate {
+extension TournamentParticipantsVC : UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

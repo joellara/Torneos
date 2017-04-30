@@ -291,7 +291,7 @@ A01167344</string>
         <!--Participantes-->
         <scene sceneID="96M-kw-tUv">
             <objects>
-                <viewController title="Participantes" id="7pO-jP-CkW" customClass="TournamentTypeVC" customModule="Tourney" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Participantes" id="7pO-jP-CkW" customClass="TournamentParticipantsVC" customModule="Tourney" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kUv-Ra-oJc"/>
                         <viewControllerLayoutGuide type="bottom" id="IYf-lB-w3d"/>
@@ -514,10 +514,14 @@ A01167344</string>
                                     <action selector="toBrackets:" destination="OLP-oJ-phq" eventType="touchUpInside" id="qOK-YU-a8s"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="GnL-ZA-W4c">
+                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EcR-qR-ZJR" firstAttribute="leading" secondItem="yNm-xt-jEM" secondAttribute="leadingMargin" constant="-20" id="8bt-ra-cbX"/>
+                            <constraint firstItem="GnL-ZA-W4c" firstAttribute="centerY" secondItem="yNm-xt-jEM" secondAttribute="centerY" id="Cme-uk-o4f"/>
                             <constraint firstItem="CNk-h4-XbE" firstAttribute="top" secondItem="A3Z-NV-72N" secondAttribute="bottom" constant="20" id="DLk-PM-eiG"/>
                             <constraint firstItem="ttr-gk-jWG" firstAttribute="top" secondItem="p2n-hx-A5t" secondAttribute="bottom" constant="8" id="EGN-kT-uiF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EcR-qR-ZJR" secondAttribute="trailing" constant="-20" id="SIm-yD-dve"/>
@@ -525,9 +529,11 @@ A01167344</string>
                             <constraint firstAttribute="trailingMargin" secondItem="A3Z-NV-72N" secondAttribute="trailing" constant="4" id="lWZ-BZ-LNp"/>
                             <constraint firstItem="EcR-qR-ZJR" firstAttribute="top" secondItem="ttr-gk-jWG" secondAttribute="bottom" constant="8" id="pdB-kx-9hB"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ttr-gk-jWG" secondAttribute="leading" id="q4n-dQ-0xQ"/>
+                            <constraint firstItem="GnL-ZA-W4c" firstAttribute="centerX" secondItem="yNm-xt-jEM" secondAttribute="centerX" id="qtJ-q6-4e5"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activity" destination="GnL-ZA-W4c" id="PQL-Bn-JAY"/>
                         <outlet property="formatoPV" destination="EcR-qR-ZJR" id="eXc-ew-diB"/>
                     </connections>
                 </viewController>
@@ -579,7 +585,7 @@ A01167344</string>
         <!--Tournament ListingVC-->
         <scene sceneID="QZ8-Ie-r5P">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="b2Z-Uw-cBZ" customClass="TournamentListingVC" customModule="Tourney" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="initialVCID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b2Z-Uw-cBZ" customClass="TournamentListingVC" customModule="Tourney" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="s64-sE-cSN"/>
                         <viewControllerLayoutGuide type="bottom" id="Uib-yE-zIh"/>
@@ -588,6 +594,9 @@ A01167344</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PC4-AP-mIC">
+                                <rect key="frame" x="177.5" y="323" width="20" height="20"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1eS-BH-3KD">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -609,9 +618,11 @@ A01167344</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PC4-AP-mIC" firstAttribute="centerY" secondItem="LWI-If-oWo" secondAttribute="centerY" id="5mm-eV-lo5"/>
                             <constraint firstAttribute="leadingMargin" secondItem="1eS-BH-3KD" secondAttribute="leading" constant="16" id="6nJ-cA-PBt"/>
                             <constraint firstItem="1eS-BH-3KD" firstAttribute="top" secondItem="s64-sE-cSN" secondAttribute="bottom" id="DN6-y6-usw"/>
                             <constraint firstItem="Uib-yE-zIh" firstAttribute="top" secondItem="1eS-BH-3KD" secondAttribute="bottom" id="V6u-lS-LUp"/>
+                            <constraint firstItem="PC4-AP-mIC" firstAttribute="centerX" secondItem="LWI-If-oWo" secondAttribute="centerX" id="m8Q-bO-kfp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1eS-BH-3KD" secondAttribute="trailing" constant="-16" id="yBO-dL-a5R"/>
                         </constraints>
                     </view>
@@ -636,6 +647,7 @@ A01167344</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activity" destination="PC4-AP-mIC" id="ICn-Vr-ysl"/>
                         <outlet property="tournamentsTV" destination="1eS-BH-3KD" id="cD5-4L-RKL"/>
                         <segue destination="zpP-rZ-MLt" kind="show" identifier="toGameCreation" id="cFQ-gz-Yyv"/>
                         <segue destination="FEP-fd-jnk" kind="show" identifier="signInFromGame" id="Iuq-O0-d9F"/>
@@ -695,16 +707,22 @@ A01167344</string>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="continue"/>
+                                <connections>
+                                    <outlet property="delegate" destination="u9D-jo-sIX" id="qfn-pc-nJX"/>
+                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-ec-gqR">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JAc-ec-gqR">
                                 <rect key="frame" x="62.5" y="281" width="250" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="LJx-cT-LO9"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="u9D-jo-sIX" id="g8e-J4-Prv"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dz4-5j-ife">
                                 <rect key="frame" x="62.5" y="318.5" width="250" height="30"/>
@@ -808,34 +826,46 @@ A01167344</string>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KYV-bS-YlA" id="3h2-oI-Hta"/>
+                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pFT-FY-Aub">
+                            <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pFT-FY-Aub">
                                 <rect key="frame" x="62.5" y="242.5" width="250" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="yrr-b2-uVZ"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="continue"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KYV-bS-YlA" id="1cD-4a-472"/>
+                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="54M-d3-fZJ">
+                            <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="54M-d3-fZJ">
                                 <rect key="frame" x="62.5" y="280.5" width="250" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="dXz-Gq-yrv"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KYV-bS-YlA" id="kR9-JG-fyW"/>
+                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repetir contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zgi-Ct-uDV">
+                            <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Repetir contraseña" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zgi-Ct-uDV">
                                 <rect key="frame" x="62.5" y="318.5" width="250" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="n4p-Ko-U3z"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="KYV-bS-YlA" id="8wR-cJ-BET"/>
+                                </connections>
                             </textField>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="69m-SO-ECY">
                                 <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>

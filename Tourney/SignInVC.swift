@@ -34,7 +34,7 @@ class SignInVC: KeyboardViewController {
         // Do any additional setup after loading the view.
     }
     
-    func monitorNetwork (){
+    private func monitorNetwork (){
         reachability?.whenUnreachable = { reachability in
             print("Not reachable")
         }
@@ -81,7 +81,7 @@ class SignInVC: KeyboardViewController {
         
         
         let parameters = ["email":email,"password":password]
-        Alamofire.request("https://tourneyserver.herokuapp.com/auth/login/",method:.post,parameters:parameters).responseJSON { response in
+        Alamofire.request("https://tourneyserver.herokuapp.com/auth/login/",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseJSON { response in
             
             
             if response.response?.statusCode == 200 {
@@ -102,7 +102,7 @@ class SignInVC: KeyboardViewController {
             }
             self.requestOngoing = false
             self.activity.isHidden = true
-            self.activity.startAnimating()
+            self.activity.stopAnimating()
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             self.enableFields()
         }
@@ -165,5 +165,18 @@ class SignInVC: KeyboardViewController {
     
     @IBAction func createAccount(_ sender: UIButton) {
         
+    }
+}
+extension SignInVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField.tag {
+        case 0:
+            self.passwordTxt.becomeFirstResponder()
+        case 1:
+            self.passwordTxt.resignFirstResponder()
+        default:
+            break
+        }
+        return true
     }
 }

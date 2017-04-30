@@ -91,7 +91,7 @@ class TournamentCreationVC: KeyboardViewController,UITextFieldDelegate, UITextVi
 
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let controller = segue.destination as? TournamentTypeVC {
+        if let controller = segue.destination as? TournamentParticipantsVC {
             let type:TournamentMaster.tournament_type
             if stageSC.selectedSegmentIndex == 0 {
                 type = .singleStage
