@@ -24,7 +24,6 @@ router.get('/', (req, res, next) => {
         }
     });
 });
-
 router.get('/:id', (req, res, next) => {
 
 });
@@ -50,53 +49,53 @@ router.post('/', (req, res, next) => {
         return next();
     }
 
-    if(req.body.tournament_type === "single_stage"){
-        createSingleStage(req.body,res);
-    }else{
-        createDoubleStage(req.body,res);
+    if (req.body.tournament_type === "single_stage") {
+        createSingleStage(req.body, res);
+    } else {
+        createDoubleStage(req.body, res);
     }
 
 });
-function createSingleStage(data,res){
+
+function createSingleStage(data, res) {
     var numParticipants = data.participants.length;
-    let groupStage;
-    if(data.group_stage_type === "single_elimination"){
+    if (data.group_stage_type === "single_elimination") {
         groupStage = new Duel(numParticipants);
-    }else if(data.group_stage_type === "double_elimination"){
+    } else if (data.group_stage_type === "double_elimination") {
         groupStage = new Duel(numParticipants, { last: 2 });
-    }else{ //Round Robin
+    } else { //Round Robin
         groupStage = GroupStage(numParticipants);
     }
     let newTournamentMaster = new TournamentMaster({
-        name:data.name,
-        description:data.description,
-        api_key:data.api_key,
-        game:data.game,
-        tournament_type:data.tournament_type
+        name: data.name,
+        description: data.description,
+        api_key: data.api_key,
+        game: data.game,
+        tournament_type: data.tournament_type
     });
     let groupStageTournament = new Tournament({
         parent_id: newTournamentMaster._id,
-        tournament_type:data.group_stage_type,
-        participants:data.participants,
-        data:{
-            num_players:numParticipants,
-            options:{},
-            state:groupStage.state.slice(),
-            metadata:groupStage.metadata()
+        tournament_type: data.group_stage_type,
+        participants: data.participants,
+        data: {
+            num_players: numParticipants,
+            options: {},
+            state: groupStage.state.slice(),
+            metadata: groupStage.metadata()
         }
     });
     newTournamentMaster.group_stage_id = groupStageTournament._id;
-    newTournamentMaster.save((err,tournament)=>{
-        if(err){
-            res.status(500).end();
-        }else{
-            groupStageTournament.save((err,groupStage)=>{
-                if(err){
-                    res.status(500).end();
-                }else{
+    newTournamentMaster.save((err, tournament) => {
+        if (err) {
+            res.sendStatus(500).end();
+        } else {
+            groupStageTournament.save((err, groupStage) => {
+                if (err) {
+                    res.sendStatus(500).end();
+                } else {
                     res.json({
-                        valid:true,
-                        created:true
+                        valid: true,
+                        created: true
                     });
                 }
             });
@@ -104,6 +103,46 @@ function createSingleStage(data,res){
     });
 }
 router.delete('/:id', (req, res, next) => {
-
+    if (typeof req.body.api_key === "undefined" || typeof req.params.id === "undefined") {
+        res.sendStatus(400).end();
+        return next();
+    }
+    Tournament.find({
+        parent_id: req.params.id
+    }, (err, tournaments) => {
+        if (err) {
+            res.sendStatus(500).end();
+        } else {
+            if (tournaments === null || tournaments.length <= 0) {
+                res.sendStatus(400).end();
+            } else {
+                let err = null;
+                tournaments.forEach((tournament, index, tournaments) => {
+                    tournament.remove((err) => {
+                        if (err) {
+                            err = err;
+                        }
+                    });
+                });
+                if (!err) {
+                    res.json({
+                        valid: true,
+                        deleted: true
+                    });
+                    TournamentMaster.find({
+                        api_key:req.body.api_key,
+                        _id:req.params.id
+                    },(err,tournament)=>{
+                        if(err)console.log('Error finding master tournament in deletion');
+                        tournament.remove((err)=>{
+                            if(err)console.log('Error deleting master torunament');
+                        });
+                    });
+                } else {
+                    res.sendStatus(500).end();
+                }
+            }
+        }
+    });
 });
 module.exports = router;
