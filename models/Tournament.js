@@ -14,10 +14,6 @@ let TournamentSchema = new mongoose.Schema({
         enum: [single, double, rr],
         required: true
     },
-    game: {
-        type: String,
-        required: true
-    },
     participants: [{
         type: String,
         required: true

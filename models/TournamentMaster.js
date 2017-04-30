@@ -9,8 +9,15 @@ var TournamentMasterSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: String,
+    description: {
+        type:String,
+        required:true
+    },
     api_key: {
+        type: String,
+        required: true
+    },
+    game: {
         type: String,
         required: true
     },
@@ -21,11 +28,11 @@ var TournamentMasterSchema = new mongoose.Schema({
     },
     final_stage_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: false
     },
     group_stage_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: false
+        required: true
     }
 });
 

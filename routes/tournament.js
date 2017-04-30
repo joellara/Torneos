@@ -28,8 +28,33 @@ router.get('/:id', (req, res, next) => {
 
 });
 
-router.post('/', (req, res, next) => {
 
+/*
+ * @param api_key
+ * @param name Tournament Name
+ * @param description Tournament description
+ * @param tournament_type Tournament(Single,Two) stages
+ * @param [participants] Tournament participants
+ * @param  group_stage_type First stage tournament type "not requierd"
+ * @param final_stage_type Second stage tournament typre "required"
+ */
+router.post('/', (req, res, next) => {
+    if (typeof req.body === "undefined" || typeof req.body.api_key === "undefined" || typeof req.body.name !== "undefined" || typeof req.body.tournament_type !== "undefined" || typeof req.body.group_stage_type !== "undefined" || typeof req.body.description !== "undefined") {
+        res.sendStatus(400).end();
+        return next();
+    }
+    if (typeof req.body.tournament_type === "two_stage" && typeof req.body.group_stage_type === "undefined") {
+        res.sendStatus(400).end();
+        return next();
+    }
+    res.json({
+        name:req.body.name,
+        description:req.body.description,
+        tournament_type:req.body.tournament_type,
+        group_stage_type:req.body.group_stage_type,
+        final_stage_type:req.body.final_stage_type || "Nothing",
+        participants:req.body.participants
+    });
 });
 
 router.delete('/:id', (req, res, next) => {
