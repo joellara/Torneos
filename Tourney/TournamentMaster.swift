@@ -104,5 +104,8 @@ struct TournamentMaster : Decodable, Glossy {
             "api_key"~~>api_key!
             ])
     }
+    static func getTournaments(withId id:String)->[TournamentMaster]?{
+        return nil
+    }
 
 }
