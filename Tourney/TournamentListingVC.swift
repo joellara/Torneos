@@ -13,18 +13,24 @@ class TournamentListingVC:KeyboardViewController {
     var arrSingle = [TournamentMaster]()
     var arrTwo = [TournamentMaster]()
     let prefs = UserDefaults.standard
+    var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet var tournamentsTV: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupEmptyView()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: UIControlEvents.valueChanged)
+        self.tournamentsTV?.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.loadTournaments()
     }
-    
+    func refresh(_ sender:AnyObject){
+        self.loadTournaments()
+    }
     private func loadTournaments(){
         if let api = prefs.string(forKey: "api_key") {
             let params = ["api_key":api]
@@ -56,6 +62,9 @@ class TournamentListingVC:KeyboardViewController {
             self.arrSingle = [TournamentMaster]()
             self.arrTwo = [TournamentMaster]()
             self.tournamentsTV.reloadData()
+        }
+        if self.refreshControl.isRefreshing {
+            self.refreshControl.endRefreshing()
         }
     }
     
@@ -101,7 +110,7 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
             tableView.separatorStyle = .none
             tableView.backgroundView!.isHidden = false
         }else{
-            tableView.separatorStyle = .singleLineEtched
+            tableView.separatorStyle = .singleLine
             tableView.backgroundView!.isHidden = true
         }
         return count
