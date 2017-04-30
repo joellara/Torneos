@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
         return next();
     }
     TournamentMaster.find({
-        api_key: req.body.api_key
+        api_key: req.query.api_key
     }, (err, tournaments) => {
         if (err) {
             res.sendStatus(500).end();
