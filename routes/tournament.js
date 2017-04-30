@@ -118,10 +118,8 @@ router.delete('/:id', (req, res, next) => {
             } else {
                 let err = null;
                 tournaments.forEach((tournament, index, tournaments) => {
-                    tournament.remove((err) => {
-                        if (err) {
-                            err = err;
-                        }
+                    Tournament.findByIdAndRemove(tournament.id,(err,tournament)=>{
+                        if(err)err=err;
                     });
                 });
                 if (!err) {
@@ -129,14 +127,8 @@ router.delete('/:id', (req, res, next) => {
                         valid: true,
                         deleted: true
                     });
-                    TournamentMaster.find({
-                        api_key:req.body.api_key,
-                        _id:req.params.id
-                    },(err,tournament)=>{
+                    TournamentMaster.findByIdAndRemove(req.params.id,(err,tournamentM)=>{
                         if(err)console.log('Error finding master tournament in deletion');
-                        tournament.remove((err)=>{
-                            if(err)console.log('Error deleting master torunament');
-                        });
                     });
                 } else {
                     res.sendStatus(500).end();
