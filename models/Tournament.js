@@ -12,6 +12,10 @@ let TournamentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
+    api_key:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
+    },
     tournament_type: {
         type: String,
         enum: [single, double, rr],

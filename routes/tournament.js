@@ -57,6 +57,10 @@ router.post('/', (req, res, next) => {
 
 });
 
+function createDoubleStage(data, res) {
+
+}
+
 function createSingleStage(data, res) {
     var numParticipants = data.participants.length;
     let groupStage;
@@ -78,6 +82,7 @@ function createSingleStage(data, res) {
         parent_id: newTournamentMaster._id,
         tournament_type: data.group_stage_type,
         participants: data.participants,
+        api_key:data.api_key,
         data: {
             num_players: numParticipants,
             options: {},
@@ -109,7 +114,8 @@ router.delete('/:id', (req, res, next) => {
         return next();
     }
     Tournament.find({
-        parent_id: req.params.id
+        parent_id: req.params.id,
+        api_key:req.body.api_key
     }, (err, tournaments) => {
         if (err) {
             res.sendStatus(500).end();
@@ -119,8 +125,8 @@ router.delete('/:id', (req, res, next) => {
             } else {
                 let err = null;
                 tournaments.forEach((tournament, index, tournaments) => {
-                    Tournament.findByIdAndRemove(tournament.id,(err,tournament)=>{
-                        if(err)err=err;
+                    Tournament.findByIdAndRemove(tournament.id, (err, tournament) => {
+                        if (err) err = err;
                     });
                 });
                 if (!err) {
@@ -128,8 +134,8 @@ router.delete('/:id', (req, res, next) => {
                         valid: true,
                         deleted: true
                     });
-                    TournamentMaster.findByIdAndRemove(req.params.id,(err,tournamentM)=>{
-                        if(err)console.log('Error finding master tournament in deletion');
+                    TournamentMaster.findByIdAndRemove(req.params.id, (err, tournamentM) => {
+                        if (err) console.log('Error finding master tournament in deletion');
                     });
                 } else {
                     res.sendStatus(500).end();
