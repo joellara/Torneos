@@ -39,7 +39,7 @@ router.get('/exists/:id', (req, res, next) => {
         if (err){
             res.sendStatus(500).end();
         }else{
-            if(tournament !== null && tournament >= 1 ){
+            if(tournament !== null ){
                 res.json({
                     valid:true,
                     found:true,
