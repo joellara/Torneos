@@ -53,6 +53,7 @@ class TournamentListingVC:KeyboardViewController {
     
     let prefs = UserDefaults.standard
     var refreshControl = UIRefreshControl()
+    let reachability = Reachability()
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet var tournamentsTV: UITableView!
@@ -66,6 +67,7 @@ class TournamentListingVC:KeyboardViewController {
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: UIControlEvents.valueChanged)
         self.tournamentsTV?.addSubview(refreshControl)
+        try? reachability?.startNotifier()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,14 +75,19 @@ class TournamentListingVC:KeyboardViewController {
         self.loadTournaments()
 
     }
+    
     func refresh(_ sender:AnyObject){
-        self.loadTournaments()
+        if (reachability?.isReachable)! {
+            self.loadTournaments()
+        }else{
+            self.displayAlert(title: "Red", message: "Se necesita una conexión a internet")
+        }
     }
     func loadTournaments(){
         if let tournaments = self.prefs.object(forKey: "torneos") as? [[String:String]] {
             self.arrGuardados = tournaments
         }
-        if let api = prefs.string(forKey: "api_key") {
+        if let api = prefs.string(forKey: "api_key"), (reachability?.isReachable)! {
             let params = ["api_key":api]
             self.activity.isHidden = false
             self.activity.startAnimating()
@@ -104,6 +111,9 @@ class TournamentListingVC:KeyboardViewController {
                             }
                         }
                         self.tournamentsTV.reloadData()
+                        if self.refreshControl.isRefreshing {
+                            self.refreshControl.endRefreshing()
+                        }
                     }else{
                         print("couldn't parse")
                     }
@@ -113,10 +123,11 @@ class TournamentListingVC:KeyboardViewController {
             self.arrSingle = [TournamentMaster]()
             self.arrTwo = [TournamentMaster]()
             self.tournamentsTV.reloadData()
+            if self.refreshControl.isRefreshing {
+                self.refreshControl.endRefreshing()
+            }
         }
-        if self.refreshControl.isRefreshing {
-            self.refreshControl.endRefreshing()
-        }
+
     }
     
     @IBAction func addNewTournament(_ sender: UIBarButtonItem) {
@@ -142,6 +153,7 @@ class TournamentListingVC:KeyboardViewController {
             newView.label.text = "No hay torneos."
         }
         tournamentsTV.backgroundView = newView
+        tournamentsTV.backgroundView?.isHidden = true
     }
 }
 
@@ -192,8 +204,12 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
             if arrSingle.count == 0 {
                 return nil
             }
-        }else{
+        }else if section == 1{
             if arrTwo.count == 0 {
+                return nil
+            }
+        }else{
+            if arrGuardados.count == 0 {
                 return nil
             }
         }
@@ -286,7 +302,7 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
         case 1:
             id = arrTwo[indexPath.row].groupStageID!
         case 2:
-            id = arrGuardados[indexPath.section]["group_id"]
+            id = arrGuardados[indexPath.row]["group_id"]
         default:
             break
         }

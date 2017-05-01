@@ -26,14 +26,9 @@ class TwoStageVC: KeyboardViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         try? reachability?.startNotifier() ?? print("No se pudo iniciar reachability")
-        self.monitorNetwork()
     }
 
-    private func monitorNetwork (){
-        reachability?.whenUnreachable = { reachability in
-            print("Not reachable")
-        }
-    }
+
     
     @IBAction func toBrackets(_ sender: UIButton) {
         self.tournamentMaster.groupStage = self.groupStage
