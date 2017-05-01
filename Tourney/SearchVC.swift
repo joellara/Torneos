@@ -47,7 +47,7 @@ class SearchVC: KeyboardViewController {
                 self.activity.startAnimating()
                 self.activity.isHidden = false
                 
-                var stringUrl = "https://tourneyserver.herokuapp.com/tournament/exists/".appending(self.tournamentID.text!)
+                var stringUrl = "https://tourneyserver.herokuapp.com/tournament/master/".appending(self.tournamentID.text!)
                 stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
                 Alamofire.request(stringUrl, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
                     
@@ -61,12 +61,12 @@ class SearchVC: KeyboardViewController {
                                 var storedTournaments = self.prefs.object(forKey: "torneos") as? [[String:String]] ?? [[String:String]]()
                                 var found = false
                                 for tournament in storedTournaments {
-                                    if tournament["id"] == res.id! {
+                                    if tournament["id"] == res.tournament!._id {
                                         found = true
                                     }
                                 }
                                 if !found {
-                                    let new = ["name":res.name!,"id":res.id!]
+                                    let new = ["name":res.tournament!.name,"id":res.tournament!._id!]
                                     storedTournaments.append(new)
                                     self.prefs.set(storedTournaments, forKey: "torneos")
                                     self.prefs.synchronize()

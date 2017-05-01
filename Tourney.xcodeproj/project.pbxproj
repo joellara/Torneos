@@ -107,6 +107,7 @@
 		A9F6C3AD1EB51FA9000601EA /* Tourney */ = {
 			isa = PBXGroup;
 			children = (
+				A9F6C3EF1EB6C8AD000601EA /* Super Class */,
 				A9F6C3DF1EB52116000601EA /* Models */,
 				A9F6C3DE1EB52111000601EA /* Views */,
 				A9F6C3CC1EB520AD000601EA /* VC */,
@@ -143,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				A9F6C3D51EB520CC000601EA /* TournamentCreation */,
-				A9F6C3CD1EB520B8000601EA /* KeyboardViewController.swift */,
 				A9F6C3ED1EB690E4000601EA /* HelpVC.swift */,
 				A9F6C3CF1EB520C0000601EA /* TournamentListingVC.swift */,
 				A9F6C3D01EB520C0000601EA /* BracketsVC.swift */,
@@ -182,6 +182,14 @@
 				A9F6C3EA1EB56112000601EA /* TournamentMaster.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		A9F6C3EF1EB6C8AD000601EA /* Super Class */ = {
+			isa = PBXGroup;
+			children = (
+				A9F6C3CD1EB520B8000601EA /* KeyboardViewController.swift */,
+			);
+			name = "Super Class";
 			sourceTree = "<group>";
 		};
 		CDAFB52F357332457A0BE9F5 /* Pods */ = {

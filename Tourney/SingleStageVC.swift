@@ -91,11 +91,11 @@ extension SingleStageVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch row {
         case 0:
-            self.tournament.format = Tournament.tournament_format.singleElimination
+            self.tournament.tournament_type = Tournament.tournament_format.singleElimination
         case 1:
-            self.tournament.format = Tournament.tournament_format.doubleElimination
+            self.tournament.tournament_type = Tournament.tournament_format.doubleElimination
         case 2:
-            self.tournament.format = Tournament.tournament_format.roundRobin
+            self.tournament.tournament_type = Tournament.tournament_format.roundRobin
         default:
             break
         }

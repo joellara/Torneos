@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import Gloss
+import ReachabilitySwift
 
 struct deleteTournament : Decodable {
     var valid:Bool
@@ -21,6 +22,26 @@ struct deleteTournament : Decodable {
         }
         self.valid = valid
         self.deleted = deleted
+    }
+}
+
+struct stateTournament:Decodable{
+    var valid:Bool
+    var found:Bool
+    var message:String?
+    var tournament:Tournament?
+    init?(json: JSON) {
+        guard let valid:Bool = "valid" <~~ json,
+            let found:Bool = "found" <~~ json else {
+                return nil
+        }
+        self.valid = valid
+        self.found = found
+        if self.found {
+            guard let tourn:Tournament = "tournament" <~~ json else { return nil }
+            self.tournament = tourn
+        }
+        self.message = "message" <~~ json
     }
 }
 
@@ -71,7 +92,10 @@ class TournamentListingVC:KeyboardViewController {
                 if response.response?.statusCode == 200 {
                     self.arrSingle = [TournamentMaster]()
                     self.arrTwo = [TournamentMaster]()
-                    if let json = response.result.value, let jsonArr = json as? [String:Any], let tournamentArr = jsonArr["tournaments"] as? [[String:Any]], let tournaments = [TournamentMaster].from(jsonArray: tournamentArr){
+                    if let json = response.result.value,
+                        let jsonArr = json as? [String:Any],
+                        let tournamentArr = jsonArr["tournaments"] as? [JSON],
+                        let tournaments = [TournamentMaster].from(jsonArray: tournamentArr){
                         for tournament in tournaments {
                             if tournament.tournamentType == .singleStage {
                                 self.arrSingle.append(tournament)
@@ -251,6 +275,40 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
             deleteAlert.addAction(deleteAction)
             present(deleteAlert, animated: true, completion: nil)
             
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var id:String?
+        switch indexPath.section {
+        case 0:
+            id = arrSingle[indexPath.row].groupStageID!
+        case 1:
+            id = arrTwo[indexPath.row].groupStageID!
+        case 2:
+            id = arrGuardados[indexPath.section]["id"]
+        default:
+            break
+        }
+        if id != nil {
+            var stringUrl = "https://tourneyserver.herokuapp.com/tournament/".appending(id!)
+            stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+            Alamofire.request(stringUrl, method:.get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+                if response.response?.statusCode == 200 {
+                    if let json = response.result.value, let jsonArr = json as? JSON, let res = stateTournament(json: jsonArr) {
+                        if res.valid && res.found {
+//                            print(res.tournament!)
+                        }else{
+                            print("Should happen, but not found")
+                        }
+                    }else{
+                        self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
+                    }
+                }else{
+                    self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
+                }
+            }
         }
     }
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {

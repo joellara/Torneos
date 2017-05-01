@@ -25,18 +25,19 @@ struct createNewTournament : Decodable {
 struct rSearchTournament :  Decodable {
     var valid:Bool
     var found:Bool
-    var id:String?
-    var name:String?
     var message:String?
+    var tournament:TournamentMaster?
     
     init?(json: JSON) {
         guard let valid:Bool = "valid" <~~ json,
             let found:Bool = "found" <~~ json else {
                 return nil
         }
-        self.id = "id" <~~ json
+        if found {
+            guard let tourn:TournamentMaster = "tournament" <~~ json else { return nil }
+            self.tournament = tourn
+        }
         self.message = "message" <~~ json
-        self.name = "name" <~~ json
         self.valid = valid
         self.found = found
     }
@@ -53,9 +54,6 @@ struct TournamentMaster : Decodable, Glossy {
     var groupStage:Tournament?
     var finalStage:Tournament?
     var participants:[String]?
-    
-    
-    
     
     enum tournament_type:String {
         case singleStage = "single_stage"
@@ -88,11 +86,13 @@ struct TournamentMaster : Decodable, Glossy {
         self.game = game
         self.tournamentType = tournament_type
         self.groupStageID = group_stage_id
-        self.finalStageID = "final_stage_id" <~~ json
+        if tournament_type == .twoStage {
+            guard let final:String = "final_stage_id" <~~ json else { return nil }
+            self.finalStageID = final
+        }
         self.groupStage = nil
         self.finalStage = nil
         self.participants = nil
-
     }
     
     init(name:String,tournamentType:TournamentMaster.tournament_type,game:String,description:String) {
@@ -120,6 +120,7 @@ struct TournamentMaster : Decodable, Glossy {
         }
         return true
     }
+    
     func toJSON() -> JSON? {
         guard self.isValidToSend() else {
             return nil
@@ -132,8 +133,8 @@ struct TournamentMaster : Decodable, Glossy {
             "tournament_type" ~~> self.tournamentType.rawValue,
             "participants" ~~> self.participants!,
             "game" ~~> self.game,
-            "final_stage_type" ~~> self.finalStage?.format,
-            "group_stage_type" ~~> self.groupStage?.format,
+            "final_stage_type" ~~> self.finalStage?.tournament_type,
+            "group_stage_type" ~~> self.groupStage?.tournament_type,
             "api_key"~~>api_key!
             ])
     }

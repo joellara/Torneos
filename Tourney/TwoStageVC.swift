@@ -91,21 +91,21 @@ extension TwoStageVC: UIPickerViewDataSource, UIPickerViewDelegate  {
         if pickerView.tag == 0 {
             switch row {
             case 0:
-                self.groupStage.format = Tournament.tournament_format.singleElimination
+                self.groupStage.tournament_type = Tournament.tournament_format.singleElimination
             case 1:
-                self.groupStage.format = Tournament.tournament_format.doubleElimination
+                self.groupStage.tournament_type = Tournament.tournament_format.doubleElimination
             case 2:
-                self.groupStage.format = Tournament.tournament_format.roundRobin            default:
+                self.groupStage.tournament_type = Tournament.tournament_format.roundRobin            default:
                 break
             }
         }else{
             switch row {
             case 0:
-                self.finalStage.format = Tournament.tournament_format.singleElimination
+                self.finalStage.tournament_type = Tournament.tournament_format.singleElimination
             case 1:
-                self.finalStage.format = Tournament.tournament_format.doubleElimination
+                self.finalStage.tournament_type = Tournament.tournament_format.doubleElimination
             case 2:
-                self.finalStage.format = Tournament.tournament_format.roundRobin
+                self.finalStage.tournament_type = Tournament.tournament_format.roundRobin
             default:
                 break
             }
