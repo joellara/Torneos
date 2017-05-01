@@ -30,16 +30,10 @@ class SignInVC: KeyboardViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         try? reachability?.startNotifier() ?? print("No se pudo iniciar reachability")
-        self.monitorNetwork()
-        // Do any additional setup after loading the view.
+
     }
     
-    private func monitorNetwork (){
-        reachability?.whenUnreachable = { reachability in
-            print("Not reachable")
-        }
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -82,7 +76,6 @@ class SignInVC: KeyboardViewController {
         
         let parameters = ["email":email,"password":password]
         Alamofire.request("https://tourneyserver.herokuapp.com/auth/login/",method:.post,parameters:parameters,encoding:JSONEncoding.default).responseJSON { response in
-            
             
             if response.response?.statusCode == 200 {
                 if let json = response.result.value, let jsonArr = json as? [String:Any], let user = UserSignIn(json: jsonArr){

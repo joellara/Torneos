@@ -26,11 +26,8 @@ class SearchVC: KeyboardViewController {
         let navImag = UIImage(named: "logoNav")
         self.navigationItem.titleView = UIImageView(image: navImag)
         try? reachability?.startNotifier() ?? print("No se pudo iniciar reachability")
-        self.monitorNetwork()
     }
-    private func monitorNetwork(){
-        
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
