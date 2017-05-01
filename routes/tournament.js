@@ -6,6 +6,8 @@ var path = require('path'),
 var router = express.Router();
 var TournamentMaster = require(path.join(__dirname, '../models/TournamentMaster.js'));
 var Tournament = require(path.join(__dirname, '../models/Tournament.js'));
+
+
 router.get('/', (req, res, next) => {
     if (typeof req.query === "undefined" || typeof req.query.api_key === "undefined") {
         res.sendStatus(400).end();
@@ -25,7 +27,31 @@ router.get('/', (req, res, next) => {
     });
 });
 router.get('/:id', (req, res, next) => {
-
+    if (typeof req.params.id === "undefined" || typeof req.body.api_key === "undefined") {
+        res.sendStatus(400).end();
+        return next();
+    }
+    Tournament.find({
+        _id: req.params.id
+    }, (err, tournament) => {
+        if (err) {
+            res.sendStatus(500).end();
+        } else {
+            if (tournament !== null) {
+                res.json({
+                    valid: true,
+                    found: true,
+                    tournament: tournament
+                });
+            } else {
+                res.json({
+                    valid: true,
+                    found: false,
+                    message: "No se encontro el torneo."
+                });
+            }
+        }
+    });
 });
 
 router.get('/exists/:id', (req, res, next) => {
@@ -34,23 +60,23 @@ router.get('/exists/:id', (req, res, next) => {
         return next();
     }
     TournamentMaster.findOne({
-        _id:req.params.id
+        _id: req.params.id
     }, (err, tournament) => {
-        if (err){
+        if (err) {
             res.sendStatus(500).end();
-        }else{
-            if(tournament !== null ){
+        } else {
+            if (tournament !== null) {
                 res.json({
-                    valid:true,
-                    found:true,
+                    valid: true,
+                    found: true,
                     id: req.params.id,
-                    name:tournament.name
+                    name: tournament.name
                 });
-            }else{
+            } else {
                 res.json({
-                    valid:true,
-                    found:false,
-                    message:"No se encontró el torneo."
+                    valid: true,
+                    found: false,
+                    message: "No se encontró el torneo."
                 });
             }
         }
