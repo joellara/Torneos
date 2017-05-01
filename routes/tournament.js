@@ -28,7 +28,34 @@ router.get('/:id', (req, res, next) => {
 
 });
 
-
+router.get('/exists/:id', (req, res, next) => {
+    if (typeof req.body === "undefined" || typeof req.params.id === "undefined") {
+        res.sendStatus(400).end();
+        return next();
+    }
+    TournamentMaster.findOne({
+        _id:req.params.id
+    }, (err, tournament) => {
+        if (err){
+            res.sendStatus(500).end();
+        }else{
+            if(tournament !== null && tournament >= 1 ){
+                res.json({
+                    valid:true,
+                    found:true,
+                    id: req.params.id,
+                    name:tournament.name
+                });
+            }else{
+                res.json({
+                    valid:true,
+                    found:false,
+                    message:"No se encontró el torneo."
+                });
+            }
+        }
+    });
+});
 /*
  * @param api_key
  * @param name Tournament Name
@@ -59,7 +86,6 @@ router.post('/', (req, res, next) => {
 
 function createDoubleStage(data, res) {
     var numParticipants = data.participants.length;
-    var numParticipants = data.participants.length;
     let groupStage;
     if (data.group_stage_type === "single_elimination") {
         groupStage = new Duel(numParticipants);
@@ -87,7 +113,7 @@ function createDoubleStage(data, res) {
         parent_id: newTournamentMaster._id,
         tournament_type: data.group_stage_type,
         participants: data.participants,
-        api_key:data.api_key,
+        api_key: data.api_key,
         data: {
             num_players: numParticipants,
             options: {},
@@ -99,7 +125,7 @@ function createDoubleStage(data, res) {
         parent_id: newTournamentMaster._id,
         tournament_type: data.final_stage_type,
         participants: [],
-        api_key:data.api_key,
+        api_key: data.api_key,
         data: {
             num_players: numParticipants,
             options: {},
@@ -117,11 +143,11 @@ function createDoubleStage(data, res) {
                 if (err) {
                     res.sendStatus(500).end();
                 } else {
-                    finalStageTournament.save((err)=>{
+                    finalStageTournament.save((err) => {
                         if (err) {
                             res.sendStatus(500).end();
                         } else {
-                                res.json({
+                            res.json({
                                 valid: true,
                                 created: true
                             });
@@ -154,7 +180,7 @@ function createSingleStage(data, res) {
         parent_id: newTournamentMaster._id,
         tournament_type: data.group_stage_type,
         participants: data.participants,
-        api_key:data.api_key,
+        api_key: data.api_key,
         data: {
             num_players: numParticipants,
             options: {},
@@ -187,7 +213,7 @@ router.delete('/:id', (req, res, next) => {
     }
     Tournament.find({
         parent_id: req.params.id,
-        api_key:req.body.api_key
+        api_key: req.body.api_key
     }, (err, tournaments) => {
         if (err) {
             res.sendStatus(500).end();
