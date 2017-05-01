@@ -12,9 +12,9 @@ let TournamentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    api_key:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true
+    api_key: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     },
     tournament_type: {
         type: String,
@@ -30,27 +30,11 @@ let TournamentSchema = new mongoose.Schema({
         default: false
     },
     data: {
-        num_players: {
-            type: Number,
-            required: true
-        },
-        /*
-        options: {
-            last: {
-                type: Number,
-                default: 1 //1 = single elimination, 2 =  double elimination
-            }
-        },
-        */
-        state: {
-            type: mongoose.Schema.Types.Mixed,
-            required: true
-        },
-        metadata: {
-            type: mongoose.Schema.Types.Mixed,
-            required: true
-        }
-    }
+        num_players: Number,
+        state:mongoose.Schema.Types.Mixed,
+        metadata:  mongoose.Schema.Types.Mixed,
+    },
+    matches:mongoose.Schema.Types.Mixed
 });
 
 

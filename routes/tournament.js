@@ -2,7 +2,8 @@
 var path = require('path'),
     express = require('express'),
     Duel = require('duel'),
-    GroupStage = require('groupstage');
+    GroupStage = require('groupstage'),
+    _ = require('underscore');
 var router = express.Router();
 var TournamentMaster = require(path.join(__dirname, '../models/TournamentMaster.js'));
 var Tournament = require(path.join(__dirname, '../models/Tournament.js'));
@@ -31,13 +32,33 @@ router.get('/:id', (req, res, next) => {
         res.sendStatus(400).end();
         return next();
     }
-    Tournament.find({
+    Tournament.findOne({
         _id: req.params.id
     }, (err, tournament) => {
         if (err) {
             res.sendStatus(500).end();
         } else {
             if (tournament !== null) {
+                let tourn;
+                if (!tournament.started) {
+                    if (tournament.tournament_type === "single_elimination") {
+                        tourn = new Duel(tournament.data.num_players, { short: true });
+                    } else if (tournament.tournament_type === "double_elimination") {
+                        tourn = new Duel(tournament.data.num_players, { last: 2, short: true });
+                    } else { //Round Robin
+                        tourn = GroupStage(tournament.data.num_players);
+                    }
+                } else {
+                    if (tournament.tournament_type === "single_elimination") {
+                        tourn = Duel.restore(tournament.data.num_players, tournament.data.state, { short: true }, tournament.data.metadata);
+                    } else if (tournament.tournament_type === "double_elimination") {
+                        tourn = Duel.restore(tournament.data.num_players, tournament.data.state, { last: 2, short: true }, tournament.data.metadata);
+                    } else { //Round Robin
+                        tourn = GroupStage.restore(tournament.data.num_players, tournament.data.state, {}, tournament.data.metadata);
+                    }
+                }
+                tournament.data = {};
+                tournament.matches = tourn.matches;
                 res.json({
                     valid: true,
                     found: true,
@@ -114,19 +135,11 @@ function createDoubleStage(data, res) {
     var numParticipants = data.participants.length;
     let groupStage;
     if (data.group_stage_type === "single_elimination") {
-        groupStage = new Duel(numParticipants);
+        groupStage = new Duel(numParticipants, { short: true });
     } else if (data.group_stage_type === "double_elimination") {
-        groupStage = new Duel(numParticipants, { last: 2 });
+        groupStage = new Duel(numParticipants, { last: 2, short: true });
     } else { //Round Robin
         groupStage = GroupStage(numParticipants);
-    }
-    let finalStage;
-    if (data.final_stage_type === "single_elimination") {
-        finalStage = new Duel(numParticipants);
-    } else if (data.final_stage_type === "double_elimination") {
-        finalStage = new Duel(numParticipants, { last: 2 });
-    } else { //Round Robin
-        finalStage = GroupStage(numParticipants);
     }
     let newTournamentMaster = new TournamentMaster({
         name: data.name,
@@ -150,12 +163,7 @@ function createDoubleStage(data, res) {
         parent_id: newTournamentMaster._id,
         tournament_type: data.final_stage_type,
         participants: [],
-        api_key: data.api_key,
-        data: {
-            num_players: numParticipants,
-            state: groupStage.state.slice(),
-            metadata: groupStage.metadata()
-        }
+        api_key: data.api_key
     });
     newTournamentMaster.group_stage_id = groupStageTournament._id;
     newTournamentMaster.final_stage_id = finalStageTournament._id;
@@ -187,9 +195,9 @@ function createSingleStage(data, res) {
     var numParticipants = data.participants.length;
     let groupStage;
     if (data.group_stage_type === "single_elimination") {
-        groupStage = new Duel(numParticipants);
+        groupStage = new Duel(numParticipants, { short: true });
     } else if (data.group_stage_type === "double_elimination") {
-        groupStage = new Duel(numParticipants, { last: 2 });
+        groupStage = new Duel(numParticipants, { last: 2, short: true });
     } else { //Round Robin
         groupStage = GroupStage(numParticipants);
     }
