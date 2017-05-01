@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
     });
 });
 router.get('/:id', (req, res, next) => {
-    if (typeof req.params.id === "undefined" || typeof req.body.api_key === "undefined") {
+    if (typeof req.params.id === "undefined") {
         res.sendStatus(400).end();
         return next();
     }
@@ -142,7 +142,6 @@ function createDoubleStage(data, res) {
         api_key: data.api_key,
         data: {
             num_players: numParticipants,
-            options: {},
             state: groupStage.state.slice(),
             metadata: groupStage.metadata()
         }
@@ -154,7 +153,6 @@ function createDoubleStage(data, res) {
         api_key: data.api_key,
         data: {
             num_players: numParticipants,
-            options: {},
             state: groupStage.state.slice(),
             metadata: groupStage.metadata()
         }

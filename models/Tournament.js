@@ -34,12 +34,14 @@ let TournamentSchema = new mongoose.Schema({
             type: Number,
             required: true
         },
+        /*
         options: {
             last: {
                 type: Number,
                 default: 1 //1 = single elimination, 2 =  double elimination
             }
         },
+        */
         state: {
             type: mongoose.Schema.Types.Mixed,
             required: true
