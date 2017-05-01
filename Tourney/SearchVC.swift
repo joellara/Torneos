@@ -66,7 +66,7 @@ class SearchVC: KeyboardViewController {
                                     }
                                 }
                                 if !found {
-                                    let new = ["name":res.tournament!.name,"id":res.tournament!._id!]
+                                    let new = ["name":res.tournament!.name,"id":res.tournament!._id!,"group_id":res.tournament!.groupStageID!]
                                     storedTournaments.append(new)
                                     self.prefs.set(storedTournaments, forKey: "torneos")
                                     self.prefs.synchronize()

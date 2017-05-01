@@ -215,7 +215,6 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             
-            
             let deleteAlert = UIAlertController(title: "Borrar", message: "¿Está seguro que desea borrar este torneo?", preferredStyle: .alert)
             let closeAction = UIAlertAction(title: "No" , style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Borrar", style: .destructive, handler: { action in
@@ -287,7 +286,7 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
         case 1:
             id = arrTwo[indexPath.row].groupStageID!
         case 2:
-            id = arrGuardados[indexPath.section]["id"]
+            id = arrGuardados[indexPath.section]["group_id"]
         default:
             break
         }
