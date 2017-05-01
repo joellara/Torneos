@@ -28,6 +28,8 @@ struct deleteTournament : Decodable {
 class TournamentListingVC:KeyboardViewController {
     var arrSingle = [TournamentMaster]()
     var arrTwo = [TournamentMaster]()
+    var arrGuardados = [[String:String]]()
+    
     let prefs = UserDefaults.standard
     var refreshControl = UIRefreshControl()
     
@@ -54,6 +56,9 @@ class TournamentListingVC:KeyboardViewController {
         self.loadTournaments()
     }
     func loadTournaments(){
+        if let tournaments = self.prefs.object(forKey: "torneos") as? [[String:String]] {
+            self.arrGuardados = tournaments
+        }
         if let api = prefs.string(forKey: "api_key") {
             let params = ["api_key":api]
             self.activity.isHidden = false
@@ -120,8 +125,9 @@ class TournamentListingVC:KeyboardViewController {
 
 extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
     
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -131,15 +137,17 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
             count =  arrSingle.count
         case 1:
             count =  arrTwo.count
+        case 2:
+            count = arrGuardados.count
         default:
             break
         }
-        if count == 0 {
+        if arrSingle.count == 0 && arrTwo.count == 0 && arrGuardados.count == 0{
             tableView.separatorStyle = .none
-            tableView.backgroundView!.isHidden = false
-        }else{
+            tableView.backgroundView?.isHidden = false
+        } else {
             tableView.separatorStyle = .singleLine
-            tableView.backgroundView!.isHidden = true
+            tableView.backgroundView?.isHidden = true
         }
         return count
     }
@@ -148,8 +156,10 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
         let celda = tableView.dequeueReusableCell(withIdentifier: "celda", for: indexPath)
         if indexPath.section == 0 {
             celda.textLabel?.text = arrSingle[indexPath.row].name
-        }else{
+        }else if indexPath.section == 1{
             celda.textLabel?.text = arrTwo[indexPath.row].name
+        }else{
+            celda.textLabel?.text = arrGuardados[indexPath.row]["name"]
         }
         return celda
     }
@@ -165,9 +175,11 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
         }
         switch section {
         case 0:
-            return "Single Stage"
+            return "Una etapa"
         case 1:
-            return "Two Stage"
+            return "Dos etapas"
+        case 2:
+            return "Torneos guardados"
         default:
             return ""
         }
@@ -178,43 +190,60 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            // handle delete (by removing the data from your array and updating the tableview)
+            
+            
             let deleteAlert = UIAlertController(title: "Borrar", message: "¿Está seguro que desea borrar este torneo?", preferredStyle: .alert)
             let closeAction = UIAlertAction(title: "No" , style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Borrar", style: .destructive, handler: { action in
-                self.addBtn.isEnabled = false
-                self.searchBtn.isEnabled = false
-                self.profileBtn.isEnabled = false
-                self.activity.isHidden = false
-                self.activity.startAnimating()
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
-                let api = self.prefs.string(forKey: "api_key")!
-                let tournament:TournamentMaster
-                if indexPath.section == 0 {
-                    tournament = self.arrSingle[indexPath.row]
+                if indexPath.section == 2 {
+                    if var storedTournaments = self.prefs.object(forKey: "torneos") as? [[String:String]] {
+                        for i in 0 ..< storedTournaments.count {
+                            if storedTournaments[i]["id"] == self.arrGuardados[indexPath.row]["id"] {
+                                storedTournaments.remove(at: i)
+                                break
+                            }
+                        }
+                        self.prefs.set(storedTournaments, forKey: "torneos")
+                        self.prefs.synchronize()
+                        self.arrGuardados = storedTournaments
+                        self.tournamentsTV.reloadData()
+                    }
                 }else{
-                    tournament = self.arrTwo[indexPath.row]
-                }
-                let params = ["api_key":api]
-                var stringUrl = "https://tourneyserver.herokuapp.com/tournament/".appending(tournament._id!)
-                stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-                Alamofire.request(stringUrl, method: .delete, parameters: params ,encoding:JSONEncoding.default).responseJSON{ response in
-                    self.addBtn.isEnabled = true
-                    self.searchBtn.isEnabled = true
-                    self.profileBtn.isEnabled = true
-                    self.activity.isHidden = true
-                    self.activity.stopAnimating()
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    if response.response?.statusCode == 200 {
-                        if let json = response.result.value, let jsonArr = json as? JSON, let res = deleteTournament(json: jsonArr) {
-                            if res.valid && res.deleted {
-                                self.loadTournaments()
+                    self.addBtn.isEnabled = false
+                    self.searchBtn.isEnabled = false
+                    self.profileBtn.isEnabled = false
+                    self.activity.isHidden = false
+                    self.activity.startAnimating()
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                    let api = self.prefs.string(forKey: "api_key")!
+                    let tournament:TournamentMaster
+                    if indexPath.section == 0 {
+                        tournament = self.arrSingle[indexPath.row]
+                    }else{
+                        tournament = self.arrTwo[indexPath.row]
+                    }
+                    let params = ["api_key":api]
+                    var stringUrl = "https://tourneyserver.herokuapp.com/tournament/".appending(tournament._id!)
+                    stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                    Alamofire.request(stringUrl, method: .delete, parameters: params ,encoding:JSONEncoding.default).responseJSON{ response in
+                        self.addBtn.isEnabled = true
+                        self.searchBtn.isEnabled = true
+                        self.profileBtn.isEnabled = true
+                        self.activity.isHidden = true
+                        self.activity.stopAnimating()
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        if response.response?.statusCode == 200 {
+                            if let json = response.result.value, let jsonArr = json as? JSON, let res = deleteTournament(json: jsonArr) {
+                                if res.valid && res.deleted {
+                                    print("Se borro")
+                                }
+                            }else{
+                                self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
                             }
                         }else{
                             self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
                         }
-                    }else{
-                         self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
+                        self.loadTournaments()
                     }
                 }
             })

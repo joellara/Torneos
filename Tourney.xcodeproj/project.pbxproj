@@ -30,6 +30,7 @@
 		A9F6C3E81EB52128000601EA /* EmptyStateV.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3E61EB52128000601EA /* EmptyStateV.swift */; };
 		A9F6C3E91EB52128000601EA /* EmptyStateV.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9F6C3E71EB52128000601EA /* EmptyStateV.xib */; };
 		A9F6C3EB1EB56112000601EA /* TournamentMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3EA1EB56112000601EA /* TournamentMaster.swift */; };
+		A9F6C3EE1EB690E4000601EA /* HelpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F6C3ED1EB690E4000601EA /* HelpVC.swift */; };
 		FAB1B15ACEA4B5C814BACD6A /* Pods_Tourney.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AEDC40A4FDD8D068E76370 /* Pods_Tourney.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		A9F6C3E61EB52128000601EA /* EmptyStateV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyStateV.swift; sourceTree = "<group>"; };
 		A9F6C3E71EB52128000601EA /* EmptyStateV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyStateV.xib; sourceTree = "<group>"; };
 		A9F6C3EA1EB56112000601EA /* TournamentMaster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentMaster.swift; sourceTree = "<group>"; };
+		A9F6C3ED1EB690E4000601EA /* HelpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpVC.swift; sourceTree = "<group>"; };
 		F4B771E77664A50F8B9336AF /* Pods-Tourney.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tourney.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tourney/Pods-Tourney.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 			children = (
 				A9F6C3D51EB520CC000601EA /* TournamentCreation */,
 				A9F6C3CD1EB520B8000601EA /* KeyboardViewController.swift */,
+				A9F6C3ED1EB690E4000601EA /* HelpVC.swift */,
 				A9F6C3CF1EB520C0000601EA /* TournamentListingVC.swift */,
 				A9F6C3D01EB520C0000601EA /* BracketsVC.swift */,
 				A9F6C3D11EB520C0000601EA /* SearchVC.swift */,
@@ -316,6 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9F6C3D31EB520C0000601EA /* BracketsVC.swift in Sources */,
+				A9F6C3EE1EB690E4000601EA /* HelpVC.swift in Sources */,
 				A9F6C3C81EB5209F000601EA /* InfoVC.swift in Sources */,
 				A9F6C3C71EB5209F000601EA /* ProfileVC.swift in Sources */,
 				A9F6C3B11EB51FA9000601EA /* ViewController.swift in Sources */,

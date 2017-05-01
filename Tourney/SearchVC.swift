@@ -7,30 +7,97 @@
 //
 
 import UIKit
+import ReachabilitySwift
+import Alamofire
+import Gloss
 
-class SearchVC: UIViewController {
 
+class SearchVC: KeyboardViewController {
+
+    @IBOutlet weak var tournamentID: UITextField!
+    let reachability = Reachability()
+    let prefs = UserDefaults.standard
+    
+    @IBOutlet weak var searchBtn: UIButton!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let navImag = UIImage(named: "logoNav")
         self.navigationItem.titleView = UIImageView(image: navImag)
-        // Do any additional setup after loading the view.
+        try? reachability?.startNotifier() ?? print("No se pudo iniciar reachability")
+        self.monitorNetwork()
     }
-
+    private func monitorNetwork(){
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func searchTournament(_ sender: UIButton) {
+        if !(reachability?.isReachable)! {
+            self.displayAlert(title: "Red", message: "Se necesita una conexión de red para poder crear el torneo")
+        }else{
+            if (self.tournamentID.text?.isEmpty)! {
+                self.displayAlert(title: "Error", message: "Ingresa un id")
+            }else{
+                self.searchBtn.isEnabled = false
+                self.activity.startAnimating()
+                self.activity.isHidden = false
+                
+                var stringUrl = "https://tourneyserver.herokuapp.com/tournament/exists/".appending(self.tournamentID.text!)
+                stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+                Alamofire.request(stringUrl, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+                    
+                    self.searchBtn.isEnabled = true
+                    self.activity.stopAnimating()
+                    self.activity.isHidden = true
+                    
+                    if response.response?.statusCode == 200 {
+                        if let json = response.result.value, let jsonArr = json as? JSON, let res = rSearchTournament(json: jsonArr) {
+                            if res.valid && res.found {
+                                var storedTournaments = self.prefs.object(forKey: "torneos") as? [[String:String]] ?? [[String:String]]()
+                                var found = false
+                                for tournament in storedTournaments {
+                                    if tournament["id"] == res.id! {
+                                        found = true
+                                    }
+                                }
+                                if !found {
+                                    let new = ["name":res.name!,"id":res.id!]
+                                    storedTournaments.append(new)
+                                    self.prefs.set(storedTournaments, forKey: "torneos")
+                                    self.prefs.synchronize()
+                                    self.displayAlert(title: ":)", message: "Se ha agregado el torneo")
+                                    let searchAlert = UIAlertController(title: ":)", message: "Se ha agregado el torneo", preferredStyle: .alert)
+                                    let okAction = UIAlertAction(title: "OK" , style: .default){ action in
+                                        if let navigator = self.navigationController {
+                                            navigator.popToRootViewController(animated: true)
+                                        }else{
+                                            print("No navigator")
+                                        }
+                                        
+                                    }
+                                    searchAlert.addAction(okAction)
+                                    self.present(searchAlert, animated: true, completion: nil)
+                                }else{
+                                    self.displayAlert(title: ":)", message: "Ya está agregado el torneo")
+                                }
+                                
+                            }else{
+                                self.displayAlert(title: ":(", message: res.message!)
+                            }
+                        }else{
+                            self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
+                        }
+                    }else{
+                        self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
+                    }
+                }
+            }
+        }
     }
-    */
-
+    
 }

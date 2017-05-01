@@ -12,18 +12,6 @@ import Gloss
 import ReachabilitySwift
 
 
-struct createNewTournament : Decodable {
-    var valid:Bool
-    var created:Bool
-    init?(json: JSON) {
-        guard let valid:Bool = "valid" <~~ json,
-            let created:Bool = "created" <~~ json else {
-            return nil
-        }
-        self.valid = valid
-        self.created = created
-    }
-}
 
 
 class SingleStageVC: KeyboardViewController {

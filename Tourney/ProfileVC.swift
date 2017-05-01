@@ -15,6 +15,7 @@ class ProfileVC: UIViewController {
 
     @IBOutlet weak var signBtn: UIButton!
     
+    @IBOutlet weak var profileTxt: UILabel!
     private let prefs = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -28,7 +29,14 @@ class ProfileVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     override func viewWillAppear(_ animated: Bool) {
-        checkState()
+        self.checkState()
+        if let name = prefs.string(forKey: "user_name") {
+            self.profileTxt.text = name
+            self.profileTxt.isHidden = false
+        }else{
+            self.profileTxt.isHidden = true
+        }
+        
         self.navigationController?.setToolbarHidden(true, animated: false)
     }
     
@@ -57,6 +65,8 @@ class ProfileVC: UIViewController {
         prefs.set(nil, forKey: "user_email")
         prefs.synchronize()
         self.signBtn.setTitle("Iniciar sesión", for: .normal)
+        self.profileTxt.isHidden = true
+        self.profileTxt.text = ""
         
     }
     override func viewWillDisappear(_ animated: Bool) {

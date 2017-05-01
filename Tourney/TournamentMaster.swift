@@ -9,6 +9,39 @@
 import Foundation
 import Gloss
 
+struct createNewTournament : Decodable {
+    var valid:Bool
+    var created:Bool
+    init?(json: JSON) {
+        guard let valid:Bool = "valid" <~~ json,
+            let created:Bool = "created" <~~ json else {
+                return nil
+        }
+        self.valid = valid
+        self.created = created
+    }
+}
+
+struct rSearchTournament :  Decodable {
+    var valid:Bool
+    var found:Bool
+    var id:String?
+    var name:String?
+    var message:String?
+    
+    init?(json: JSON) {
+        guard let valid:Bool = "valid" <~~ json,
+            let found:Bool = "found" <~~ json else {
+                return nil
+        }
+        self.id = "id" <~~ json
+        self.message = "message" <~~ json
+        self.name = "name" <~~ json
+        self.valid = valid
+        self.found = found
+    }
+}
+
 struct TournamentMaster : Decodable, Glossy {
     let _id:String?
     let name:String
