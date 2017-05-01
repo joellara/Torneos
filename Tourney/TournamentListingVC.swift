@@ -302,7 +302,7 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
         case 1:
             id = arrTwo[indexPath.row].groupStageID!
         case 2:
-            id = arrGuardados[indexPath.section]["group_id"]
+            id = arrGuardados[indexPath.row]["group_id"]
         default:
             break
         }
