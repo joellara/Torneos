@@ -13,6 +13,10 @@ var TournamentMasterSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    api_key: {
+        type: String,
+        required: true
+    },
     game: {
         type: String,
         required: true

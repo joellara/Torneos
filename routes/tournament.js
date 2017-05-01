@@ -27,7 +27,7 @@ router.get('/', (req, res, next) => {
         }
     });
 });
-router.get('/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => { //Child tournament
     if (typeof req.params.id === "undefined") {
         res.sendStatus(400).end();
         return next();
@@ -75,7 +75,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.get('/exists/:id', (req, res, next) => {
+router.get('/master/:id', (req, res, next) => {
     if (typeof req.body === "undefined" || typeof req.params.id === "undefined") {
         res.sendStatus(400).end();
         return next();
@@ -90,8 +90,7 @@ router.get('/exists/:id', (req, res, next) => {
                 res.json({
                     valid: true,
                     found: true,
-                    id: req.params.id,
-                    name: tournament.name
+                    tournament: tournament,
                 });
             } else {
                 res.json({
