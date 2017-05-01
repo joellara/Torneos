@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="auG-KR-fvT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="auG-KR-fvT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -433,7 +433,7 @@ A01167344</string>
                                         <rect key="frame" x="0.0" y="28" width="383" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qez-Mj-iMl" id="hV0-Gu-PdQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -659,14 +659,14 @@ A01167344</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AzY-qo-0Cy">
-                                <rect key="frame" x="127" y="64" width="121" height="29"/>
+                                <rect key="frame" x="125" y="72" width="125" height="29"/>
                                 <segments>
                                     <segment title="Grupo"/>
                                     <segment title="Final"/>
                                 </segments>
                             </segmentedControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R73-o1-vMD">
-                                <rect key="frame" x="16" y="100" width="343" height="515"/>
+                                <rect key="frame" x="16" y="108" width="343" height="507"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ScS-Q8-EiU">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
@@ -686,17 +686,17 @@ A01167344</string>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="AzY-qo-0Cy" firstAttribute="top" secondItem="1Vb-9Z-Uf5" secondAttribute="bottom" id="3zc-3I-kTG"/>
-                            <constraint firstItem="AzY-qo-0Cy" firstAttribute="leading" secondItem="fJW-up-MsS" secondAttribute="leadingMargin" constant="111" id="E2M-5W-hrN"/>
+                            <constraint firstItem="AzY-qo-0Cy" firstAttribute="top" secondItem="1Vb-9Z-Uf5" secondAttribute="bottom" constant="8" id="3zc-3I-kTG"/>
+                            <constraint firstItem="AzY-qo-0Cy" firstAttribute="width" secondItem="fJW-up-MsS" secondAttribute="width" multiplier="1:3" id="5Zj-Hu-LdB"/>
                             <constraint firstItem="R73-o1-vMD" firstAttribute="trailing" secondItem="fJW-up-MsS" secondAttribute="trailingMargin" id="F9I-65-ndI"/>
                             <constraint firstItem="o7E-70-NFs" firstAttribute="top" secondItem="R73-o1-vMD" secondAttribute="bottom" constant="8" id="MRC-Fv-RL1"/>
                             <constraint firstItem="R73-o1-vMD" firstAttribute="top" secondItem="AzY-qo-0Cy" secondAttribute="bottom" constant="8" id="auN-zI-U1c"/>
                             <constraint firstItem="R73-o1-vMD" firstAttribute="leading" secondItem="fJW-up-MsS" secondAttribute="leadingMargin" id="jN3-QV-Qdk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="AzY-qo-0Cy" secondAttribute="trailing" constant="111" id="vC5-4u-B7R"/>
+                            <constraint firstItem="AzY-qo-0Cy" firstAttribute="centerX" secondItem="fJW-up-MsS" secondAttribute="centerX" id="oFs-6O-Qds"/>
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem title="Refresh" id="cDa-Ck-lvX">
+                        <barButtonItem image="refresh" id="cDa-Ck-lvX">
                             <connections>
                                 <action selector="refreshButton:" destination="1ZC-aq-8yc" id="0QG-HE-9dR"/>
                             </connections>
@@ -764,7 +764,7 @@ A01167344</string>
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gpz-c7-yYf" id="lnV-a5-tdt">
-                                            <rect key="frame" x="0.0" y="0.0" width="328" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1170,6 +1170,7 @@ A01167344</string>
         <image name="cup" width="25" height="25"/>
         <image name="info" width="25" height="25"/>
         <image name="logo" width="341" height="341"/>
+        <image name="refresh" width="25" height="25"/>
         <image name="search" width="25" height="25"/>
         <image name="user" width="25" height="25"/>
     </resources>
