@@ -6,11 +6,17 @@ let mongoose = require('mongoose'),
 const rr = "round_robin",
     single = "single_elimination",
     double = "double_elimination";
-
+const first = "first_stage",
+    second = "second_stage";
+const single_stage = "single_stage",
+    two_stage = "two_stage";
 let TournamentSchema = new mongoose.Schema({
     parent_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
+    },
+    sibling_id : {
+        type: mongoose.Schema.Types.ObjectId
     },
     api_key: {
         type: mongoose.Schema.Types.ObjectId,
@@ -20,6 +26,16 @@ let TournamentSchema = new mongoose.Schema({
         type: String,
         enum: [single, double, rr],
         required: true
+    },
+    stage:{
+        type:String,
+        enum:[first,second],
+        required:true
+    },
+    parent_stages:{
+        type:String,
+        enum:[single_stage,two_stage],
+        required:true
     },
     participants: [{
         type: String,
