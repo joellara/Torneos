@@ -8,8 +8,9 @@
 
 import UIKit
 import Gloss
+import Alamofire
 
-class BracketsVC: UIViewController {
+class BracketsVC: KeyboardViewController {
     var tournamentMaster:TournamentMaster!
     
     @IBOutlet weak var currentStage: UISegmentedControl!
@@ -122,9 +123,9 @@ class BracketsVC: UIViewController {
                 }
                 
             }
+            
             button.setTitleColor(UIColor.black, for: UIControlState.normal)
             button.addTarget(self, action: #selector(self.buttonAction(sender:)), for: UIControlEvents.touchUpInside)
-            
             var buttonFrame = button.frame;
             buttonFrame.size = CGSize(width: 100, height: 30)
             button.frame = buttonFrame;
@@ -149,7 +150,6 @@ class BracketsVC: UIViewController {
             }
             button.setTitleColor(UIColor.black, for: UIControlState.normal)
             button.addTarget(self, action: #selector(self.buttonAction(sender:)), for: UIControlEvents.touchUpInside)
-            
             buttonFrame = button.frame;
             buttonFrame.size = CGSize(width: 100, height: 30)
             button.frame = buttonFrame;
@@ -197,6 +197,7 @@ class BracketsVC: UIViewController {
         var newResults: Array<TournamentMatches> = []
         
         var roundNumber = 1
+        var indexMatch = 0
         for round in mainStackView.subviews{
             var playerNumber = 0
             var tempPlayer1: Array<String> = []
@@ -207,6 +208,9 @@ class BracketsVC: UIViewController {
                         tempPlayer1 = (playerInfo.titleLabel!.text!).components(separatedBy: ": ")
                     }
                     else{
+                        let sp1 = tournamentBrackets.matches?[indexMatch].result?[0] ?? 0
+                        let sp2 = tournamentBrackets.matches?[indexMatch].result?[1] ?? 0
+                        
                         tempPlayer2 = (playerInfo.titleLabel!.text!).components(separatedBy: ": ")
                         let matchNumber = Int(floor(Double(playerNumber/2)))+1
                         
@@ -221,10 +225,13 @@ class BracketsVC: UIViewController {
                         
                         let newScores = [score1,score2]
 
-                        
-                        let tempResult = TournamentMatches(nSeed: newSeed, nRound: newRound, nMatch: newMatch, nPlayers: newplayers as! [Int], nResults: newScores)
-                        
-                        newResults.append(tempResult)
+                        let tempResult = TournamentMatches(nSeed: newSeed, nRound: newRound, nMatch: newMatch, nPlayers: newplayers, nResults: newScores)
+                        if(newplayers[0] != -1 && newplayers[1] != -1){
+                            if(sp1 == sp2 && score1 != score2){
+                                newResults.append(tempResult)
+                            }
+                        }
+                        indexMatch += 1
                     }
                 }
                 playerNumber += 1
@@ -243,6 +250,9 @@ class BracketsVC: UIViewController {
                         tempPlayer1 = (playerInfo.titleLabel!.text!).components(separatedBy: ": ")
                     }
                     else{
+                        let sp1 = tournamentBrackets.matches?[indexMatch].result?[0] ?? 0
+                        let sp2 = tournamentBrackets.matches?[indexMatch].result?[1] ?? 0
+                        
                         tempPlayer2 = (playerInfo.titleLabel!.text!).components(separatedBy: ": ")
                         let matchNumber = Int(floor(Double(playerNumber/2)))+1
                         
@@ -257,9 +267,13 @@ class BracketsVC: UIViewController {
                         
                         let newScores = [score1,score2]
                         
-                        let tempResult = TournamentMatches(nSeed: newSeed, nRound: newRound, nMatch: newMatch, nPlayers: newplayers as! [Int], nResults: newScores)
-                        
-                        newResults.append(tempResult)
+                        let tempResult = TournamentMatches(nSeed: newSeed, nRound: newRound, nMatch: newMatch, nPlayers: newplayers, nResults: newScores)
+                        if(newplayers[0] != -1 && newplayers[1] != -1){
+                            if(sp1 == sp2 && score1 != score2){
+                                newResults.append(tempResult)
+                            }
+                        }
+                        indexMatch += 1
                     }
                 }
                 playerNumber += 1
@@ -267,9 +281,32 @@ class BracketsVC: UIViewController {
             roundNumber += 1
         }
 
-        var saveData = tournamentSaveData(nId: tournamentBrackets._id!, nApi_key: tournamentBrackets.api_key!, nResults: newResults)
-        print("Imprimiendo JSON?")
-        print(saveData.toJSON() ?? "Notin")
+        let saveData = tournamentSaveData(nId: tournamentBrackets._id!, nApi_key: tournamentBrackets.api_key!, nResults: newResults)
+        let jsonObject = saveData.toJSON()
+        
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        var stringUrl = "https://tourneyserver.herokuapp.com/tournament/score/".appending(tournamentBrackets._id!)
+        stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+
+        
+        let parameters = jsonObject
+        Alamofire.request(stringUrl,method:.post,parameters:parameters,encoding:JSONEncoding.default).responseJSON { response in
+            
+            if response.response?.statusCode == 200 {
+                if let json = response.result.value, let jsonArr = json as? [String:Any], let result = resultScore(json: jsonArr){
+                    if result.valid && result.scored{
+                        self.displayAlert(title: "Exito", message: "Se ha guardado el torneo en la base de datos. Para actualizar los resultados use el boton inferior izquierdo. Puede tomar unos minutos")
+                    }
+                }
+            }
+            else{
+                self.displayAlert(title: "Error", message: "Hubo un problema intentelo más tarde")
+            }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+        
         
     }
     
@@ -280,6 +317,19 @@ class BracketsVC: UIViewController {
         clearBracket()
         loadTournamentWithID()
          */
+    }
+}
+
+struct resultScore: Decodable {
+    var valid: Bool
+    var scored: Bool
+    
+    init?(json: JSON) {
+        guard let valid:Bool = "valid" <~~ json,
+            let scored:Bool = "scored" <~~ json
+        else { return nil }
+        self.valid = valid
+        self.scored = scored
     }
 }
 
@@ -322,6 +372,6 @@ struct tournamentSaveData: Glossy {
             "api_key" ~~> self.api_key,
             "results" ~~> self.results,
         ])
-    }    
+    }
 }
 
