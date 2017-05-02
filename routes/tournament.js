@@ -301,37 +301,39 @@ router.post('/score/:id', (req, res, next) => {
                     tournament.matches = _.clone(trn.matches);
                     tournament.data.state = _.clone(trn.state);
                     tournament.data.metadata = trn.metadata();
-                    if(trn.isDone()){
+                    if (trn.isDone()) {
                         tournament.finished = true;
                     }
-                    console.log('Tournament finished?: ',trn.isDone());
+                    console.log('Tournament finished?: ', trn.isDone());
                     tournament.save((err) => {
                         if (err) {
                             res.sendStatus(500).end();
                         } else {
                             if (trn.isDone() && tournament.parent_stages === num_stages.two_stage && tournament.stage == tournament_stage.first) {
-                                console.log("Tournament finished, creating next");
                                 Tournament.findOne({
                                     _id: tournament.sibling_id
                                 }, (err, tournamentSibling) => {
                                     if (err) {
                                         console.log("Ohh shooo, we had a problem");
                                     } else {
-                                        if(tournamentSibling === null){
+                                        if (tournamentSibling === null) {
                                             console.log("Ohh shooo, we couldn't find sibling");
+                                        } else {
+                                            var participants = trn.results().slice(0, 4);
+                                            console.log("next participants",participants);
+                                            let secondTrn = createTournament(tournamentSibling.tournament_type, 4);
+                                            console.log(secondTrn);
+                                            tournamentSibling.participants = participants;
+                                            tournamentSibling.data = {
+                                                num_players: 4,
+                                                state: _.clone(secondTrn.state),
+                                                metadata: secondTrn.metadata()
+                                            };
+                                            tournamentSibling.matches = _.clone(secondTrn.matches);
+                                            tournamentSibling.save((err) => {
+                                                if (err) console.log("Ohh shaiza, couldn't create second tournament", err);
+                                            });
                                         }
-                                        var participants = trn.results().slice(0,4);
-                                        let secondTrn = createTournament(tournamentSibling.tournament_type, 4);
-                                        tournamentSibling.participants = participants;
-                                        tournamentSibling.data = {
-                                            num_players: 4,
-                                            state: _.clone(secondTrn.state),
-                                            metadata: secondTrn.metadata()
-                                        };
-                                        tournamentSibling.matches = _.clone(secondTrn.matches);
-                                        tournamentSibling.save((err) => {
-                                            if(err)console.log("Ohh shaiza, couldn't create second tournament");
-                                        });
                                     }
                                 });
                             }
@@ -368,11 +370,11 @@ function createTournament(type, num_players) {
 function restoreTournament(type, data) {
     let trn;
     if (type === tournament_format.single) {
-        trn = Duel.restore(data.num_players,{ short: true },data.state, data.metadata);
+        trn = Duel.restore(data.num_players, { short: true }, data.state, data.metadata);
     } else if (type === tournament_format.double) {
-        trn = Duel.restore(data.num_players, { last: 2, short: true } ,data.state, data.metadata);
+        trn = Duel.restore(data.num_players, { last: 2, short: true }, data.state, data.metadata);
     } else { //Round Robin
-        trn = GroupStage.restore(data.num_players,{} ,data.state , data.metadata);
+        trn = GroupStage.restore(data.num_players, {}, data.state, data.metadata);
     }
     return trn;
 }
