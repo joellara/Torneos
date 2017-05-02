@@ -101,11 +101,6 @@ struct TournamentMaster : Decodable, Glossy {
         self.tournamentType = tournamentType
         self.game = game
         self._id = nil
-        self.groupStageID = nil
-        self.groupStage = nil
-        self.finalStageID = nil
-        self.finalStage = nil
-        self.participants = nil
 
     }
     func isValidToSend()->Bool{

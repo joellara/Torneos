@@ -46,7 +46,9 @@ struct Tournament : Decodable, Glossy {
     var started:Bool?
     var participants: [String]?
     var matches:[TournamentMatches]?
-    
+    var sibling_id:String?
+    var stage:String?
+    var parent_stages:TournamentMaster.tournament_type?
     
     enum tournament_format:String  {
         case singleElimination = "single_elimination"
@@ -83,14 +85,14 @@ struct Tournament : Decodable, Glossy {
         self.participants = participants
         self.matches = matches
         self.tournament_type = tournament_type
+        
+        self.sibling_id = "sibling_id" <~~ json
+        self.stage = "stage" <~~ json
+        self.parent_stages = TournamentMaster.tournament_type.decodeTournamentType(key: "parent_stages", json: json)
     }
 
     init(format:tournament_format = tournament_format.singleElimination){
         self.tournament_type = format
-        self.parent_id = nil
-        self.api_key = nil
-        self.started = nil
-        self.matches = nil
     }
     
     func toJSON() -> JSON? {
