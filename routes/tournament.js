@@ -282,8 +282,6 @@ router.post('/score/:id', (req, res, next) => {
                 if (!tournament.started) {
                     trn = createTournament(tournament.tournament_type, tournament.data.num_players);
                 } else {
-                    console.log("Restaurando estado");
-                    console.log(tournament.data);
                     trn = restoreTournament(tournament.tournament_type, tournament.data);
                 }
                 let reason;
@@ -304,14 +302,10 @@ router.post('/score/:id', (req, res, next) => {
                     tournament.matches = _.clone(trn.matches);
                     tournament.data.state = _.clone(trn.state);
                     tournament.data.metadata = trn.metadata();
-                    console.log(tournament.data.state);
                     tournament.save((err) => {
                         if (err) {
                             res.sendStatus(500).end();
                         } else {
-                            console.log("Guardar torneo");
-                            console.lg("Estado:");
-                            console.log(tournament.data.state);
                             if (trn.isDone() && tournament.parent_stages === num_stages.two_stage && tournament.stage == tournament_stage.first) {
                                 console.log("Crear siguiente torneo");
                                 Tournament.findOne({
@@ -366,11 +360,11 @@ function createTournament(type, num_players) {
 function restoreTournament(type, data) {
     let trn;
     if (type === tournament_format.single) {
-        trn = Duel.restore(data.num_players, data.state, { short: true }, data.metadata);
+        trn = Duel.restore(data.num_players,{ short: true },data.state, data.metadata);
     } else if (type === tournament_format.double) {
-        trn = Duel.restore(data.num_players, data.state, { last: 2, short: true }, data.metadata);
+        trn = Duel.restore(data.num_players, { last: 2, short: true } ,data.state, data.metadata);
     } else { //Round Robin
-        trn = GroupStage.restore(data.num_players, data.state, {}, data.metadata);
+        trn = GroupStage.restore(data.num_players,{} ,data.state , data.metadata);
     }
     return trn;
 }
