@@ -150,7 +150,7 @@ class TournamentListingVC:KeyboardViewController {
     func setupEmptyView(){
         let newView = EmptyStateV(frame:self.view.frame)
         if (prefs.string(forKey: "api_key") == nil) {
-            newView.label.text = "Inicia sesión."
+            newView.label.text = "Inicia sesión en la sección del perfil."
         }else{
             newView.label.text = "No hay torneos."
         }

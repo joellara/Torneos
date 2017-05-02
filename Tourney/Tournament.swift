@@ -32,7 +32,7 @@ struct TournamentMatches : Decodable, Glossy {
     }
     func toJSON() -> JSON? {
          let prefs = UserDefaults.standard
-         let api_key = prefs.string(forKey: "api_key")
+         _ = prefs.string(forKey: "api_key")
          return jsonify([
             "id.s" ~~> self.seed,
             "id.r" ~~> self.round,
