@@ -76,7 +76,9 @@ class BracketsVC: KeyboardViewController {
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        saveData()
+        if(editable){
+            saveData()
+        }
     }
     
     func loadTournamentWithID(){
@@ -199,7 +201,7 @@ class BracketsVC: KeyboardViewController {
         }
         let buttonText = String(describing: sender.titleLabel!.text!)
         var arr = buttonText.components(separatedBy: ": ")
-        if arr[0] == "0:" || arr[0] == "-1:"{
+        if arr[0] == "0" || arr[0] == "-1"{
             return
         }
         var num = 0
