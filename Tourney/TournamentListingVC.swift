@@ -55,6 +55,8 @@ class TournamentListingVC:KeyboardViewController {
     var refreshControl = UIRefreshControl()
     let reachability = Reachability()
     
+    var tourneyToLoad = Tournament()
+    
     @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet var tournamentsTV: UITableView!
     
@@ -313,7 +315,8 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
                 if response.response?.statusCode == 200 {
                     if let json = response.result.value, let jsonArr = json as? JSON, let res = stateTournament(json: jsonArr) {
                         if res.valid && res.found {
-//                            print(res.tournament!)
+                            self.tourneyToLoad = res.tournament!
+                            self.performSegue(withIdentifier: "sendToBracket", sender: self)
                         }else{
                             print("Should happen, but not found")
                         }
@@ -344,5 +347,13 @@ extension TournamentListingVC:UITableViewDelegate,UITableViewDataSource {
         idAlert.addAction(okAction)
         idAlert.addAction(copyAction)
         present(idAlert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "sendToBracket"){
+            let destinationVC = segue.destination as! BracketsVC
+            destinationVC.tournamentBrackets = tourneyToLoad
+        }
+        
     }
 }

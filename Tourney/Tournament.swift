@@ -34,6 +34,14 @@ struct TournamentMatches : Decodable, Glossy {
         return nil
     }
     
+    init(nSeed:Int,nRound:Int,nMatch:Int,nPlayers:[Int],nResults:[Int]){
+        self.seed = nSeed
+        self.round = nRound
+        self.match = nMatch
+        self.players = nPlayers
+        self.result = nResults
+    }
+    
 }
 
 struct Tournament : Decodable, Glossy {
