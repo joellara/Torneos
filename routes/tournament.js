@@ -283,6 +283,7 @@ router.post('/score/:id', (req, res, next) => {
                     trn = createTournament(tournament.tournament_type, tournament.data.num_players);
                 } else {
                     console.log("Restaurando estado");
+                    console.log(tournament.data);
                     trn = restoreTournament(tournament.tournament_type, tournament.data);
                 }
                 let reason;
@@ -303,6 +304,7 @@ router.post('/score/:id', (req, res, next) => {
                     tournament.matches = _.clone(trn.matches);
                     tournament.data.state = _.clone(trn.state);
                     tournament.data.metadata = trn.metadata();
+                    console.log(tournament.data.state);
                     tournament.save((err) => {
                         if (err) {
                             res.sendStatus(500).end();
