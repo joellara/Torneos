@@ -64,6 +64,7 @@ struct Tournament : Decodable, Glossy {
     var sibling_id:String?
     var stage:String?
     var parent_stages:TournamentMaster.tournament_type?
+    var finished:Bool?
     
     enum tournament_format:String  {
         case singleElimination = "single_elimination"
@@ -89,7 +90,8 @@ struct Tournament : Decodable, Glossy {
             let api_key:String = "api_key" <~~ json,
             let started:Bool = "started" <~~ json,
             let participants:[String] = "participants" <~~ json,
-            let matches:[TournamentMatches] = "matches" <~~ json
+            let matches:[TournamentMatches] = "matches" <~~ json,
+            let finished:Bool = "finished" <~~ json
         else {
             return nil
         }
@@ -100,6 +102,7 @@ struct Tournament : Decodable, Glossy {
         self.participants = participants
         self.matches = matches
         self.tournament_type = tournament_type
+        self.finished = finished
         
         self.sibling_id = "sibling_id" <~~ json
         self.stage = "stage" <~~ json

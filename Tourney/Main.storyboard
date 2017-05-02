@@ -433,7 +433,7 @@ A01167344</string>
                                         <rect key="frame" x="0.0" y="28" width="383" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qez-Mj-iMl" id="hV0-Gu-PdQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -664,6 +664,9 @@ A01167344</string>
                                     <segment title="Grupo"/>
                                     <segment title="Final"/>
                                 </segments>
+                                <connections>
+                                    <action selector="changeCurrentState:" destination="1ZC-aq-8yc" eventType="valueChanged" id="qBD-MX-jXy"/>
+                                </connections>
                             </segmentedControl>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R73-o1-vMD">
                                 <rect key="frame" x="16" y="108" width="343" height="507"/>
@@ -763,7 +766,7 @@ A01167344</string>
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gpz-c7-yYf" id="lnV-a5-tdt">
-                                            <rect key="frame" x="0.0" y="0.0" width="328" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="328" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

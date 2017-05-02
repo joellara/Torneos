@@ -25,6 +25,9 @@ class BracketsVC: KeyboardViewController {
     var groupStageID: String = ""
     var finalStageID: String = ""
     var currentNumberStage: Int = 0
+    var currentStageID: String = ""
+    
+    var groupStageFinished: Bool = false
     
     var tournamentBrackets: Tournament!
     
@@ -51,8 +54,10 @@ class BracketsVC: KeyboardViewController {
         groupStageID = tournamentBrackets._id!
         finalStageID = tournamentBrackets.sibling_id ?? ""
         
+        currentStageID = groupStageID
+        
         if(tournamentBrackets.sibling_id == nil ){
-            finalStageID = groupStageID
+            groupStageFinished = true
             currentStage.selectedSegmentIndex = 1
             currentStage.setEnabled(false, forSegmentAt: 0)
         }
@@ -218,6 +223,23 @@ class BracketsVC: KeyboardViewController {
         }
     }
     
+    @IBAction func changeCurrentState(_ sender: Any) {
+        if(currentNumberStage == currentStage.selectedSegmentIndex){
+            return
+        }
+        if(currentStage.selectedSegmentIndex == 1){
+            if(!tournamentBrackets.finished!){
+                return
+            }
+            currentStageID = finalStageID
+        }
+        else{
+            currentStageID = groupStageID
+        }
+        currentNumberStage = currentStage.selectedSegmentIndex
+        refreshData()
+    }
+    
     func saveData(){
         //Mandar al servidor los nuevos datos
         /*Re construccion de matches a partir de la lectura de los matches*/
@@ -311,6 +333,7 @@ class BracketsVC: KeyboardViewController {
         let saveData = tournamentSaveData(nId: tournamentBrackets._id!, nApi_key: tournamentBrackets.api_key!, nResults: newResults)
         let jsonObject = saveData.toJSON()
         
+        //print(jsonObject ?? "No JSON")
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -338,17 +361,9 @@ class BracketsVC: KeyboardViewController {
     }
     
     func refreshData(){
+        
         clearBracket()
-        /*
-         Revisar:
-            Params:
-            Url
-            JSON recibido
-         */
-        var idToLoad = finalStageID
-        if(currentStage.selectedSegmentIndex == 0){
-            idToLoad = groupStageID
-        }
+        let idToLoad = currentStageID
         
         var stringUrl = "https://tourneyserver.herokuapp.com/tournament/".appending(idToLoad)
         stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
@@ -357,6 +372,7 @@ class BracketsVC: KeyboardViewController {
                 if let json = response.result.value, let jsonArr = json as? JSON, let res = stateTournament(json: jsonArr) {
                     if res.valid && res.found {
                         self.tournamentBrackets = res.tournament!
+                        self.loadTournamentWithID()
                     }else{
                         print("Should happen, but not found")
                     }
@@ -367,7 +383,11 @@ class BracketsVC: KeyboardViewController {
                 self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
             }
         }
-        loadTournamentWithID()
+        
+        DispatchQueue.main.async {
+            //self.loadTournamentWithID()
+        }
+        //loadTournamentWithID()
     }
 }
 
