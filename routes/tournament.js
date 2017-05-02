@@ -304,17 +304,22 @@ router.post('/score/:id', (req, res, next) => {
                     if(trn.isDone()){
                         tournament.finished = true;
                     }
+                    console.log('Tournament finished?: ',trn.isDone());
                     tournament.save((err) => {
                         if (err) {
                             res.sendStatus(500).end();
                         } else {
                             if (trn.isDone() && tournament.parent_stages === num_stages.two_stage && tournament.stage == tournament_stage.first) {
+                                console.log("Tournament finished, creating next");
                                 Tournament.findOne({
                                     _id: tournament.sibling_id
                                 }, (err, tournamentSibling) => {
                                     if (err) {
-                                        console.log("Ohh shooo, we couldn't find sibling");
+                                        console.log("Ohh shooo, we had a problem");
                                     } else {
+                                        if(tournamentSibling === null){
+                                            console.log("Ohh shooo, we couldn't find sibling");
+                                        }
                                         var participants = trn.results().slice(0,4);
                                         let secondTrn = createTournament(tournamentSibling.tournament_type, 4);
                                         tournamentSibling.participants = participants;

@@ -20,6 +20,7 @@ app.use('/auth', auth);
 app.use(function(req, res, next) {
     res.sendStatus(404);
 });
+mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/tournaments');
 mongoose.connection.on('open', () => {
     console.log('Connected to MongoDB');
