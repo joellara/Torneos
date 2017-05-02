@@ -264,6 +264,7 @@ router.post('/score/:id', (req, res, next) => {
         res.sendStatus(400).end();
         return next();
     }
+    console.log(req.body.results);
     Tournament.findOne({
         api_key: req.body.api_key,
         _id: req.params.id
