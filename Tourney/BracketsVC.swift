@@ -50,7 +50,7 @@ class BracketsVC: KeyboardViewController {
         
         groupStageID = tournamentBrackets._id!
         finalStageID = tournamentBrackets.sibling_id ?? ""
-        s
+        
         if(tournamentBrackets.sibling_id == nil ){
             finalStageID = groupStageID
             currentStage.selectedSegmentIndex = 1
