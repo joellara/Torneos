@@ -15,14 +15,16 @@ class BracketsVC: KeyboardViewController {
     
     @IBOutlet weak var currentStage: UISegmentedControl!
     @IBOutlet weak var fullBracketView: UIStackView!
-    
-    var Wmatches: Array<TournamentMatches> = []
-    var Lmatches: Array<TournamentMatches> = []
+
     var mainStackView = UIStackView()
     var secondaryStackView = UIStackView()
     var colores = [UIColor.lightGray,UIColor.gray]
     let prefs = UserDefaults.standard
     var editable = false
+    
+    var groupStageID: String = ""
+    var finalStageID: String = ""
+    var currentNumberStage: Int = 0
     
     var tournamentBrackets: Tournament!
     
@@ -31,6 +33,7 @@ class BracketsVC: KeyboardViewController {
         
         mainStackView.axis = .horizontal
         secondaryStackView.axis = .horizontal
+        
         fullBracketView.axis = .vertical
         
         fullBracketView.distribution = .fillEqually
@@ -44,11 +47,22 @@ class BracketsVC: KeyboardViewController {
         secondaryStackView.distribution = .fillEqually
         secondaryStackView.spacing = 5.0
         secondaryStackView.autoresizesSubviews = false
+        
+        groupStageID = tournamentBrackets._id!
+        finalStageID = tournamentBrackets.sibling_id ?? ""
+        s
+        if(tournamentBrackets.sibling_id == nil ){
+            finalStageID = groupStageID
+            currentStage.selectedSegmentIndex = 1
+            currentStage.setEnabled(false, forSegmentAt: 0)
+        }
+        
         if let api = prefs.string(forKey: "api_key"){
             if(api == tournamentBrackets.api_key){
                 editable = true
             }
         }
+        
         loadTournamentWithID()
     }
     
@@ -88,10 +102,17 @@ class BracketsVC: KeyboardViewController {
             roundMatches.append(m)
         }
         if(roundMatches.count > 0){
-            drawMatch(matchesToDraw: roundMatches, upperBracket: false)
+            if(currSeed == 1){
+                drawMatch(matchesToDraw: roundMatches, upperBracket: true)
+            }
+            else{
+                drawMatch(matchesToDraw: roundMatches, upperBracket: false)
+            }
         }
         fullBracketView.addArrangedSubview(mainStackView)
-        fullBracketView.addArrangedSubview(secondaryStackView)
+        if(secondaryStackView.subviews.count > 0){
+            fullBracketView.addArrangedSubview(secondaryStackView)
+        }
     }
     
     func drawMatch(matchesToDraw: Array<TournamentMatches>, upperBracket: Bool){
@@ -172,7 +193,7 @@ class BracketsVC: KeyboardViewController {
             return
         }
         let buttonText = String(describing: sender.titleLabel!.text!)
-        var arr = buttonText.components(separatedBy: " ")
+        var arr = buttonText.components(separatedBy: ": ")
         if arr[0] == "0:" || arr[0] == "-1:"{
             return
         }
@@ -182,11 +203,17 @@ class BracketsVC: KeyboardViewController {
             sender.backgroundColor = UIColor.lightGray
             num = 1
         }
-        sender.setTitle("\(arr[0]) \(num)", for: UIControlState.normal)
+        sender.setTitle("\(arr[0]): \(num)", for: UIControlState.normal)
     }
     
     func clearBracket(){
         for v in fullBracketView.subviews{
+            v.removeFromSuperview()
+        }
+        for v in mainStackView.subviews{
+            v.removeFromSuperview()
+        }
+        for v in secondaryStackView.subviews{
             v.removeFromSuperview()
         }
     }
@@ -311,12 +338,36 @@ class BracketsVC: KeyboardViewController {
     }
     
     func refreshData(){
-        //Recuperar el torneo, y volver a cargar las vistas...
-        /*
-        tournamentBrackets = newShit
         clearBracket()
-        loadTournamentWithID()
+        /*
+         Revisar:
+            Params:
+            Url
+            JSON recibido
          */
+        var idToLoad = finalStageID
+        if(currentStage.selectedSegmentIndex == 0){
+            idToLoad = groupStageID
+        }
+        
+        var stringUrl = "https://tourneyserver.herokuapp.com/tournament/".appending(idToLoad)
+        stringUrl = stringUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        Alamofire.request(stringUrl, method:.get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+            if response.response?.statusCode == 200 {
+                if let json = response.result.value, let jsonArr = json as? JSON, let res = stateTournament(json: jsonArr) {
+                    if res.valid && res.found {
+                        self.tournamentBrackets = res.tournament!
+                    }else{
+                        print("Should happen, but not found")
+                    }
+                }else{
+                    self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
+                }
+            }else{
+                self.displayAlert(title: "Error", message: "Tuvimos un error interno, inténtalo de nuevo más tarde")
+            }
+        }
+        loadTournamentWithID()
     }
 }
 
