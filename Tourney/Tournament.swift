@@ -31,7 +31,14 @@ struct TournamentMatches : Decodable, Glossy {
         self.result = "m" <~~ json
     }
     func toJSON() -> JSON? {
-        return nil
+         let prefs = UserDefaults.standard
+         let api_key = prefs.string(forKey: "api_key")
+         return jsonify([
+            "id.s" ~~> self.seed,
+            "id.r" ~~> self.round,
+            "id.m" ~~> self.match,
+            "result" ~~> self.result,
+        ])
     }
     
     init(nSeed:Int,nRound:Int,nMatch:Int,nPlayers:[Int],nResults:[Int]){

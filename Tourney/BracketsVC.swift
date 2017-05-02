@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Gloss
 
 class BracketsVC: UIViewController {
     var tournamentMaster:TournamentMaster!
@@ -19,6 +20,8 @@ class BracketsVC: UIViewController {
     var mainStackView = UIStackView()
     var secondaryStackView = UIStackView()
     var colores = [UIColor.lightGray,UIColor.gray]
+    let prefs = UserDefaults.standard
+    var editable = false
     
     var tournamentBrackets: Tournament!
     
@@ -40,7 +43,11 @@ class BracketsVC: UIViewController {
         secondaryStackView.distribution = .fillEqually
         secondaryStackView.spacing = 5.0
         secondaryStackView.autoresizesSubviews = false
-        
+        if let api = prefs.string(forKey: "api_key"){
+            if(api == tournamentBrackets.api_key){
+                editable = true
+            }
+        }
         loadTournamentWithID()
     }
     
@@ -57,8 +64,6 @@ class BracketsVC: UIViewController {
         var currRoundW = 1
         var currRoundL = 1
         var currSeed = 1
-        
-        //print(tournamentBrackets.participants)
         
         var roundMatches: Array<TournamentMatches> = []
         for m in matches{
@@ -163,6 +168,9 @@ class BracketsVC: UIViewController {
     }
     
     func buttonAction(sender:UIButton!){
+        if(!editable){
+            return
+        }
         let buttonText = String(describing: sender.titleLabel!.text!)
         var arr = buttonText.components(separatedBy: " ")
         if arr[0] == "0:" || arr[0] == "-1:"{
@@ -188,7 +196,6 @@ class BracketsVC: UIViewController {
         /*Re construccion de matches a partir de la lectura de los matches*/
         var newResults: Array<TournamentMatches> = []
         
-        var currentRound = 0
         var roundNumber = 1
         for round in mainStackView.subviews{
             var playerNumber = 0
@@ -203,16 +210,16 @@ class BracketsVC: UIViewController {
                         tempPlayer2 = (playerInfo.titleLabel!.text!).components(separatedBy: ": ")
                         let matchNumber = Int(floor(Double(playerNumber/2)))+1
                         
-                        var newSeed = 1
-                        var newRound = roundNumber
-                        var newMatch = matchNumber
-                        var player1 = Int(tempPlayer1[0]) ?? 0
-                        var player2 = Int(tempPlayer2[0]) ?? 0
-                        var newplayers = [player1,player2]
-                        var score1 = Int(tempPlayer1[1]) ?? 0
-                        var score2 = Int(tempPlayer2[1]) ?? 0
+                        let newSeed = 1
+                        let newRound = roundNumber
+                        let newMatch = matchNumber
+                        let player1 = Int(tempPlayer1[0]) ?? 0
+                        let player2 = Int(tempPlayer2[0]) ?? 0
+                        let newplayers = [player1,player2]
+                        let score1 = Int(tempPlayer1[1]) ?? 0
+                        let score2 = Int(tempPlayer2[1]) ?? 0
                         
-                        var newScores = [score1,score2]
+                        let newScores = [score1,score2]
 
                         
                         let tempResult = TournamentMatches(nSeed: newSeed, nRound: newRound, nMatch: newMatch, nPlayers: newplayers as! [Int], nResults: newScores)
@@ -225,7 +232,6 @@ class BracketsVC: UIViewController {
             roundNumber += 1
         }
         
-        currentRound = 0
         roundNumber = 1
         for round in secondaryStackView.subviews{
             var playerNumber = 0
@@ -240,16 +246,16 @@ class BracketsVC: UIViewController {
                         tempPlayer2 = (playerInfo.titleLabel!.text!).components(separatedBy: ": ")
                         let matchNumber = Int(floor(Double(playerNumber/2)))+1
                         
-                        var newSeed = 2
-                        var newRound = roundNumber
-                        var newMatch = matchNumber
-                        var player1 = Int(tempPlayer1[0]) ?? 0
-                        var player2 = Int(tempPlayer2[0]) ?? 0
-                        var newplayers = [player1,player2]
-                        var score1 = Int(tempPlayer1[1]) ?? 0
-                        var score2 = Int(tempPlayer2[1]) ?? 0
+                        let newSeed = 2
+                        let newRound = roundNumber
+                        let newMatch = matchNumber
+                        let player1 = Int(tempPlayer1[0]) ?? 0
+                        let player2 = Int(tempPlayer2[0]) ?? 0
+                        let newplayers = [player1,player2]
+                        let score1 = Int(tempPlayer1[1]) ?? 0
+                        let score2 = Int(tempPlayer2[1]) ?? 0
                         
-                        var newScores = [score1,score2]
+                        let newScores = [score1,score2]
                         
                         let tempResult = TournamentMatches(nSeed: newSeed, nRound: newRound, nMatch: newMatch, nPlayers: newplayers as! [Int], nResults: newScores)
                         
@@ -261,9 +267,9 @@ class BracketsVC: UIViewController {
             roundNumber += 1
         }
 
-        var saveData = tournamentSaveData(nId: "2", nApi_key: "2", nResults: newResults)
+        var saveData = tournamentSaveData(nId: tournamentBrackets._id!, nApi_key: tournamentBrackets.api_key!, nResults: newResults)
         print("Imprimiendo JSON?")
-        print(saveData.toString())
+        print(saveData.toJSON() ?? "Notin")
         
     }
     
@@ -277,8 +283,13 @@ class BracketsVC: UIViewController {
     }
 }
 
-struct tournamentSaveData {
+struct matchesSaveData{
+    var id: [String:Int]
+    var score: [Int]
     
+}
+
+struct tournamentSaveData: Glossy {
     var _id:String
     var api_key:String
     var results:[TournamentMatches]
@@ -287,6 +298,9 @@ struct tournamentSaveData {
         self._id = nId
         self.api_key = nApi_key
         self.results = nResults
+    }
+    init?(json: JSON) {
+        return nil
     }
     
     func toString() -> String {
@@ -302,5 +316,12 @@ struct tournamentSaveData {
         result.append("]")
         return result
     }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "api_key" ~~> self.api_key,
+            "results" ~~> self.results,
+        ])
+    }    
 }
 
