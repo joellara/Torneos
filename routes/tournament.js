@@ -288,7 +288,6 @@ router.post('/score/:id', (req, res, next) => {
                 for (var i = 0; i < req.body.results.length; i++) {
                     reason = trn.unscorable(req.body.results[i].id, req.body.results[i].result);
                     if (reason !== null) {
-                        console.log("No se ingresaron scores validos");
                         console.log(reason);
                         break;
                     } else {
@@ -302,25 +301,29 @@ router.post('/score/:id', (req, res, next) => {
                     tournament.matches = _.clone(trn.matches);
                     tournament.data.state = _.clone(trn.state);
                     tournament.data.metadata = trn.metadata();
+                    if(trn.isDone()){
+                        tournament.finished = true;
+                    }
                     tournament.save((err) => {
                         if (err) {
                             res.sendStatus(500).end();
                         } else {
                             if (trn.isDone() && tournament.parent_stages === num_stages.two_stage && tournament.stage == tournament_stage.first) {
-                                console.log("Crear siguiente torneo");
                                 Tournament.findOne({
                                     _id: tournament.sibling_id
                                 }, (err, tournamentSibling) => {
                                     if (err) {
                                         console.log("Ohh shooo, we couldn't find sibling");
                                     } else {
-                                        let trn = createTournament(tournamentSibling.tournament_type, 4);
+                                        var participants = trn.results().slice(0,4);
+                                        let secondTrn = createTournament(tournamentSibling.tournament_type, 4);
+                                        tournamentSibling.participants = participants;
                                         tournamentSibling.data = {
                                             num_players: 4,
-                                            state: _.clone(trn.state),
-                                            metadata: trn.metadata()
+                                            state: _.clone(secondTrn.state),
+                                            metadata: secondTrn.metadata()
                                         };
-                                        tournamentSibling.matches = _.clone(trn.matches);
+                                        tournamentSibling.matches = _.clone(secondTrn.matches);
                                         tournamentSibling.save((err) => {
                                             if(err)console.log("Ohh shaiza, couldn't create second tournament");
                                         });

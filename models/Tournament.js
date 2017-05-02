@@ -45,6 +45,10 @@ let TournamentSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    finished:{
+        type:Boolean,
+        default:false
+    },
     data: {
         num_players: Number,
         state:mongoose.Schema.Types.Mixed,
