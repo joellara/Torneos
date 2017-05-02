@@ -260,13 +260,13 @@ router.delete('/:id', (req, res, next) => {
 });
 
 router.post('/score/:id', (req, res, next) => {
-    if (typeof req.body.api_key === "undefined" ||  typeof req.body.tournament_id === "undefined" || typeof req.body.results === "undefined") {
+    if (typeof req.body.api_key === "undefined" ||  typeof req.params.id === "undefined" || typeof req.body.results === "undefined") {
         res.sendStatus(400).end();
         return next();
     }
     Tournament.findOne({
         api_key: req.body.api_key,
-        _id: req.body.tournament_id
+        _id: req.params.id
     }, (err, tournament) => {
         if (err) {
             res.sendStatus(500).end();
@@ -286,11 +286,12 @@ router.post('/score/:id', (req, res, next) => {
                 }
                 let reason;
                 for (var i = 0; i < req.body.results.length; i++) {
-                    reason = trn.unscorable(req.body.results[i].id, req.body.results[i].score);
+                    reason = trn.unscorable(req.body.results[i].id, req.body.results[i].result);
                     if (reason !== null) {
+                        console.log(reason);
                         break;
                     } else {
-                        trn.score(req.body.results[i].id, req.body.results[i].score);
+                        trn.score(req.body.results[i].id, req.body.results[i].result);
                     }
                 }
                 if (reason !== null) {
