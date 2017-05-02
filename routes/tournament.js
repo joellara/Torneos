@@ -264,7 +264,6 @@ router.post('/score/:id', (req, res, next) => {
         res.sendStatus(400).end();
         return next();
     }
-    console.log(req.body.results);
     Tournament.findOne({
         api_key: req.body.api_key,
         _id: req.params.id
@@ -283,12 +282,14 @@ router.post('/score/:id', (req, res, next) => {
                 if (!tournament.started) {
                     trn = createTournament(tournament.tournament_type, tournament.data.num_players);
                 } else {
+                    console.log("Restaurando estado");
                     trn = restoreTournament(tournament.tournament_type, tournament.data);
                 }
                 let reason;
                 for (var i = 0; i < req.body.results.length; i++) {
                     reason = trn.unscorable(req.body.results[i].id, req.body.results[i].result);
                     if (reason !== null) {
+                        console.log("No se ingresaron scores validos");
                         console.log(reason);
                         break;
                     } else {
@@ -306,7 +307,11 @@ router.post('/score/:id', (req, res, next) => {
                         if (err) {
                             res.sendStatus(500).end();
                         } else {
+                            console.log("Guardar torneo");
+                            console.lg("Estado:");
+                            console.log(tournament.data.state);
                             if (trn.isDone() && tournament.parent_stages === num_stages.two_stage && tournament.stage == tournament_stage.first) {
+                                console.log("Crear siguiente torneo");
                                 Tournament.findOne({
                                     _id: tournament.sibling_id
                                 }, (err, tournamentSibling) => {
